@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "592050504078",
+    "project_id": "moja-lodowka-b1c39",
+    "storage_bucket": "moja-lodowka-b1c39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592050504078:android:b935002435e5101d5a64df",
+        "android_client_info": {
+          "package_name": "com.lukaszhak.moja_lodowka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592050504078-43ohdb41uso1mbf89vdah6jite48676k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHmCHHg2U2uCA1ubVncVjxIXx5gm8k0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592050504078-43ohdb41uso1mbf89vdah6jite48676k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
