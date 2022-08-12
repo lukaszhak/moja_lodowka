@@ -75,10 +75,10 @@ class CandyPage extends StatelessWidget {
           stream: FirebaseFirestore.instance.collection('slodycze').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Text('Wystąpił błąd');
+              return const Center(child: Text('Wystąpił błąd'));
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Ładowanie, proszę czekać');
+              return const Center(child: Text('Ładowanie, proszę czekać'));
             }
 
             final documents = snapshot.data!.docs;

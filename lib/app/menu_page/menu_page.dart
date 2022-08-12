@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:moja_lodowka/app/noteview_page/noteview_page.dart';
 import 'package:moja_lodowka/main.dart';
 
-
-
 class MenuPage extends StatelessWidget {
   MenuPage({
     Key? key,
@@ -79,10 +77,10 @@ class MenuPage extends StatelessWidget {
           stream: FirebaseFirestore.instance.collection('przepisy').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Text('Wystąpił błąd');
+              return const Center(child: Text('Wystąpił błąd'));
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Ładowanie, proszę czekać');
+              return const Center(child: Text('Ładowanie, proszę czekać'));
             }
             final documents = snapshot.data!.docs;
 

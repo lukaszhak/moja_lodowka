@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/main.dart';
 
-
 class DrinkPage extends StatelessWidget {
   DrinkPage({
     Key? key,
@@ -73,11 +72,11 @@ class DrinkPage extends StatelessWidget {
           stream: FirebaseFirestore.instance.collection('napoje').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Text('Wystąpił błąd');
+              return const Center(child: Text('Wystąpił błąd'));
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Ładowanie, proszę czekać');
+              return const Center(child: Text('Ładowanie, proszę czekać'));
             }
 
             final documents = snapshot.data!.docs;

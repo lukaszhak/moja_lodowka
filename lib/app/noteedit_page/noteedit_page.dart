@@ -13,36 +13,12 @@ class NoteEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('przepisy').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           final documents = snapshot.data!.docs;
 
           return Scaffold(
-            appBar: AppBar(
-              title: Center(
-                child: Text(title),
-              ),
-              backgroundColor: const Color.fromARGB(255, 108, 3, 247),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection('przepisy')
-                        .doc()
-                        .update({'content': controller.text});
-                    Navigator.of(context).pop();
-                  },
-                  style: ButtonStyle(
-                      textStyle: MaterialStateProperty.resolveWith((states) =>
-                          const TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold)),
-                      foregroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white)),
-                  child: const Text('Zapisz'),
-                ),
-              ],
-            ),
             backgroundColor: const Color.fromARGB(255, 250, 252, 250),
             body: Container(
               decoration:
