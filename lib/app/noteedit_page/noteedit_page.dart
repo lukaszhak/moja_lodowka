@@ -16,7 +16,7 @@ class NoteEdit extends StatelessWidget {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('przepisy').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          final documents = snapshot.data!.docs;
+          final documents = snapshot.data?.docs;
 
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 250, 252, 250),

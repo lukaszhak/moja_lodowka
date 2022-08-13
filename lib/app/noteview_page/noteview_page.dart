@@ -18,7 +18,7 @@ class NoteView extends StatefulWidget {
 
 class _NoteViewState extends State<NoteView> {
   var currentIndex = 0;
-
+  bool visible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +26,24 @@ class _NoteViewState extends State<NoteView> {
         title: Text(widget.title),
         backgroundColor: const Color.fromARGB(255, 108, 3, 247),
         actions: [
-          TextButton(
-            onPressed: () {
-              FirebaseFirestore.instance
-                  .collection('przepisy')
-                  .doc()
-                  .update({'content': widget.controller.text});
-              Navigator.of(context).pop();
-            },
-            style: ButtonStyle(
-                textStyle: MaterialStateProperty.resolveWith((states) =>
-                    const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                foregroundColor: MaterialStateProperty.resolveWith(
-                    (states) => Colors.white)),
-            child: const Text('Zapisz'),
+          Visibility(
+            visible: visible,
+            child: TextButton(
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection('przepisy')
+                    .doc()
+                    .update({'content': widget.controller.text});
+                Navigator.of(context).pop();
+              },
+              style: ButtonStyle(
+                  textStyle: MaterialStateProperty.resolveWith((states) =>
+                      const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold)),
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.white)),
+              child: const Text('Zapisz'),
+            ),
           ),
         ],
       ),
@@ -48,19 +52,13 @@ class _NoteViewState extends State<NoteView> {
         if (currentIndex == 1) {
           return NoteEdit(widget.title, widget.content);
         }
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => NoteEdit(widget.title, widget.content)));
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(10),
-            child: Text(widget.content),
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
           ),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          child: Text(widget.content),
         );
       }),
       bottomNavigationBar: BottomNavigationBar(
@@ -68,6 +66,8 @@ class _NoteViewState extends State<NoteView> {
           onTap: (newIndex) {
             setState(() {
               currentIndex = newIndex;
+              if (currentIndex == 0) visible = false;
+              if (currentIndex == 1) visible = true;
             });
           },
           items: const [
