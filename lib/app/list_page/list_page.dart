@@ -74,7 +74,15 @@ class ListPage extends StatelessWidget {
               return const Center(child: Text('Wystąpił błąd'));
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: Text('Ładowanie, proszę czekać'));
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    Text('Ładowanie, proszę czekać')
+                  ],
+                ),
+              );
             }
 
             final documents = snapshot.data!.docs;

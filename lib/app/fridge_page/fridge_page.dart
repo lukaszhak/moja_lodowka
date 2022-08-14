@@ -74,7 +74,13 @@ class FridgePage extends StatelessWidget {
               return const Center(child: Text('Wystąpił błąd'));
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: Text('Ładowanie, proszę czekać'));
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                  Text('Ładowanie, proszę czekać')
+                ],
+              );
             }
 
             final documents = snapshot.data!.docs;
