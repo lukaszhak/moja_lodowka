@@ -48,19 +48,25 @@ class _NoteViewState extends State<NoteView> {
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 250, 252, 250),
-      body: Builder(builder: (context) {
-        if (currentIndex == 1) {
-          return NoteEdit(widget.title, widget.content);
-        }
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-          ),
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(10),
-          child: Text(widget.content),
-        );
-      }),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('przepisy').snapshots(),
+          builder: (context, snapshot) {
+            final documents = snapshot.data?.docs;
+
+            return Builder(builder: (context) {
+              if (currentIndex == 1) {
+                return NoteEdit(widget.content);
+              }
+              return ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(widget.content),
+                  ),
+                ],
+              );
+            });
+          }),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (newIndex) {
