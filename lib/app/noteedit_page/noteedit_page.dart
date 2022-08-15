@@ -24,8 +24,11 @@ class _NoteEditState extends State<NoteEdit> {
             backgroundColor: const Color.fromARGB(255, 250, 252, 250),
             body: ListView(
               children: [
-                TextField(
-                    controller: TextEditingController(text: widget.content)),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                      controller: TextEditingController(text: widget.content)),
+                ),
               ],
             ),
           );
