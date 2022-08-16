@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/app/candy_page/candy_page.dart';
 import 'package:moja_lodowka/app/drink_page/drink_page.dart';
@@ -6,6 +7,7 @@ import 'package:moja_lodowka/app/fridge_page/fridge_page.dart';
 import 'package:moja_lodowka/app/list_page/list_page.dart';
 import 'package:moja_lodowka/app/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/app/menu_page/menu_page.dart';
+import 'package:moja_lodowka/app/root_page/root_page.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -28,15 +30,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const FirstPage(),
+      home: RootPage(),
     );
   }
 }
 
 class FirstPage extends StatelessWidget {
-  const FirstPage({
-    Key? key,
-  }) : super(key: key);
+  const FirstPage({Key? key, required this.user}) : super(key: key);
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,14 @@ class FirstPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => LoginPage(user: user)));
+        },
+        backgroundColor: const Color.fromARGB(255, 0, 54, 2),
+        child: const Icon(Icons.person),
       ),
       backgroundColor: const Color.fromARGB(255, 154, 247, 157),
       body: Container(
@@ -212,7 +221,7 @@ class FirstPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

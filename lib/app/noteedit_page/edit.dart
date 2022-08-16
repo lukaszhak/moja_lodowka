@@ -30,6 +30,6 @@ class _NoteEditState extends State<NoteEditPage> {
         ),
       ),
     );
-    ;
+    
   }
 }

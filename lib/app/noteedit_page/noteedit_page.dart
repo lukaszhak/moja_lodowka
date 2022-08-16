@@ -25,10 +25,10 @@ class _NoteEditState extends State<NoteEdit> {
             body: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                      controller: TextEditingController(text: widget.content)),
-                ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                        controller:
+                            TextEditingController(text: widget.content))),
               ],
             ),
           );
