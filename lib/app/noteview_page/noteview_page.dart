@@ -1,17 +1,19 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:moja_lodowka/app/noteedit_page/noteedit_page.dart';
 
 class NoteView extends StatefulWidget {
   NoteView(
+    this.document,
     this.title,
     this.content, {
     Key? key,
   }) : super(key: key);
   final String title;
   final String content;
-  final controller = TextEditingController();
+  final QueryDocumentSnapshot document;
+  TextEditingController controller = TextEditingController();
   @override
   State<NoteView> createState() => _NoteViewState();
 }
@@ -37,9 +39,11 @@ class _NoteViewState extends State<NoteView> {
                     onPressed: () {
                       FirebaseFirestore.instance
                           .collection('przepisy')
-                          .doc()
-                          .update({
-                      }).whenComplete(() => currentIndex = 0);
+                          .doc(widget.document.id)
+                          .update(
+                        {'content': widget.controller.text},
+                      ).whenComplete(() => currentIndex = 0);
+                    
                     },
                     style: ButtonStyle(
                         textStyle: MaterialStateProperty.resolveWith((states) =>
@@ -55,7 +59,18 @@ class _NoteViewState extends State<NoteView> {
             backgroundColor: const Color.fromARGB(255, 250, 252, 250),
             body: Builder(builder: (context) {
               if (currentIndex == 1) {
-                return NoteEdit(widget.content);
+                return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: ListView(children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          controller: widget.controller),
+                    )
+                  ]),
+                );
               }
               return ListView(
                 children: [
