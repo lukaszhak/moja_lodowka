@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NoteView extends StatefulWidget {
-  NoteView(
+  const NoteView(
     this.document,
     this.title,
     this.content, {
@@ -50,8 +50,7 @@ class _NoteViewState extends State<NoteView> {
                         {'content': controller.text},
                       ).whenComplete(() => currentIndex = 0);
                       setState(() {
-                        controller =
-                            TextEditingController(text: widget.content);
+                        visible = false;
                       });
                     },
                     style: ButtonStyle(
