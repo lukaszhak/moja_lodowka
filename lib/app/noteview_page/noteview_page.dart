@@ -13,14 +13,20 @@ class NoteView extends StatefulWidget {
   final String title;
   final String content;
   final QueryDocumentSnapshot document;
-  TextEditingController controller = TextEditingController();
   @override
   State<NoteView> createState() => _NoteViewState();
 }
 
 class _NoteViewState extends State<NoteView> {
+  TextEditingController controller = TextEditingController();
   var currentIndex = 0;
   bool visible = false;
+  @override
+  void initState() {
+    controller = TextEditingController(text: widget.content);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -41,9 +47,12 @@ class _NoteViewState extends State<NoteView> {
                           .collection('przepisy')
                           .doc(widget.document.id)
                           .update(
-                        {'content': widget.controller.text},
+                        {'content': controller.text},
                       ).whenComplete(() => currentIndex = 0);
-                    
+                      setState(() {
+                        controller =
+                            TextEditingController(text: widget.content);
+                      });
                     },
                     style: ButtonStyle(
                         textStyle: MaterialStateProperty.resolveWith((states) =>
@@ -67,7 +76,7 @@ class _NoteViewState extends State<NoteView> {
                       child: TextField(
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
-                          controller: widget.controller),
+                          controller: controller),
                     )
                   ]),
                 );
