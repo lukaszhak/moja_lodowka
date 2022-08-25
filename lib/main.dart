@@ -251,7 +251,8 @@ class CategoryWidget extends StatelessWidget {
         textAlign: TextAlign.center,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 19,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

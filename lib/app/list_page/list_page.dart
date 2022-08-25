@@ -13,8 +13,16 @@ class ListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 1, 107, 17),
-        title: const Text('Lista zakupów'),
+        title: const Text(
+          'Lista zakupów',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 1, 107, 17),
@@ -89,6 +97,7 @@ class ListPage extends StatelessWidget {
 
             return ListView(
               children: [
+                const SizedBox(height: 10),
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),

@@ -14,8 +14,16 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 108, 3, 247),
-        title: const Text('Przepisy kulinarne'),
+        title: const Text(
+          'Przepisy kulinarne',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 108, 3, 247),
@@ -94,7 +102,7 @@ class MenuPage extends StatelessWidget {
 
             return ListView(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),

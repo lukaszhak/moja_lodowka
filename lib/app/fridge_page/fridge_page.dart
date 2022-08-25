@@ -13,8 +13,16 @@ class FridgePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 3, 28, 245),
-        title: const Text('Produkty Lodówkowe'),
+        title: const Text(
+          'Produkty Lodówkowe',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 3, 28, 245),
@@ -87,6 +95,7 @@ class FridgePage extends StatelessWidget {
 
             return ListView(
               children: [
+                const SizedBox(height: 10),
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),

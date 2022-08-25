@@ -13,8 +13,16 @@ class DrinkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 245, 112, 3),
-        title: const Text('Napoje'),
+        title: const Text(
+          'Napoje',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 245, 112, 3),
@@ -91,6 +99,7 @@ class DrinkPage extends StatelessWidget {
 
             return ListView(
               children: [
+                const SizedBox(height: 10),
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),

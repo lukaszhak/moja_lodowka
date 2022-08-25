@@ -13,8 +13,16 @@ class CandyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 245, 3, 3),
-        title: const Text('Słodycze'),
+        title: const Text(
+          'Słodycze',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 245, 3, 3),
@@ -93,6 +101,7 @@ class CandyPage extends StatelessWidget {
 
             return ListView(
               children: [
+                const SizedBox(height: 10),
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),
