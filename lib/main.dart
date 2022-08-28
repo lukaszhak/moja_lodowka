@@ -5,6 +5,7 @@ import 'package:moja_lodowka/app/drink_page/drink_page.dart';
 import 'package:moja_lodowka/app/drug_page/drug_page.dart';
 import 'package:moja_lodowka/app/fridge_page/fridge_page.dart';
 import 'package:moja_lodowka/app/list_page/list_page.dart';
+import 'package:moja_lodowka/app/login_page/login_page.dart';
 import 'package:moja_lodowka/app/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/app/menu_page/menu_page.dart';
 import 'package:moja_lodowka/app/root_page/root_page.dart';
