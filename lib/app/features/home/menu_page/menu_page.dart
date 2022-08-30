@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app//features/home/noteview_page/viewnote_page.dart';
 import 'package:moja_lodowka/main.dart';
 
-class CandyPage extends StatelessWidget {
-  CandyPage({
+class MenuPage extends StatelessWidget {
+  MenuPage({
     Key? key,
   }) : super(key: key);
 
@@ -15,9 +16,9 @@ class CandyPage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 50,
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+        backgroundColor: const Color.fromARGB(255, 108, 3, 247),
         title: const Text(
-          'Słodycze',
+          'Przepisy kulinarne',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -25,7 +26,7 @@ class CandyPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+        backgroundColor: const Color.fromARGB(255, 108, 3, 247),
         onPressed: () {
           showDialog(
             context: context,
@@ -36,30 +37,31 @@ class CandyPage extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 245, 3, 3),
+                    primary: const Color.fromARGB(255, 108, 3, 247),
                   ),
                   child: const Text('Cofnij'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    FirebaseFirestore.instance.collection('slodycze').add(
-                      {'title': controller.text},
+                    FirebaseFirestore.instance.collection('przepisy').add(
+                      {
+                        'title': controller.text,
+                        'content': '',
+                      },
                     );
                     controller.clear();
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 245, 3, 3),
+                    primary: const Color.fromARGB(255, 108, 3, 247),
                   ),
                   child: const Text('Dodaj'),
                 ),
               ],
-              title: const Text('Dodaj produkt'),
+              title: const Text('Dodaj przepis'),
               content: TextField(
                 controller: controller,
-                decoration: const InputDecoration(
-                  hintText: 'Wpisz tutaj',
-                ),
+                decoration: const InputDecoration(hintText: 'Wpisz tutaj'),
               ),
             ),
           );
@@ -75,12 +77,12 @@ class CandyPage extends StatelessWidget {
             opacity: 0.4,
             fit: BoxFit.cover,
             image: AssetImage(
-              'images/candy.jpg',
+              'images/menu.jpg',
             ),
           ),
         ),
         child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('slodycze').snapshots(),
+          stream: FirebaseFirestore.instance.collection('przepisy').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Center(child: Text('Wystąpił błąd'));
@@ -96,7 +98,6 @@ class CandyPage extends StatelessWidget {
                 ),
               );
             }
-
             final documents = snapshot.data!.docs;
 
             return ListView(
@@ -105,15 +106,26 @@ class CandyPage extends StatelessWidget {
                 for (final document in documents) ...[
                   Dismissible(
                     key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('slodycze')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: CategoryWidget(
-                      document['title'],
-                      const Color.fromARGB(255, 245, 3, 3),
+                    onDismissed: (_) => FirebaseFirestore.instance
+                        .collection('przepisy')
+                        .doc(document.id)
+                        .delete(),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ViewNote(
+                              document,
+                              document['title'],
+                              document['content'],
+                            ),
+                          ),
+                        );
+                      },
+                      child: CategoryWidget(
+                        document['title'],
+                        const Color.fromARGB(255, 108, 3, 247),
+                      ),
                     ),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:moja_lodowka/app/noteedit_page/noteedit_page.dart';
+import 'package:moja_lodowka/app/features/home/noteedit_page/noteedit_page.dart';
 
 class ViewNote extends StatefulWidget {
   const ViewNote(
