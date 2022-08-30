@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:moja_lodowka/app/noteview_page/noteview_page.dart';
 import 'package:moja_lodowka/app/noteview_page/viewnote_page.dart';
 import 'package:moja_lodowka/main.dart';
 
