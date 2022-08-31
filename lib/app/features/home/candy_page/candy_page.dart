@@ -137,50 +137,6 @@ class CandyPage extends StatelessWidget {
                   ],
                 ],
               );
-              return StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('slodycze')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Center(child: Text('Wystąpił błąd'));
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                          Text('Ładowanie, proszę czekać')
-                        ],
-                      ),
-                    );
-                  }
-
-                  final documents = snapshot.data!.docs;
-
-                  return ListView(
-                    children: [
-                      const SizedBox(height: 10),
-                      for (final document in documents) ...[
-                        Dismissible(
-                          key: ValueKey(document.id),
-                          onDismissed: (_) {
-                            FirebaseFirestore.instance
-                                .collection('slodycze')
-                                .doc(document.id)
-                                .delete();
-                          },
-                          child: CategoryWidget(
-                            document['title'],
-                            const Color.fromARGB(255, 245, 3, 3),
-                          ),
-                        ),
-                      ],
-                    ],
-                  );
-                },
-              );
             },
           ),
         ),

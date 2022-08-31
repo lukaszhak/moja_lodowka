@@ -1,16 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/candy_page.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/drink_page.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/drug_page.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/fridge_page.dart';
 import 'package:moja_lodowka/app/features/home/list_page/list_page.dart';
-import 'package:moja_lodowka/app/features/home/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/app/features/home/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/menu_page.dart';
+import 'package:moja_lodowka/app/features/home/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
 
 class CategoryPage extends StatelessWidget {
-  const CategoryPage({Key? key,}) : super(key: key);
+  const CategoryPage({Key? key, required this.user}) : super(key: key);
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CategoryPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => const MyAccountPage(email: '',)));
+              .push(MaterialPageRoute(builder: (_) => MyAccountPage(email: user.email)));
         },
         backgroundColor: const Color.fromARGB(255, 0, 54, 2),
         child: const Icon(Icons.person),
