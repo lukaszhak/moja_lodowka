@@ -9,12 +9,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (context) => RootCubit()..start(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const RootPage(),
       ),
-      home: const RootPage(),
     );
   }
 }
@@ -26,19 +29,16 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RootCubit()..start(),
-      child: BlocBuilder<RootCubit, RootState>(
-        builder: (context, state) {
-          final user = state.user;
-          if (user == null) {
-            return LoginPage();
-          }
-          return CategoryPage(
-            user: user,
-          );
-        },
-      ),
+    return BlocBuilder<RootCubit, RootState>(
+      builder: (context, state) {
+        final user = state.user;
+        if (user == null) {
+          return LoginPage();
+        }
+        return CategoryPage(
+          user: user,
+        );
+      },
     );
   }
 }
