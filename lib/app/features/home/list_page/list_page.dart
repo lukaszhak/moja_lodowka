@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:moja_lodowka/main.dart';
+import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 
 class ListPage extends StatelessWidget {
   ListPage({

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/cubit/candy_page_cubit.dart';
-import 'package:moja_lodowka/main.dart';
+import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 
 class CandyPage extends StatelessWidget {
   CandyPage({
