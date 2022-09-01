@@ -26,6 +26,7 @@ class CandyPage extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 250, 252, 250),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 245, 3, 3),
         onPressed: () {
@@ -44,9 +45,7 @@ class CandyPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    FirebaseFirestore.instance.collection('slodycze').add(
-                      {'title': controller.text},
-                    );
+                    context.read<CandyPageCubit>().add(title: controller.text);
                     controller.clear();
                     Navigator.of(context).pop();
                   },
@@ -70,7 +69,6 @@ class CandyPage extends StatelessWidget {
           Icons.add,
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 250, 252, 250),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -124,10 +122,9 @@ class CandyPage extends StatelessWidget {
                     Dismissible(
                       key: ValueKey(document.id),
                       onDismissed: (_) {
-                        FirebaseFirestore.instance
-                            .collection('slodycze')
-                            .doc(document.id)
-                            .delete();
+                        context
+                            .read<CandyPageCubit>()
+                            .delete(document: document.id);
                       },
                       child: CategoryWidget(
                         document['title'],

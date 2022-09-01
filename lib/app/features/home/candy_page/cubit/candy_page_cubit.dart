@@ -16,6 +16,21 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
   StreamSubscription? _streamSubscription;
 
+  Future<void> add({
+    required String title,
+  }) async {
+    await FirebaseFirestore.instance.collection('slodycze').add(
+      {'title': title},
+    );
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance
+        .collection('slodycze')
+        .doc(document)
+        .delete();
+  }
+
   Future<void> start() async {
     emit(
       const CandyPageState(
