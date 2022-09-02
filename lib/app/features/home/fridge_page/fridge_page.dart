@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
 
 class FridgePage extends StatelessWidget {
   FridgePage({
@@ -29,36 +30,43 @@ class FridgePage extends StatelessWidget {
         onPressed: () {
           showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 3, 28, 245),
-                        ),
-                        child: const Text('Cofnij'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          FirebaseFirestore.instance.collection('lodowka').add(
-                            {'title': controller.text},
-                          );
-                          controller.clear();
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 3, 28, 245),
-                        ),
-                        child: const Text('Dodaj'),
-                      ),
-                    ],
-                    title: const Text('Dodaj produkt'),
-                    content: TextField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(hintText: 'Wpisz tutaj'),
+              builder: (context) => BlocProvider(
+                    create: (context) => FridgePageCubit(),
+                    child: BlocBuilder<FridgePageCubit, FridgePageState>(
+                      builder: (context, state) {
+                        return AlertDialog(
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: const Color.fromARGB(255, 3, 28, 245),
+                              ),
+                              child: const Text('Cofnij'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<FridgePageCubit>()
+                                    .add(title: controller.text);
+                                controller.clear();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: const Color.fromARGB(255, 3, 28, 245),
+                              ),
+                              child: const Text('Dodaj'),
+                            ),
+                          ],
+                          title: const Text('Dodaj produkt'),
+                          content: TextField(
+                            controller: controller,
+                            decoration:
+                                const InputDecoration(hintText: 'Wpisz tutaj'),
+                          ),
+                        );
+                      },
                     ),
                   ));
         },
@@ -75,45 +83,54 @@ class FridgePage extends StatelessWidget {
             image: AssetImage('images/frozen.jpg'),
           ),
         ),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('lodowka').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(child: Text('Wystąpił błąd'));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircularProgressIndicator(),
-                  Text('Ładowanie, proszę czekać')
+        child: BlocProvider(
+          create: (context) => FridgePageCubit()..start(),
+          child: BlocBuilder<FridgePageCubit, FridgePageState>(
+            builder: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                return const Center(child: Text('Wystąpił błąd'));
+              }
+              if (state.isLoading) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(
+                      color: Color.fromARGB(255, 3, 28, 245),
+                    ),
+                    Text(
+                      'Ładowanie, proszę czekać',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                );
+              }
+
+              final documents = state.documents;
+
+              return ListView(
+                children: [
+                  const SizedBox(height: 10),
+                  for (final document in documents) ...[
+                    Dismissible(
+                      key: ValueKey(document.id),
+                      onDismissed: (_) {
+                        context
+                            .read<FridgePageCubit>()
+                            .delete(document: document.id);
+                      },
+                      child: CategoryWidget(
+                        document['title'],
+                        const Color.fromARGB(255, 3, 28, 245),
+                      ),
+                    ),
+                  ],
                 ],
               );
-            }
-
-            final documents = snapshot.data!.docs;
-
-            return ListView(
-              children: [
-                const SizedBox(height: 10),
-                for (final document in documents) ...[
-                  Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('lodowka')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: CategoryWidget(
-                      document['title'],
-                      const Color.fromARGB(255, 3, 28, 245),
-                    ),
-                  ),
-                ],
-              ],
-            );
-          },
+            },
+          ),
         ),
       ),
     );
