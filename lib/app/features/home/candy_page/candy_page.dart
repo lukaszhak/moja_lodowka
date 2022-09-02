@@ -13,74 +13,76 @@ class CandyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 50,
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
-        title: const Text(
-          'Słodycze',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => CandyPageCubit()..start(),
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 50,
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+          title: const Text(
+            'Słodycze',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      backgroundColor: const Color.fromARGB(255, 250, 252, 250),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 245, 3, 3),
+        backgroundColor: const Color.fromARGB(255, 250, 252, 250),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 245, 3, 3),
+                    ),
+                    child: const Text('Cofnij'),
                   ),
-                  child: const Text('Cofnij'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<CandyPageCubit>().add(title: controller.text);
-                    controller.clear();
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 245, 3, 3),
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<CandyPageCubit>()
+                          .add(title: controller.text);
+                      controller.clear();
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 245, 3, 3),
+                    ),
+                    child: const Text('Dodaj'),
                   ),
-                  child: const Text('Dodaj'),
-                ),
-              ],
-              title: const Text('Dodaj produkt'),
-              content: TextField(
-                controller: controller,
-                decoration: const InputDecoration(
-                  hintText: 'Wpisz tutaj',
+                ],
+                title: const Text('Dodaj produkt'),
+                content: TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Wpisz tutaj',
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-        child: const Icon(
-          Icons.add,
-        ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            opacity: 0.4,
-            fit: BoxFit.cover,
-            image: AssetImage(
-              'images/candy.jpg',
-            ),
+            );
+          },
+          child: const Icon(
+            Icons.add,
           ),
         ),
-        child: BlocProvider(
-          create: (context) => CandyPageCubit()..start(),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              opacity: 0.4,
+              fit: BoxFit.cover,
+              image: AssetImage(
+                'images/candy.jpg',
+              ),
+            ),
+          ),
           child: BlocBuilder<CandyPageCubit, CandyPageState>(
             builder: (context, state) {
               if (state.errorMessage.isNotEmpty) {
