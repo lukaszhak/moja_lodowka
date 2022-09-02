@@ -13,6 +13,14 @@ class MyAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        toolbarHeight: 50,
+        title: const Text(
+          'Moje Konto',
+          style: TextStyle(fontSize: 23),
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 154, 247, 157),
       body: Container(
         decoration: const BoxDecoration(
@@ -22,14 +30,34 @@ class MyAccountPage extends StatelessWidget {
                 image: AssetImage('images/food.jpg'))),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Jesteś zalogowany jako $email',
-                style: const TextStyle(
-                  fontSize: 18,
+              const Padding(
+                padding: EdgeInsets.all(35.0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 135,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('images/tiger.jpg'),
+                    radius: 130,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              const Text(
+                'Jesteś zalogowany jako',
+                style: TextStyle(
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Text(
+                '$email',
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 20,
@@ -41,7 +69,7 @@ class MyAccountPage extends StatelessWidget {
                   context.read<RootCubit>().signOut();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Wyloguj'),
+                child: const Text('Wyloguj się'),
               ),
             ],
           ),
