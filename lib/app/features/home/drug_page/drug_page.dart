@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/drug_page/cubit/drug_page_cubit.dart';
 
 class DrugPage extends StatelessWidget {
   DrugPage({
@@ -29,35 +31,43 @@ class DrugPage extends StatelessWidget {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  child: const Text('Cofnij'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    FirebaseFirestore.instance.collection('leki').add(
-                      {'title': controller.text},
-                    );
-                    controller.clear();
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  child: const Text('Dodaj'),
-                ),
-              ],
-              title: const Text('Dodaj produkt'),
-              content: TextField(
-                controller: controller,
-                decoration: const InputDecoration(hintText: 'Wpisz tutaj'),
+            builder: (context) => BlocProvider(
+              create: (context) => DrugPageCubit(),
+              child: BlocBuilder<DrugPageCubit, DrugPageState>(
+                builder: (context, state) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        child: const Text('Cofnij'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<DrugPageCubit>()
+                              .add(title: controller.text);
+                          controller.clear();
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        child: const Text('Dodaj'),
+                      ),
+                    ],
+                    title: const Text('Dodaj produkt'),
+                    content: TextField(
+                      controller: controller,
+                      decoration:
+                          const InputDecoration(hintText: 'Wpisz tutaj'),
+                    ),
+                  );
+                },
               ),
             ),
           );
@@ -77,45 +87,56 @@ class DrugPage extends StatelessWidget {
             ),
           ),
         ),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('leki').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(child: Text('Wystąpił błąd'));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                    Text('Ładowanie, proszę czekać')
-                  ],
-                ),
-              );
-            }
-
-            final documents = snapshot.data!.docs;
-
-            return ListView(
-              children: [
-                const SizedBox(height: 10),
-                for (final document in documents) ...[
-                  Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) => FirebaseFirestore.instance
-                        .collection('leki')
-                        .doc(document.id)
-                        .delete(),
-                    child: CategoryWidget(
-                      document['title'],
-                      const Color.fromARGB(255, 0, 0, 0),
-                    ),
+        child: BlocProvider(
+          create: (context) => DrugPageCubit()..start(),
+          child: BlocBuilder<DrugPageCubit, DrugPageState>(
+            builder: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                return const Center(child: Text('Wystąpił błąd'));
+              }
+              if (state.isLoading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      Text(
+                        'Ładowanie, proszę czekać',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
+                );
+              }
+
+              final documents = state.documents;
+
+              return ListView(
+                children: [
+                  const SizedBox(height: 10),
+                  for (final document in documents) ...[
+                    Dismissible(
+                      key: ValueKey(document.id),
+                      onDismissed: (_) {
+                        context
+                            .read<DrugPageCubit>()
+                            .delete(document: document.id);
+                      },
+                      child: CategoryWidget(
+                        document['title'],
+                        const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ],
                 ],
-              ],
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
