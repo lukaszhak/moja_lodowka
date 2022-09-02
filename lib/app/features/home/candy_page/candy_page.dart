@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/cubit/candy_page_cubit.dart';
@@ -13,76 +12,83 @@ class CandyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CandyPageCubit()..start(),
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 50,
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 245, 3, 3),
-          title: const Text(
-            'Słodycze',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+        title: const Text(
+          'Słodycze',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 250, 252, 250),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => BlocProvider(
+              create: (context) => CandyPageCubit(),
+              child: BlocBuilder<CandyPageCubit, CandyPageState>(
+                builder: (context, state) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 245, 3, 3),
+                        ),
+                        child: const Text('Cofnij'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<CandyPageCubit>()
+                              .add(title: controller.text);
+                          controller.clear();
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 245, 3, 3),
+                        ),
+                        child: const Text('Dodaj'),
+                      ),
+                    ],
+                    title: const Text('Dodaj produkt'),
+                    content: TextField(
+                      controller: controller,
+                      decoration: const InputDecoration(
+                        hintText: 'Wpisz tutaj',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            opacity: 0.4,
+            fit: BoxFit.cover,
+            image: AssetImage(
+              'images/candy.jpg',
             ),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 250, 252, 250),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(255, 245, 3, 3),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                actions: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 245, 3, 3),
-                    ),
-                    child: const Text('Cofnij'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context
-                          .read<CandyPageCubit>()
-                          .add(title: controller.text);
-                      controller.clear();
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 245, 3, 3),
-                    ),
-                    child: const Text('Dodaj'),
-                  ),
-                ],
-                title: const Text('Dodaj produkt'),
-                content: TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    hintText: 'Wpisz tutaj',
-                  ),
-                ),
-              ),
-            );
-          },
-          child: const Icon(
-            Icons.add,
-          ),
-        ),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              opacity: 0.4,
-              fit: BoxFit.cover,
-              image: AssetImage(
-                'images/candy.jpg',
-              ),
-            ),
-          ),
+        child: BlocProvider(
+          create: (context) => CandyPageCubit()..start(),
           child: BlocBuilder<CandyPageCubit, CandyPageState>(
             builder: (context, state) {
               if (state.errorMessage.isNotEmpty) {
