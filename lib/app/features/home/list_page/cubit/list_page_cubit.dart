@@ -37,6 +37,7 @@ class ListPageCubit extends Cubit<ListPageState> {
 
     _streamSubscription = FirebaseFirestore.instance
         .collection('lista')
+        .orderBy('title')
         .snapshots()
         .listen((data) {
       emit(
