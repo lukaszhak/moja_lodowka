@@ -1,17 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/app/features/home/noteedit_page/noteedit_page.dart';
 
 class ViewNote extends StatefulWidget {
   const ViewNote(
-    this.document,
     this.title,
     this.content, {
     Key? key,
   }) : super(key: key);
   final String title;
   final String content;
-  final QueryDocumentSnapshot document;
   @override
   State<ViewNote> createState() => _NoteViewState();
 }
@@ -36,7 +33,6 @@ class _NoteViewState extends State<ViewNote> {
         builder: (context) {
           if (currentIndex == 1) {
             return EditNote(
-              widget.document,
               widget.content,
               onSave: () {
                 setState(

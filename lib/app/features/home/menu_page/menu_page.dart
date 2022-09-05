@@ -130,7 +130,6 @@ class MenuPage extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => ViewNote(
-                                document,
                                 document['title'],
                                 document['content'],
                               ),
