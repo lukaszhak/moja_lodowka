@@ -40,6 +40,7 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
 
     _streamSubscription = FirebaseFirestore.instance
         .collection('napoje')
+        .orderBy('title')
         .snapshots()
         .listen((data) {
       emit(

@@ -4,34 +4,31 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
-part 'fridge_page_state.dart';
+part 'longdate_page_state.dart';
 
-class FridgePageCubit extends Cubit<FridgePageState> {
-  FridgePageCubit()
-      : super(const FridgePageState(
-          documents: [],
-          errorMessage: '',
-          isLoading: false,
-        ));
+class LongdatePageCubit extends Cubit<LongdatePageState> {
+  LongdatePageCubit()
+      : super(
+          const LongdatePageState(
+            documents: [],
+            errorMessage: '',
+            isLoading: false,
+          ),
+        );
 
   StreamSubscription? _streamSubscription;
 
   Future<void> add({required String title}) async {
-    await FirebaseFirestore.instance
-        .collection('lodowka')
-        .add({'title': title});
+    await FirebaseFirestore.instance.collection('data').add({'title': title});
   }
 
   Future<void> delete({required String document}) async {
-    await FirebaseFirestore.instance
-        .collection('lodowka')
-        .doc(document)
-        .delete();
+    await FirebaseFirestore.instance.collection('data').doc(document).delete();
   }
 
   Future<void> start() async {
     emit(
-      const FridgePageState(
+      const LongdatePageState(
         documents: [],
         isLoading: true,
         errorMessage: '',
@@ -39,12 +36,12 @@ class FridgePageCubit extends Cubit<FridgePageState> {
     );
 
     _streamSubscription = FirebaseFirestore.instance
-        .collection('lodowka')
+        .collection('data')
         .orderBy('title')
         .snapshots()
         .listen((data) {
       emit(
-        FridgePageState(
+        LongdatePageState(
           documents: data.docs,
           isLoading: false,
           errorMessage: '',
@@ -53,7 +50,7 @@ class FridgePageCubit extends Cubit<FridgePageState> {
     })
       ..onError((error) {
         emit(
-          FridgePageState(
+          LongdatePageState(
             documents: const [],
             isLoading: false,
             errorMessage: error.toString(),

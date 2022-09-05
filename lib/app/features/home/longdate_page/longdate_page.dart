@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/cubit/longdate_page_cubit.dart';
 
 class LongdatePage extends StatelessWidget {
   LongdatePage({
@@ -29,35 +30,43 @@ class LongdatePage extends StatelessWidget {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 126, 68, 1),
-                  ),
-                  child: const Text('Cofnij'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    FirebaseFirestore.instance.collection('data').add(
-                      {'title': controller.text},
-                    );
-                    controller.clear();
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 126, 68, 1),
-                  ),
-                  child: const Text('Dodaj'),
-                ),
-              ],
-              title: const Text('Dodaj produkt'),
-              content: TextField(
-                controller: controller,
-                decoration: const InputDecoration(hintText: 'Wpisz tutaj'),
+            builder: (context) => BlocProvider(
+              create: (context) => LongdatePageCubit(),
+              child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
+                builder: (context, state) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 126, 68, 1),
+                        ),
+                        child: const Text('Cofnij'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<LongdatePageCubit>()
+                              .add(title: controller.text);
+                          controller.clear();
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 126, 68, 1),
+                        ),
+                        child: const Text('Dodaj'),
+                      ),
+                    ],
+                    title: const Text('Dodaj produkt'),
+                    content: TextField(
+                      controller: controller,
+                      decoration:
+                          const InputDecoration(hintText: 'Wpisz tutaj'),
+                    ),
+                  );
+                },
               ),
             ),
           );
@@ -77,47 +86,56 @@ class LongdatePage extends StatelessWidget {
             ),
           ),
         ),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('data').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(child: Text('Wystąpił błąd'));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                    Text('Ładowanie, proszę czekać')
-                  ],
-                ),
-              );
-            }
-
-            final documents = snapshot.data!.docs;
-
-            return ListView(
-              children: [
-                const SizedBox(height: 10),
-                for (final document in documents) ...[
-                  Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('data')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: CategoryWidget(
-                      document['title'],
-                      const Color.fromARGB(255, 126, 68, 1),
-                    ),
+        child: BlocProvider(
+          create: (context) => LongdatePageCubit()..start(),
+          child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
+            builder: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                return const Center(child: Text('Wystąpił błąd'));
+              }
+              if (state.isLoading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(
+                        color: Color.fromARGB(255, 126, 68, 1),
+                      ),
+                      Text(
+                        'Ładowanie, proszę czekać',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
+                );
+              }
+
+              final documents = state.documents;
+
+              return ListView(
+                children: [
+                  const SizedBox(height: 10),
+                  for (final document in documents) ...[
+                    Dismissible(
+                      key: ValueKey(document.id),
+                      onDismissed: (_) {
+                        context
+                            .read<LongdatePageCubit>()
+                            .delete(document: document.id);
+                      },
+                      child: CategoryWidget(
+                        document['title'],
+                        const Color.fromARGB(255, 126, 68, 1),
+                      ),
+                    ),
+                  ],
                 ],
-              ],
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

@@ -34,6 +34,7 @@ class DrugPageCubit extends Cubit<DrugPageState> {
 
     _streamSubscription = FirebaseFirestore.instance
         .collection('leki')
+        .orderBy('title')
         .snapshots()
         .listen((data) {
       emit(

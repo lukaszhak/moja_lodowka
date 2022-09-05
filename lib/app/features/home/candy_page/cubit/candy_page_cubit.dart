@@ -42,6 +42,7 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
     _streamSubscription = FirebaseFirestore.instance
         .collection('slodycze')
+        .orderBy('title')
         .snapshots()
         .listen((data) {
       emit(
