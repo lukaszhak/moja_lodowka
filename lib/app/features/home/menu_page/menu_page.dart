@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app//features/home/noteview_page/viewnote_page.dart';
@@ -132,6 +131,7 @@ class MenuPage extends StatelessWidget {
                               builder: (_) => ViewNote(
                                 document['title'],
                                 document['content'],
+                                document
                               ),
                             ),
                           );

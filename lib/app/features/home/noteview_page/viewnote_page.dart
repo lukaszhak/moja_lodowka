@@ -1,14 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/app/features/home/noteedit_page/noteedit_page.dart';
 
 class ViewNote extends StatefulWidget {
   const ViewNote(
     this.title,
-    this.content, {
+    this.content,
+    this.document, {
     Key? key,
   }) : super(key: key);
   final String title;
   final String content;
+  final QueryDocumentSnapshot document;
   @override
   State<ViewNote> createState() => _NoteViewState();
 }
@@ -41,6 +44,7 @@ class _NoteViewState extends State<ViewNote> {
                   },
                 );
               },
+              document: widget.document,
             );
           }
           return ListView(
