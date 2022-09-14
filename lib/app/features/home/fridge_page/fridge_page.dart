@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/features/add_page/add_page.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
 
@@ -28,47 +29,8 @@ class FridgePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 3, 28, 245),
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => BlocProvider(
-                    create: (context) => FridgePageCubit(),
-                    child: BlocBuilder<FridgePageCubit, FridgePageState>(
-                      builder: (context, state) {
-                        return AlertDialog(
-                          actions: [
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color.fromARGB(255, 3, 28, 245),
-                              ),
-                              child: const Text('Cofnij'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                context
-                                    .read<FridgePageCubit>()
-                                    .add(title: controller.text);
-                                controller.clear();
-                                Navigator.of(context).pop();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color.fromARGB(255, 3, 28, 245),
-                              ),
-                              child: const Text('Dodaj'),
-                            ),
-                          ],
-                          title: const Text('Dodaj produkt'),
-                          content: TextField(
-                            controller: controller,
-                            decoration:
-                                const InputDecoration(hintText: 'Wpisz tutaj'),
-                          ),
-                        );
-                      },
-                    ),
-                  ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const AddPage()));
         },
         child: const Icon(
           Icons.add,
