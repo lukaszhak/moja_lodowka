@@ -233,11 +233,11 @@ class CategoryWidget extends StatelessWidget {
           ),
           Column(
             children: const [
-               Text(
+              Text(
                 'Termin ważności',
                 style: TextStyle(color: Colors.white),
               ),
-               SizedBox(
+              SizedBox(
                 height: 4,
               ),
               Text(

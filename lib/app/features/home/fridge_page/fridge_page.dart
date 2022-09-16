@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/add_page/add_page.dart';
-import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
+import 'package:moja_lodowka/app/features/home/fridge_page/repository/fridge_documents_repository.dart';
 
 class FridgePage extends StatelessWidget {
-  FridgePage({
+  const FridgePage({
     Key? key,
   }) : super(key: key);
-
-  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,54 +45,74 @@ class FridgePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => FridgePageCubit()..start(),
+          create: (context) => FridgePageCubit(FridgeDocumentsRepository())..start(),
           child: BlocBuilder<FridgePageCubit, FridgePageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-              if (state.isLoading) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(
-                      color: Color.fromARGB(255, 3, 28, 245),
-                    ),
-                    Text(
-                      'Ładowanie, proszę czekać',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-                );
-              }
-
-              final documents = state.documents;
-
+              final documentModels = state.documents;
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
-                      onDismissed: (_) {
-                        context
-                            .read<FridgePageCubit>()
-                            .delete(document: document.id);
-                      },
-                      child: CategoryWidget(
-                        document['title'],
-                        const Color.fromARGB(255, 3, 28, 245),
-                      ),
-                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<FridgePageCubit>()
+                              .delete(document: documentModel.id);
+                        },
+                        child: _FridgePageItem(documentModel: documentModel)),
                   ],
                 ],
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _FridgePageItem extends StatelessWidget {
+  const _FridgePageItem({
+    Key? key,
+    required this.documentModel,
+  }) : super(key: key);
+
+  final FridgeDocumentModel documentModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(255, 3, 28, 245),
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            documentModel.title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 19,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Column(
+            children: [
+              const Text(
+                'Termin ważności',
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                documentModel.expDateFormated(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

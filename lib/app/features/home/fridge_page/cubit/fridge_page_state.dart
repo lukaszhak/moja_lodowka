@@ -2,12 +2,8 @@ part of 'fridge_page_cubit.dart';
 
 @immutable
 class FridgePageState {
-  final List<QueryDocumentSnapshot<Object?>> documents;
-  final bool isLoading;
-  final String errorMessage;
+  final List<FridgeDocumentModel> documents;
 
   const FridgePageState(
-      {required this.documents,
-      required this.isLoading,
-      required this.errorMessage});
+      {required this.documents,});
 }
