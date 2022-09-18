@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/drink_page/add_page/drink_add_page.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/cubit/drink_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/drink_page/model/drink_document_model.dart';
+import 'package:moja_lodowka/app/features/home/drink_page/repository/drink_documents_repository.dart';
 
 class DrinkPage extends StatelessWidget {
   DrinkPage({
@@ -28,48 +30,8 @@ class DrinkPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 245, 112, 3),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => BlocProvider(
-              create: (context) => DrinkPageCubit(),
-              child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
-                builder: (context, state) {
-                  return AlertDialog(
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 245, 112, 3),
-                        ),
-                        child: const Text('Cofnij'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<DrinkPageCubit>()
-                              .add(title: controller.text);
-                          controller.clear();
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 245, 112, 3),
-                        ),
-                        child: const Text('Dodaj'),
-                      ),
-                    ],
-                    title: const Text('Dodaj produkt'),
-                    content: TextField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(hintText: 'Wpisz tutaj'),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const DrinkAddPage()));
         },
         child: const Icon(
           Icons.add,
@@ -86,57 +48,78 @@ class DrinkPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => DrinkPageCubit()..start(),
+          create: (context) =>
+              DrinkPageCubit(DrinkDocumentsRepository())..start(),
           child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-
-              if (state.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color.fromARGB(255, 245, 112, 3),
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }
-
-              final documents = state.documents;
+              final documentModels = state.documents;
 
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
-                      onDismissed: (_) {
-                        context
-                            .read<DrinkPageCubit>()
-                            .delete(document: document.id);
-                      },
-                      child: CategoryWidget(
-                        document['title'],
-                        const Color.fromARGB(255, 245, 112, 3),
-                      ),
-                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<DrinkPageCubit>()
+                              .delete(document: documentModel.id);
+                        },
+                        child: _DrinkPageItem(
+                          documentModel: documentModel,
+                        )),
                   ],
                 ],
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DrinkPageItem extends StatelessWidget {
+  const _DrinkPageItem({
+    Key? key,
+    required this.documentModel,
+  }) : super(key: key);
+
+  final DrinkDocumentModel documentModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(255, 245, 112, 3),
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            documentModel.title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 19,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Column(
+            children: [
+              const Text(
+                'Termin ważności',
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                documentModel.expDateFormated(),
+                style: const TextStyle(color: Colors.white),
+              )
+            ],
+          )
+        ],
       ),
     );
   }

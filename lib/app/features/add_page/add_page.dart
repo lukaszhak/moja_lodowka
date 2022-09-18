@@ -51,8 +51,9 @@ class _AddPageState extends State<AddPage> {
                   _expDate = newValue;
                 });
               },
-              selectedDateFormated:
-                  _expDate == null ? null : DateFormat.yMMM().format(_expDate!),
+              selectedDateFormated: _expDate == null
+                  ? null
+                  : DateFormat.yMMMd().format(_expDate!),
             ),
           );
         },

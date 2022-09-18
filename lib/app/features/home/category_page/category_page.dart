@@ -59,7 +59,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => FridgePage(),
+                          builder: (_) => const FridgePage(),
                         ),
                       );
                     },
