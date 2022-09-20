@@ -220,33 +220,14 @@ class CategoryWidget extends StatelessWidget {
       color: color,
       padding: const EdgeInsets.all(18),
       margin: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Column(
-            children: const [
-              Text(
-                'Termin ważności',
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                '07/2022',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 19,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -124,15 +124,12 @@ class MenuPage extends StatelessWidget {
                       onDismissed: (_) => context
                           .read<MenuPageCubit>()
                           .delete(document: document.id),
-                      child: GestureDetector(
+                      child: InkWell(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => ViewNote(
-                                document['title'],
-                                document['content'],
-                                document
-                              ),
+                              builder: (_) => ViewNote(document['title'],
+                                  document['content'], document),
                             ),
                           );
                         },
