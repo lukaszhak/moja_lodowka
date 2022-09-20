@@ -6,11 +6,9 @@ import 'package:moja_lodowka/app/features/home/drink_page/model/drink_document_m
 import 'package:moja_lodowka/app/features/home/drink_page/repository/drink_documents_repository.dart';
 
 class DrinkPage extends StatelessWidget {
-  DrinkPage({
+  const DrinkPage({
     Key? key,
   }) : super(key: key);
-
-  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

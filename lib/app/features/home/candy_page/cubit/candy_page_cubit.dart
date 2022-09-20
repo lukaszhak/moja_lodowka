@@ -3,24 +3,23 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/features/home/candy_page/model/candy_document_model.dart';
+import 'package:moja_lodowka/app/features/home/candy_page/repository/candy_documents_repository.dart';
 
 part 'candy_page_state.dart';
 
 class CandyPageCubit extends Cubit<CandyPageState> {
-  CandyPageCubit()
+  CandyPageCubit(this._documentsRepository)
       : super(const CandyPageState(
           documents: [],
-          errorMessage: '',
-          isLoading: false,
         ));
+  final CandyDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> add({
-    required String title,
-  }) async {
+  Future<void> add(String title, DateTime expDate) async {
     await FirebaseFirestore.instance.collection('slodycze').add(
-      {'title': title},
+      {'title': title, 'expdate': expDate},
     );
   }
 
@@ -32,36 +31,10 @@ class CandyPageCubit extends Cubit<CandyPageState> {
   }
 
   Future<void> start() async {
-    emit(
-      const CandyPageState(
-        documents: [],
-        errorMessage: '',
-        isLoading: true,
-      ),
-    );
-
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('slodycze')
-        .orderBy('title')
-        .snapshots()
-        .listen((data) {
-      emit(
-        CandyPageState(
-          documents: data.docs,
-          isLoading: false,
-          errorMessage: '',
-        ),
-      );
-    })
-      ..onError((error) {
-        emit(
-          CandyPageState(
-            documents: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
+    _streamSubscription =
+        _documentsRepository.getDocumentsStream().listen((documents) {
+      emit(CandyPageState(documents: documents));
+    });
   }
 
   @override

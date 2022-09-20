@@ -77,7 +77,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => DrinkPage(),
+                          builder: (_) => const DrinkPage(),
                         ),
                       );
                     },
@@ -104,7 +104,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => CandyPage(),
+                          builder: (_) => const CandyPage(),
                         ),
                       );
                     },
