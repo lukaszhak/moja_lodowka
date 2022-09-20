@@ -4,16 +4,16 @@ import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/repository/fridge_documents_repository.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({
+class FridgeAddPage extends StatefulWidget {
+  const FridgeAddPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<FridgeAddPage> createState() => _FridgeAddPageState();
 }
 
-class _AddPageState extends State<AddPage> {
+class _FridgeAddPageState extends State<FridgeAddPage> {
   String? _title;
   DateTime? _expDate;
   @override
@@ -25,7 +25,7 @@ class _AddPageState extends State<AddPage> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 3, 28, 245),
-              title: const Text('Dodaj produkt'),
+              title: const Text('Dodaj Produkt'),
               actions: [
                 IconButton(
                   onPressed: _title == null || _expDate == null
@@ -82,9 +82,9 @@ class _AddPageBody extends StatelessWidget {
         TextField(
           onChanged: onTitleChanged,
           decoration: const InputDecoration(
-            label: Text('Nazwa produktu'),
+            label: Text('Nazwa Produktu'),
             border: OutlineInputBorder(),
-            hintText: 'Wpisz nazwę produktu',
+            hintText: 'Wpisz Nazwę Produktu',
           ),
         ),
         const SizedBox(
@@ -110,7 +110,7 @@ class _AddPageBody extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
               primary: const Color.fromARGB(255, 3, 28, 245)),
-          child: Text(selectedDateFormated ?? 'Wybierz datę ważności'),
+          child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'),
         ),
       ],
     );

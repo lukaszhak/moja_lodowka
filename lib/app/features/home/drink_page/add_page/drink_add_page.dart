@@ -81,7 +81,7 @@ class _AddPageBody extends StatelessWidget {
           decoration: const InputDecoration(
               label: Text('Nazwa Produktu'),
               border: OutlineInputBorder(),
-              hintText: 'Wpisz nazwę produktu'),
+              hintText: 'Wpisz Nazwę Produktu'),
         ),
         const SizedBox(
           height: 20,
@@ -106,7 +106,7 @@ class _AddPageBody extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
                 primary: const Color.fromARGB(255, 245, 112, 3)),
-            child: Text(selectedDateFormated ?? 'Wybierz datę ważności'))
+            child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'))
       ],
     );
   }

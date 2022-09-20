@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:moja_lodowka/app/features/home/candy_page/cubit/candy_page_cubit.dart';
-import 'package:moja_lodowka/app/features/home/candy_page/repository/candy_documents_repository.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/cubit/longdate_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/repository/longdate_documents_repository.dart';
 
-class CandyAddPage extends StatefulWidget {
-  const CandyAddPage({Key? key}) : super(key: key);
+class LongDateAddPage extends StatefulWidget {
+  const LongDateAddPage({Key? key}) : super(key: key);
 
   @override
-  State<CandyAddPage> createState() => _CandyAddPageState();
+  State<LongDateAddPage> createState() => _LongDateAddPageState();
 }
 
-class _CandyAddPageState extends State<CandyAddPage> {
+class _LongDateAddPageState extends State<LongDateAddPage> {
   String? _title;
   DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CandyPageCubit(CandyDocumentsRepository()),
-      child: BlocBuilder<CandyPageCubit, CandyPageState>(
+      create: (context) => LongdatePageCubit(LongDateDocumentsRepository()),
+      child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Dodaj Produkt'),
-              backgroundColor: const Color.fromARGB(255, 245, 3, 3),
+              backgroundColor: const Color.fromARGB(255, 126, 68, 1),
               actions: [
                 IconButton(
                   onPressed: _title == null || _expDate == null
                       ? null
                       : () {
                           context
-                              .read<CandyPageCubit>()
+                              .read<LongdatePageCubit>()
                               .add(_title!, _expDate!);
                           Navigator.of(context).pop();
                         },
@@ -80,10 +80,9 @@ class _AddPageBody extends StatelessWidget {
         TextField(
           onChanged: onTitleChanged,
           decoration: const InputDecoration(
-            label: Text('Nazwa Produktu'),
-            border: OutlineInputBorder(),
-            hintText: 'Wpisz Nazwę Produktu',
-          ),
+              label: Text('Nazwa Produktu'),
+              border: OutlineInputBorder(),
+              hintText: 'Wpisz nazwę produktu'),
         ),
         const SizedBox(
           height: 20,
@@ -99,18 +98,20 @@ class _AddPageBody extends StatelessWidget {
                 ),
                 builder: (context, child) {
                   return Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme: const ColorScheme.light(
-                              primary: Color.fromARGB(255, 245, 3, 3))),
-                      child: child!);
+                    data: Theme.of(context).copyWith(
+                      colorScheme: const ColorScheme.light(
+                          primary: Color.fromARGB(255, 126, 68, 1)),
+                    ),
+                    child: child!,
+                  );
                 });
             onDateChanged(selectedDate);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromARGB(255, 245, 3, 3),
+            primary: const Color.fromARGB(255, 126, 68, 1),
           ),
-          child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'),
-        ),
+          child: Text(selectedDateFormated ?? 'Wybierz datę ważności'),
+        )
       ],
     );
   }

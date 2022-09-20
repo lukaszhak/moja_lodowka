@@ -122,7 +122,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => LongdatePage(),
+                          builder: (_) => const LongdatePage(),
                         ),
                       );
                     },
