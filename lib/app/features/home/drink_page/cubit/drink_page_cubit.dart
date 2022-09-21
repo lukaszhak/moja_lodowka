@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/model/drink_document_model.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/repository/drink_documents_repository.dart';
@@ -17,17 +16,12 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> add(String title, DateTime expdate) async {
-    await FirebaseFirestore.instance.collection('napoje').add(
-      {'title': title, 'expdate': expdate},
-    );
+  Future<void> add(String title, DateTime expDate) async {
+    await _documentsRepository.add(title, expDate);
   }
 
   Future<void> delete({required String document}) async {
-    await FirebaseFirestore.instance
-        .collection('napoje')
-        .doc(document)
-        .delete();
+    await _documentsRepository.delete(document: document);
   }
 
   Future<void> start() async {

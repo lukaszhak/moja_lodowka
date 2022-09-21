@@ -16,4 +16,14 @@ class LongDateDocumentsRepository {
       }).toList();
     });
   }
+
+  Future<void> add(String title, DateTime expDate) async {
+    await FirebaseFirestore.instance
+        .collection('data')
+        .add({'title': title, 'expdate': expDate});
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance.collection('data').doc(document).delete();
+  }
 }

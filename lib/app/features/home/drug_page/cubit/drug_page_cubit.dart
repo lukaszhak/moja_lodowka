@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/model/drug_document_model.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/repository/drug_documents_repository.dart';
@@ -19,13 +18,11 @@ class DrugPageCubit extends Cubit<DrugPageState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> add(String title, DateTime expDate) async {
-    await FirebaseFirestore.instance
-        .collection('leki')
-        .add({'title': title, 'expdate': expDate});
+    await _documentsRepository.add(title, expDate);
   }
 
   Future<void> delete({required String document}) async {
-    await FirebaseFirestore.instance.collection('leki').doc(document).delete();
+    await _documentsRepository.delete(document: document);
   }
 
   Future<void> start() async {

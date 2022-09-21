@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/repository/fridge_documents_repository.dart';
@@ -19,23 +18,19 @@ class FridgePageCubit extends Cubit<FridgePageState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> add(String title, DateTime expDate) async {
-    await FirebaseFirestore.instance
-        .collection('lodowka')
-        .add({'title': title, 'expdate': expDate});
+    await _documentsRepository.add(title, expDate);
   }
 
   Future<void> delete({required String document}) async {
-    await FirebaseFirestore.instance
-        .collection('lodowka')
-        .doc(document)
-        .delete();
+    await _documentsRepository.delete(document: document);
   }
 
   Future<void> start() async {
     _streamSubscription =
         _documentsRepository.getDocumentsStream().listen((documents) {
       emit(FridgePageState(
-          documents: documents,));
+        documents: documents,
+      ));
     });
   }
 

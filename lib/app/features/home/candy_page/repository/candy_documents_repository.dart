@@ -16,4 +16,17 @@ class CandyDocumentsRepository {
       }).toList();
     });
   }
+
+  Future<void> add(String title, DateTime expDate) async {
+    await FirebaseFirestore.instance
+        .collection('slodycze')
+        .add({'title': title, 'expdate': expDate});
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance
+        .collection('slodycze')
+        .doc(document)
+        .delete();
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
 
@@ -16,5 +18,18 @@ class FridgeDocumentsRepository {
         );
       }).toList();
     });
+  }
+
+  Future<void> add(String title, DateTime expDate) async {
+    await FirebaseFirestore.instance
+        .collection('lodowka')
+        .add({'title': title, 'expdate': expDate});
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance
+        .collection('lodowka')
+        .doc(document)
+        .delete();
   }
 }

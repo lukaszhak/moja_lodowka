@@ -16,4 +16,17 @@ class DrinkDocumentsRepository {
       }).toList();
     });
   }
+
+  Future<void> add(String title, DateTime expDate) async {
+    await FirebaseFirestore.instance
+        .collection('napoje')
+        .add({'title': title, 'expdate': expDate});
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance
+        .collection('napoje')
+        .doc(document)
+        .delete();
+  }
 }

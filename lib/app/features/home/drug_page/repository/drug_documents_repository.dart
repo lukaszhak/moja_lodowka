@@ -16,4 +16,14 @@ class DrugDocumentsRepository {
       }).toList();
     });
   }
+
+  Future<void> add(String title, DateTime expDate) async {
+    await FirebaseFirestore.instance
+        .collection('leki')
+        .add({'title': title, 'expdate': expDate});
+  }
+
+  Future<void> delete({required String document}) async {
+    await FirebaseFirestore.instance.collection('leki').doc(document).delete();
+  }
 }
