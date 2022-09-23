@@ -19,13 +19,11 @@ class CategoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Center(
-          child: Text(
-            'Kontroluj Swoje Produkty!',
-            style: TextStyle(
-              letterSpacing: 2,
-              fontWeight: FontWeight.bold,
-            ),
+        title: const Text(
+          'Kontroluj Swoje Produkty!',
+          style: TextStyle(
+            letterSpacing: 2,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -201,6 +199,15 @@ class CategoryPage extends StatelessWidget {
           ),
         ),
       ),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            child: Text('Moje Konto'),
+          ),
+        ],
+      )),
     );
   }
 }
