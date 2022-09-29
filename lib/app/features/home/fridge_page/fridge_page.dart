@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/app/features/add_page/add_page.dart';
+import 'package:moja_lodowka/app/features/home/fridge_page/add_page/fridge_add_page.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/repository/fridge_documents_repository.dart';
@@ -29,7 +29,7 @@ class FridgePage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 3, 28, 245),
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const AddPage()));
+              .push(MaterialPageRoute(builder: (context) => const FridgeAddPage()));
         },
         child: const Icon(
           Icons.add,

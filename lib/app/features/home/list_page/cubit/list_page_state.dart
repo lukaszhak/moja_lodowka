@@ -2,12 +2,8 @@ part of 'list_page_cubit.dart';
 
 @immutable
 class ListPageState {
-  final List<QueryDocumentSnapshot<Object?>> documents;
-  final bool isLoading;
-  final String errorMessage;
+  final List<ListDocumentModel> documents;
 
   const ListPageState(
-      {required this.documents,
-      required this.isLoading,
-      required this.errorMessage});
+      {required this.documents,});
 }

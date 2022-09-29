@@ -1,76 +1,50 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/features/home/menu_page/model/menu_document_model.dart';
+import 'package:moja_lodowka/app/features/home/menu_page/repository/menu_documents_repository.dart';
 
 part 'menu_page_state.dart';
 
 class MenuPageCubit extends Cubit<MenuPageState> {
-  MenuPageCubit()
+  MenuPageCubit(this._documentsRepository)
       : super(
           const MenuPageState(
             documents: [],
-            errorMessage: '',
-            isLoading: false,
-            
           ),
         );
+
+  final MenuDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> update(
       {required String content, required String document}) async {
-    await FirebaseFirestore.instance
-        .collection('przepisy')
-        .doc(document)
-        .update({'content': content});
+    await _documentsRepository.update(content, document);
   }
 
   Future<void> add({required String title, required String content}) async {
-    await FirebaseFirestore.instance
-        .collection('przepisy')
-        .add({'title': title, 'content': content});
+    await _documentsRepository.add(title, content);
   }
 
   Future<void> delete({required String document}) async {
-    await FirebaseFirestore.instance
-        .collection('przepisy')
-        .doc(document)
-        .delete();
+    await _documentsRepository.delete(document: document);
   }
 
   Future<void> start() async {
     emit(
       const MenuPageState(
         documents: [],
-        isLoading: true,
-        errorMessage: '',
       ),
     );
 
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('przepisy')
-        .orderBy('title')
-        .snapshots()
-        .listen((data) {
-      emit(
-        MenuPageState(
-          documents: data.docs,
-          isLoading: false,
-          errorMessage: '',
-        ),
-      );
-    })
-      ..onError((error) {
-        emit(
-          MenuPageState(
-            documents: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
+    _streamSubscription =
+        _documentsRepository.getDocumentsStream().listen((documents) {
+      emit(MenuPageState(
+        documents: documents,
+      ));
+    });
   }
 
   @override

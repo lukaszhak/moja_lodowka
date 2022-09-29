@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
+import 'package:moja_lodowka/app/features/home/list_page/model/list_document_model.dart';
 
-class FridgeDocumentsRepository {
-  Stream<List<FridgeDocumentModel>> getDocumentsStream() {
+class ListDocumentsRepository {
+  Stream<List<ListDocumentModel>> getDocumentsStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -11,21 +11,17 @@ class FridgeDocumentsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
+        .collection('lista')
         .orderBy('title')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
-        return FridgeDocumentModel(
-          id: doc.id,
-          title: doc['title'],
-          expDate: (doc['expdate'] as Timestamp).toDate(),
-        );
+        return ListDocumentModel(id: doc.id, title: doc['title']);
       }).toList();
     });
   }
 
-  Future<void> add(String title, DateTime expDate) async {
+  Future<void> add(String title) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -33,8 +29,8 @@ class FridgeDocumentsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
-        .add({'title': title, 'expdate': expDate});
+        .collection('lista')
+        .add({'title': title});
   }
 
   Future<void> delete({required String document}) async {
@@ -45,7 +41,7 @@ class FridgeDocumentsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
+        .collection('lista')
         .doc(document)
         .delete();
   }

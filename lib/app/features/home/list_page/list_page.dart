@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 import 'package:moja_lodowka/app/features/home/list_page/cubit/list_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/list_page/repository/list_documents_repository.dart';
 
 class ListPage extends StatelessWidget {
   ListPage({
@@ -32,7 +33,7 @@ class ListPage extends StatelessWidget {
             context: context,
             builder: (context) {
               return BlocProvider(
-                create: (context) => ListPageCubit(),
+                create: (context) => ListPageCubit(ListDocumentsRepository()),
                 child: BlocBuilder<ListPageCubit, ListPageState>(
                   builder: (context, state) {
                     return AlertDialog(
@@ -87,45 +88,25 @@ class ListPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => ListPageCubit()..start(),
+          create: (context) => ListPageCubit(ListDocumentsRepository())..start(),
           child: BlocBuilder<ListPageCubit, ListPageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-              if (state.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color.fromARGB(255, 1, 107, 17),
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                );
-              }
 
-              final documents = state.documents;
+              final documentModels = state.documents;
 
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
+                      key: ValueKey(documentModel.id),
                       onDismissed: (_) {
                         context
                             .read<ListPageCubit>()
-                            .delete(document: document.id);
+                            .delete(document: documentModel.id);
                       },
                       child: CategoryWidget(
-                        document['title'],
+                        documentModel.title,
                         const Color.fromARGB(255, 1, 107, 17),
                       ),
                     ),

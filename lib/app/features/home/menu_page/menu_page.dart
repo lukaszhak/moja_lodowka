@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app//features/home/noteview_page/viewnote_page.dart';
 import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/cubit/menu_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/menu_page/repository/menu_documents_repository.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage({
@@ -32,7 +33,7 @@ class MenuPage extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => BlocProvider(
-              create: (context) => MenuPageCubit(),
+              create: (context) => MenuPageCubit(MenuDocumentsRepository()),
               child: BlocBuilder<MenuPageCubit, MenuPageState>(
                 builder: (context, state) {
                   return AlertDialog(
@@ -88,56 +89,30 @@ class MenuPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => MenuPageCubit()..start(),
+          create: (context) => MenuPageCubit(MenuDocumentsRepository())..start(),
           child: BlocBuilder<MenuPageCubit, MenuPageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-              if (state.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color.fromARGB(255, 108, 3, 247),
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }
-              final documents = state.documents;
+              final documentModels = state.documents;
 
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
+                      key: ValueKey(documentModel.id),
                       onDismissed: (_) => context
                           .read<MenuPageCubit>()
-                          .delete(document: document.id),
-                      child: GestureDetector(
+                          .delete(document: documentModel.id),
+                      child: InkWell(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => ViewNote(
-                                document['title'],
-                                document['content'],
-                                document
-                              ),
+                              builder: (_) => ViewNote(documentModel.title,
+                              documentModel.content, documentModel.document),
                             ),
                           );
                         },
-                        child: CategoryWidget(
-                          document['title'],
+                        child: CategoryWidget(documentModel.title,
                           const Color.fromARGB(255, 108, 3, 247),
                         ),
                       ),

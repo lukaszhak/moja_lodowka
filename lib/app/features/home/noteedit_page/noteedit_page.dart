@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/cubit/menu_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/menu_page/repository/menu_documents_repository.dart';
 
 class EditNote extends StatefulWidget {
   const EditNote(
@@ -30,7 +31,7 @@ class _EditNoteState extends State<EditNote> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuPageCubit()..start(),
+      create: (context) => MenuPageCubit(MenuDocumentsRepository())..start(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(

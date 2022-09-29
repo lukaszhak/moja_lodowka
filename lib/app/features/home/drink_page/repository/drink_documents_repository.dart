@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
+import 'package:moja_lodowka/app/features/home/drink_page/model/drink_document_model.dart';
 
-class FridgeDocumentsRepository {
-  Stream<List<FridgeDocumentModel>> getDocumentsStream() {
+class DrinkDocumentsRepository {
+  Stream<List<DrinkDocumentModel>> getDocumentsStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -11,16 +11,15 @@ class FridgeDocumentsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
+        .collection('napoje')
         .orderBy('title')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
-        return FridgeDocumentModel(
-          id: doc.id,
-          title: doc['title'],
-          expDate: (doc['expdate'] as Timestamp).toDate(),
-        );
+        return DrinkDocumentModel(
+            id: doc.id,
+            title: doc['title'],
+            expDate: (doc['expdate'] as Timestamp).toDate());
       }).toList();
     });
   }
@@ -33,7 +32,7 @@ class FridgeDocumentsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
+        .collection('napoje')
         .add({'title': title, 'expdate': expDate});
   }
 
@@ -45,7 +44,7 @@ class FridgeDocumentsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('lodowka')
+        .collection('napoje')
         .doc(document)
         .delete();
   }

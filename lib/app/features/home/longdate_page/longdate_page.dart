@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/add_page/longdate_add_page.dart';
 import 'package:moja_lodowka/app/features/home/longdate_page/cubit/longdate_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/model/longdate_document_model.dart';
+import 'package:moja_lodowka/app/features/home/longdate_page/repository/longdate_documents_repository.dart';
 
 class LongdatePage extends StatelessWidget {
-  LongdatePage({
+  const LongdatePage({
     Key? key,
   }) : super(key: key);
-
-  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,48 +28,8 @@ class LongdatePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 126, 68, 1),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => BlocProvider(
-              create: (context) => LongdatePageCubit(),
-              child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
-                builder: (context, state) {
-                  return AlertDialog(
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 126, 68, 1),
-                        ),
-                        child: const Text('Cofnij'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<LongdatePageCubit>()
-                              .add(title: controller.text);
-                          controller.clear();
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 126, 68, 1),
-                        ),
-                        child: const Text('Dodaj'),
-                      ),
-                    ],
-                    title: const Text('Dodaj produkt'),
-                    content: TextField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(hintText: 'Wpisz tutaj'),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LongDateAddPage()));
         },
         child: const Icon(
           Icons.add,
@@ -87,50 +47,26 @@ class LongdatePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => LongdatePageCubit()..start(),
+          create: (context) =>
+              LongdatePageCubit(LongDateDocumentsRepository())..start(),
           child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-              if (state.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color.fromARGB(255, 126, 68, 1),
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              final documents = state.documents;
+              final documentModels = state.documents;
 
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
-                      onDismissed: (_) {
-                        context
-                            .read<LongdatePageCubit>()
-                            .delete(document: document.id);
-                      },
-                      child: CategoryWidget(
-                        document['title'],
-                        const Color.fromARGB(255, 126, 68, 1),
-                      ),
-                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<LongdatePageCubit>()
+                              .delete(document: documentModel.id);
+                        },
+                        child: _LongDatePageItem(
+                          documentModel: documentModel,
+                        )),
                   ],
                 ],
               );
@@ -139,5 +75,49 @@ class LongdatePage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _LongDatePageItem extends StatelessWidget {
+  const _LongDatePageItem({
+    Key? key,
+    required this.documentModel,
+  }) : super(key: key);
+
+  final LongDateDocumentModel documentModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: const Color.fromARGB(255, 126, 68, 1),
+        padding: const EdgeInsets.all(18),
+        margin: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              documentModel.title,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold),
+            ),
+            Column(
+              children: [
+                const Text(
+                  'Termin Ważności',
+                  style: TextStyle(color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  documentModel.expDateFormated(),
+                  style: const TextStyle(color: Colors.white),
+                )
+              ],
+            )
+          ],
+        ));
   }
 }

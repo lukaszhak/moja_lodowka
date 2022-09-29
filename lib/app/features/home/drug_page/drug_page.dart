@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/app/features/home/category_page/category_page.dart';
+import 'package:moja_lodowka/app/features/home/drug_page/add_page/drug_add_page.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/cubit/drug_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/drug_page/model/drug_document_model.dart';
+import 'package:moja_lodowka/app/features/home/drug_page/repository/drug_documents_repository.dart';
 
 class DrugPage extends StatelessWidget {
   DrugPage({
@@ -28,48 +30,8 @@ class DrugPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => BlocProvider(
-              create: (context) => DrugPageCubit(),
-              child: BlocBuilder<DrugPageCubit, DrugPageState>(
-                builder: (context, state) {
-                  return AlertDialog(
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        child: const Text('Cofnij'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<DrugPageCubit>()
-                              .add(title: controller.text);
-                          controller.clear();
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        child: const Text('Dodaj'),
-                      ),
-                    ],
-                    title: const Text('Dodaj produkt'),
-                    content: TextField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(hintText: 'Wpisz tutaj'),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const DrugAddPage()));
         },
         child: const Icon(
           Icons.add,
@@ -87,56 +49,75 @@ class DrugPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => DrugPageCubit()..start(),
+          create: (context) =>
+              DrugPageCubit(DrugDocumentsRepository())..start(),
           child: BlocBuilder<DrugPageCubit, DrugPageState>(
             builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Center(child: Text('Wystąpił błąd'));
-              }
-              if (state.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }
-
-              final documents = state.documents;
+              final documentModels = state.documents;
 
               return ListView(
                 children: [
                   const SizedBox(height: 10),
-                  for (final document in documents) ...[
+                  for (final documentModel in documentModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
-                      onDismissed: (_) {
-                        context
-                            .read<DrugPageCubit>()
-                            .delete(document: document.id);
-                      },
-                      child: CategoryWidget(
-                        document['title'],
-                        const Color.fromARGB(255, 0, 0, 0),
-                      ),
-                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<DrugPageCubit>()
+                              .delete(document: documentModel.id);
+                        },
+                        child: _DrugPageItem(
+                          documentModel: documentModel,
+                        )),
                   ],
                 ],
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DrugPageItem extends StatelessWidget {
+  const _DrugPageItem({
+    required this.documentModel,
+    Key? key,
+  }) : super(key: key);
+
+  final DrugDocumentModel documentModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(255, 0, 0, 0),
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            documentModel.title,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+          Column(
+            children: [
+              const Text(
+                'Termin Ważności',
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                documentModel.expDateFormated(),
+                style: const TextStyle(color: Colors.white),
+              )
+            ],
+          )
+        ],
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/candy_page.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/drink_page.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/drug_page.dart';
@@ -19,13 +21,11 @@ class CategoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Center(
-          child: Text(
-            'Kontroluj Swoje Produkty!',
-            style: TextStyle(
-              letterSpacing: 2,
-              fontWeight: FontWeight.bold,
-            ),
+        title: const Text(
+          'Kontroluj Swoje Produkty!',
+          style: TextStyle(
+            letterSpacing: 2,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -59,7 +59,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => FridgePage(),
+                          builder: (_) => const FridgePage(),
                         ),
                       );
                     },
@@ -77,7 +77,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => DrinkPage(),
+                          builder: (_) => const DrinkPage(),
                         ),
                       );
                     },
@@ -104,7 +104,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => CandyPage(),
+                          builder: (_) => const CandyPage(),
                         ),
                       );
                     },
@@ -122,7 +122,7 @@ class CategoryPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => LongdatePage(),
+                          builder: (_) => const LongdatePage(),
                         ),
                       );
                     },
@@ -201,7 +201,191 @@ class CategoryPage extends StatelessWidget {
           ),
         ),
       ),
+      drawer: _MyDrawer(
+        email: user.email,
+      ),
     );
+  }
+}
+
+class _MyDrawer extends StatelessWidget {
+  const _MyDrawer({
+    required this.email,
+    Key? key,
+  }) : super(key: key);
+
+  final String? email;
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: BlocProvider(
+      create: (context) => RootCubit(),
+      child: BlocBuilder<RootCubit, RootState>(
+        builder: (context, state) {
+          return ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Jesteś zalogowany jako $email'),
+                    InkWell(
+                      onTap: () {
+                        context.read<RootCubit>().signOut();
+                      },
+                      child: Row(
+                        children: const [
+                          Icon(Icons.logout),
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Text('Wyloguj')
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    CustomIcons.pills,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 9,
+                  ),
+                  Text('Leki'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DrugPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    Icons.local_bar,
+                    color: Color.fromARGB(255, 245, 112, 3),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Napoje'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const DrinkPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    Icons.access_time,
+                    color: Color.fromARGB(255, 126, 68, 1),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Produkty długoterminowe'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LongdatePage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    Icons.kitchen,
+                    color: Color.fromARGB(255, 3, 7, 248),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Produkty lodówkowe')
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const FridgePage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    CustomIcons.candy_cane,
+                    color: Color.fromARGB(255, 245, 3, 3),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Słodycze'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CandyPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    Icons.view_list,
+                    color: Color.fromARGB(255, 1, 107, 17),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Text('Lista zakupów'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ListPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(children: const [
+                  Icon(
+                    Icons.restaurant,
+                    color: Color.fromARGB(255, 108, 3, 247),
+                  ),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Text('Przepisy kulinarne'),
+                ]),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MenuPage(),
+                    ),
+                  );
+                },
+              )
+            ],
+          );
+        },
+      ),
+    ));
   }
 }
 
@@ -220,33 +404,14 @@ class CategoryWidget extends StatelessWidget {
       color: color,
       padding: const EdgeInsets.all(18),
       margin: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Column(
-            children: const [
-              Text(
-                'Termin ważności',
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                '07/2022',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 19,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

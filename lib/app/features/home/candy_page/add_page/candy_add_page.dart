@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
-import 'package:moja_lodowka/app/features/home/fridge_page/repository/fridge_documents_repository.dart';
+import 'package:moja_lodowka/app/features/home/candy_page/cubit/candy_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/candy_page/repository/candy_documents_repository.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({
-    Key? key,
-  }) : super(key: key);
+class CandyAddPage extends StatefulWidget {
+  const CandyAddPage({Key? key}) : super(key: key);
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<CandyAddPage> createState() => _CandyAddPageState();
 }
 
-class _AddPageState extends State<AddPage> {
+class _CandyAddPageState extends State<CandyAddPage> {
   String? _title;
   DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FridgePageCubit(FridgeDocumentsRepository()),
-      child: BlocBuilder<FridgePageCubit, FridgePageState>(
+      create: (context) => CandyPageCubit(CandyDocumentsRepository()),
+      child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 3, 28, 245),
-              title: const Text('Dodaj produkt'),
+              title: const Text('Dodaj Produkt'),
+              backgroundColor: const Color.fromARGB(255, 245, 3, 3),
               actions: [
                 IconButton(
                   onPressed: _title == null || _expDate == null
                       ? null
                       : () {
                           context
-                              .read<FridgePageCubit>()
+                              .read<CandyPageCubit>()
                               .add(_title!, _expDate!);
                           Navigator.of(context).pop();
                         },
@@ -51,8 +49,9 @@ class _AddPageState extends State<AddPage> {
                   _expDate = newValue;
                 });
               },
-              selectedDateFormated:
-                  _expDate == null ? null : DateFormat.yMMM().format(_expDate!),
+              selectedDateFormated: _expDate == null
+                  ? null
+                  : DateFormat.yMMMd().format(_expDate!),
             ),
           );
         },
@@ -63,10 +62,10 @@ class _AddPageState extends State<AddPage> {
 
 class _AddPageBody extends StatelessWidget {
   const _AddPageBody({
-    Key? key,
     required this.onDateChanged,
     required this.onTitleChanged,
     this.selectedDateFormated,
+    Key? key,
   }) : super(key: key);
 
   final Function(String) onTitleChanged;
@@ -81,9 +80,9 @@ class _AddPageBody extends StatelessWidget {
         TextField(
           onChanged: onTitleChanged,
           decoration: const InputDecoration(
-            label: Text('Nazwa produktu'),
+            label: Text('Nazwa Produktu'),
             border: OutlineInputBorder(),
-            hintText: 'Wpisz nazwę produktu',
+            hintText: 'Wpisz Nazwę Produktu',
           ),
         ),
         const SizedBox(
@@ -102,14 +101,15 @@ class _AddPageBody extends StatelessWidget {
                   return Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: const ColorScheme.light(
-                              primary: Color.fromARGB(255, 3, 28, 245))),
+                              primary: Color.fromARGB(255, 245, 3, 3))),
                       child: child!);
                 });
             onDateChanged(selectedDate);
           },
           style: ElevatedButton.styleFrom(
-              primary: const Color.fromARGB(255, 3, 28, 245)),
-          child: Text(selectedDateFormated ?? 'Wybierz datę ważności'),
+            primary: const Color.fromARGB(255, 245, 3, 3),
+          ),
+          child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'),
         ),
       ],
     );
