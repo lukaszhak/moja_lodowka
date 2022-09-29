@@ -11,6 +11,7 @@ import 'package:moja_lodowka/app/features/home/list_page/list_page.dart';
 import 'package:moja_lodowka/app/features/home/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/menu_page.dart';
 import 'package:moja_lodowka/app/features/home/my_account_page/my_account_page.dart';
+import 'package:moja_lodowka/app/features/home/weather_page/weather_page.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -220,173 +221,195 @@ class _MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: BlocProvider(
-      create: (context) => RootCubit(RootRepository()),
-      child: BlocBuilder<RootCubit, RootState>(
-        builder: (context, state) {
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Jesteś zalogowany jako $email'),
-                    InkWell(
-                      onTap: () {
-                        context.read<RootCubit>().signOut();
-                      },
-                      child: Row(
-                        children: const [
-                          Icon(Icons.logout),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text('Wyloguj')
-                        ],
-                      ),
-                    )
-                  ],
+      child: BlocProvider(
+        create: (context) => RootCubit(RootRepository()),
+        child: BlocBuilder<RootCubit, RootState>(
+          builder: (context, state) {
+            return ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Jesteś zalogowany jako $email'),
+                      InkWell(
+                        onTap: () {
+                          context.read<RootCubit>().signOut();
+                        },
+                        child: Row(
+                          children: const [
+                            Icon(Icons.logout),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text('Wyloguj')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    CustomIcons.pills,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 9,
-                  ),
-                  Text('Leki'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => DrugPage(),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      CustomIcons.pills,
+                      color: Colors.black,
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    Icons.local_bar,
-                    color: Color.fromARGB(255, 245, 112, 3),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Napoje'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const DrinkPage(),
+                    SizedBox(
+                      width: 9,
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    Icons.access_time,
-                    color: Color.fromARGB(255, 126, 68, 1),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Produkty długoterminowe'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LongdatePage(),
+                    Text('Leki'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => DrugPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      Icons.local_bar,
+                      color: Color.fromARGB(255, 245, 112, 3),
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    Icons.kitchen,
-                    color: Color.fromARGB(255, 3, 7, 248),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Produkty lodówkowe')
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const FridgePage(),
+                    SizedBox(
+                      width: 5,
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    CustomIcons.candy_cane,
-                    color: Color.fromARGB(255, 245, 3, 3),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Słodycze'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const CandyPage(),
+                    Text('Napoje'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const DrinkPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      Icons.access_time,
+                      color: Color.fromARGB(255, 126, 68, 1),
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    Icons.view_list,
-                    color: Color.fromARGB(255, 1, 107, 17),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Text('Lista zakupów'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ListPage(),
+                    SizedBox(
+                      width: 5,
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Row(children: const [
-                  Icon(
-                    Icons.restaurant,
-                    color: Color.fromARGB(255, 108, 3, 247),
-                  ),
-                  SizedBox(
-                    width: 3,
-                  ),
-                  Text('Przepisy kulinarne'),
-                ]),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MenuPage(),
+                    Text('Produkty długoterminowe'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LongdatePage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      Icons.kitchen,
+                      color: Color.fromARGB(255, 3, 7, 248),
                     ),
-                  );
-                },
-              )
-            ],
-          );
-        },
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Produkty lodówkowe')
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const FridgePage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      CustomIcons.candy_cane,
+                      color: Color.fromARGB(255, 245, 3, 3),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Słodycze'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const CandyPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      Icons.view_list,
+                      color: Color.fromARGB(255, 1, 107, 17),
+                    ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Text('Lista zakupów'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ListPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(children: const [
+                    Icon(
+                      Icons.restaurant,
+                      color: Color.fromARGB(255, 108, 3, 247),
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Text('Przepisy kulinarne'),
+                  ]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MenuPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Row(
+                    children: const [
+                      Icon(
+                        Icons.thermostat,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text('Sprawdź pogodę'),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const WeatherPage(),
+                      ),
+                    );
+                  },
+                )
+              ],
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }
 
