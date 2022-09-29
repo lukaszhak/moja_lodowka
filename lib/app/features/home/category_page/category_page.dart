@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
+import 'package:moja_lodowka/app/cubit/root_repository/root_repository.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/candy_page.dart';
 import 'package:moja_lodowka/app/features/home/drink_page/drink_page.dart';
 import 'package:moja_lodowka/app/features/home/drug_page/drug_page.dart';
@@ -220,7 +221,7 @@ class _MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: BlocProvider(
-      create: (context) => RootCubit(),
+      create: (context) => RootCubit(RootRepository()),
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           return ListView(

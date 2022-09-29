@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/cubit/root_repository/root_repository.dart';
 
 part 'root_state.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit()
+  RootCubit(this._rootRepository)
       : super(
           const RootState(
             user: null,
@@ -16,26 +17,26 @@ class RootCubit extends Cubit<RootState> {
           ),
         );
 
+  final RootRepository _rootRepository;
+
   StreamSubscription? _streamSubscription;
 
   Future<void> createAccount({
     required String email,
     required String password,
   }) async {
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
+    _rootRepository.createAccount(email, password);
   }
 
   Future<void> logIn({
     required String email,
     required String password,
   }) async {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+    _rootRepository.logIn(email, password);
   }
 
   Future<void> signOut() async {
-    FirebaseAuth.instance.signOut();
+    _rootRepository.logOut();
   }
 
   Future<void> start() async {
