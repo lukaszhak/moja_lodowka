@@ -387,11 +387,11 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(
                     children: const [
                       Icon(
-                        Icons.thermostat,
+                        Icons.sunny,
                         color: Colors.black,
                       ),
                       SizedBox(
-                        width: 2,
+                        width: 3,
                       ),
                       Text('Sprawdź pogodę'),
                     ],

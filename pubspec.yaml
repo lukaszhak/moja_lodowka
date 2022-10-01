@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^3.6.3
   flutter_bloc: ^8.1.1
   intl: ^0.17.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:
