@@ -30,30 +30,33 @@ class WeatherPage extends StatelessWidget {
           final weatherModel = state.model;
           return Scaffold(
             appBar: AppBar(
+              toolbarHeight: 50,
+              backgroundColor: const Color.fromARGB(255, 0, 54, 58),
               title: const Text('Sprawdź dzisiejszą pogodę'),
             ),
             body: Center(child: Builder(builder: (context) {
               if (state.status == Status.loading) {
                 return Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       CircularProgressIndicator(),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text('Ładowanie, proszę czekać'),
                     ],
                   ),
                 );
               }
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   if (weatherModel != null)
                     _DisplayWeatherWidget(
                       weatherModel: weatherModel,
                     ),
                   _SearchWidget(),
-                  const SizedBox(
-                    height: 120,
-                  ),
                 ],
               );
             })),
@@ -78,26 +81,59 @@ class _DisplayWeatherWidget extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            Text(
-              weatherModel.city,
-              style: Theme.of(context).textTheme.headline2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text(
+                  'Wybrane Miasto:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  weatherModel.city,
+                  style: const TextStyle(fontSize: 22),
+                ),
+              ],
             ),
             const SizedBox(
               height: 40,
             ),
-            Text(
-              weatherModel.temperature.toString(),
-              style: Theme.of(context).textTheme.headline3,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text(
+                  'Temperatura:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text(weatherModel.temperature.toString(),
+                        style: const TextStyle(fontSize: 22)),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      '°C',
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ],
             ),
             const SizedBox(
               height: 40,
             ),
-            Text(
-              weatherModel.condition,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(
-              height: 100,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text(
+                  'Warunki pogodowe:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  weatherModel.condition,
+                  style: const TextStyle(fontSize: 22),
+                ),
+              ],
             ),
           ],
         );
@@ -132,8 +168,13 @@ class _SearchWidget extends StatelessWidget {
             width: 20,
           ),
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 0, 54, 58),
+              ),
               onPressed: () {
-                context.read<WeatherPageCubit>().getWeatherModel(city: _controller.text);
+                context
+                    .read<WeatherPageCubit>()
+                    .getWeatherModel(city: _controller.text);
               },
               child: const Text('Sprawdź'))
         ],
