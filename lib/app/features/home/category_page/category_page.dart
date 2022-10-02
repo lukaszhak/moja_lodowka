@@ -229,13 +229,38 @@ class _MyDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.green),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Jesteś zalogowany jako $email'),
                       InkWell(
                         onTap: () {
-                          context.read<RootCubit>().signOut();
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.teal[900]),
+                                        child: const Text('Nie'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          context.read<RootCubit>().signOut();
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.teal[900]),
+                                        child: const Text('Tak'),
+                                      ),
+                                    ],
+                                    title: const Text(
+                                        'Czy napewno chcesz się wylogować?'),
+                                  ));
                         },
                         child: Row(
                           children: const [
