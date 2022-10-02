@@ -7,7 +7,26 @@ import 'package:moja_lodowka/app/features/home/weather_page/repository/weather_r
 part 'weather_page_state.dart';
 
 class WeatherPageCubit extends Cubit<WeatherPageState> {
-  WeatherPageCubit(this._weatherRepository) : super(WeatherPageState());
+  WeatherPageCubit(this._weatherRepository) : super(const WeatherPageState());
 
   final WeatherRepository _weatherRepository;
+
+  Future<void> getWeatherModel({required String city}) async {
+    emit(
+      const WeatherPageState(status: Status.loading),
+    );
+    try {
+      final weatherModel = await _weatherRepository.getWeatherModel(city: city);
+      emit(
+        WeatherPageState(model: weatherModel, status: Status.succes),
+      );
+    } catch (error) {
+      emit(
+        WeatherPageState(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
+  }
 }

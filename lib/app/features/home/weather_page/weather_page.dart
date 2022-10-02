@@ -1,60 +1,107 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
+import 'package:moja_lodowka/app/features/home/weather_page/cubit/weather_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/weather_page/data_source/weather_data_source.dart';
+import 'package:moja_lodowka/app/features/home/weather_page/model/weather_model.dart';
+import 'package:moja_lodowka/app/features/home/weather_page/repository/weather_repository.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sprawdź dzisiejszą pogodę'),
+    return BlocProvider(
+      create: (context) =>
+          WeatherPageCubit(WeatherRepository(WeatherDataSource())),
+      child: BlocConsumer<WeatherPageCubit, WeatherPageState>(
+        listener: (context, state) {
+          if (state.status == Status.error) {
+            final errorMessage = state.errorMessage ?? 'Wystąpił błąd';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          final weatherModel = state.model;
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Sprawdź dzisiejszą pogodę'),
+            ),
+            body: Center(child: Builder(builder: (context) {
+              if (state.status == Status.loading) {
+                return Center(
+                  child: Column(
+                    children: const [
+                      CircularProgressIndicator(),
+                      Text('Ładowanie, proszę czekać'),
+                    ],
+                  ),
+                );
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (weatherModel != null)
+                    _DisplayWeatherWidget(
+                      weatherModel: weatherModel,
+                    ),
+                  _SearchWidget(),
+                  const SizedBox(
+                    height: 120,
+                  ),
+                ],
+              );
+            })),
+          );
+        },
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _DisplayWeatherWidget(),
-          _SearchWidget(),
-          SizedBox(
-            height: 120,
-          ),
-        ],
-      )),
     );
   }
 }
 
 class _DisplayWeatherWidget extends StatelessWidget {
   const _DisplayWeatherWidget({
+    required this.weatherModel,
     Key? key,
   }) : super(key: key);
 
+  final WeatherModel weatherModel;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Myszkow',
-          style: Theme.of(context).textTheme.headline2,
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        Text(
-          '5.5',
-          style: Theme.of(context).textTheme.headline3,
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        Text(
-          'Rainy',
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
-        SizedBox(
-          height: 100,
-        ),
-      ],
+    return BlocBuilder<WeatherPageCubit, WeatherPageState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Text(
+              weatherModel.city,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Text(
+              weatherModel.temperature.toString(),
+              style: Theme.of(context).textTheme.headline3,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Text(
+              weatherModel.condition,
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -75,16 +122,20 @@ class _SearchWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: _controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: 'Miasto',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)))),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
-          ElevatedButton(onPressed: () {}, child: Text('Sprawdź'))
+          ElevatedButton(
+              onPressed: () {
+                context.read<WeatherPageCubit>().getWeatherModel(city: _controller.text);
+              },
+              child: const Text('Sprawdź'))
         ],
       ),
     );
