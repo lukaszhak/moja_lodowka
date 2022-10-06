@@ -14,20 +14,19 @@ class MyAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
         title: const Text(
           'Moje Konto',
           style: TextStyle(fontSize: 23),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 154, 247, 157),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
                 opacity: 0.4,
                 fit: BoxFit.cover,
-                image: AssetImage('images/food.jpg'))),
+                image: AssetImage('images/openfridge.jpg'))),
         child: Center(
           child: Column(
             children: [
@@ -64,7 +63,7 @@ class MyAccountPage extends StatelessWidget {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 63, 2)),
+                    primary: const Color.fromARGB(255, 0, 51, 54)),
                 onPressed: () {
                   context.read<RootCubit>().signOut();
                   Navigator.of(context).pop();

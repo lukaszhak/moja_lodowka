@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
             opacity: 0.4,
             fit: BoxFit.cover,
             image: AssetImage(
-              'images/food.jpg',
+              'images/openfridge.jpg',
             ),
           ),
         ),
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 80, 3)),
+                    primary: const Color.fromARGB(255, 0, 51, 54)),
                 onPressed: () async {
                   if (isCreatingAccount == true) {
                     // rejestracja
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Color.fromARGB(255, 0, 58, 2)),
+                        color: Color.fromARGB(255, 0, 51, 54)),
                   ),
                 ),
               ],
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Color.fromARGB(255, 0, 58, 2)),
+                        color: Color.fromARGB(255, 0, 51, 54)),
                   ),
                 ),
               ],

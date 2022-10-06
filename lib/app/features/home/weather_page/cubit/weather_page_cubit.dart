@@ -18,7 +18,7 @@ class WeatherPageCubit extends Cubit<WeatherPageState> {
     try {
       final weatherModel = await _weatherRepository.getWeatherModel(city: city);
       emit(
-        WeatherPageState(model: weatherModel, status: Status.succes),
+        WeatherPageState(model: weatherModel, status: Status.success),
       );
     } catch (error) {
       emit(

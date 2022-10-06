@@ -22,7 +22,7 @@ class CategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         title: const Text(
           'Kontroluj Swoje Produkty!',
           style: TextStyle(
@@ -36,170 +36,17 @@ class CategoryPage extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => MyAccountPage(email: user.email)));
         },
-        backgroundColor: const Color.fromARGB(255, 0, 54, 2),
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         child: const Icon(Icons.person),
       ),
-      backgroundColor: const Color.fromARGB(255, 154, 247, 157),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
             opacity: 0.4,
             fit: BoxFit.cover,
             image: AssetImage(
-              'images/food.jpg',
+              'images/openfridge.jpg',
             ),
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const FridgePage(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: const Color.fromARGB(255, 252, 253, 252),
-                    ),
-                    child: const Icon(
-                      Icons.kitchen,
-                      size: 35,
-                      color: Color.fromARGB(255, 3, 7, 248),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const DrinkPage(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: const Color.fromARGB(255, 250, 252, 250),
-                    ),
-                    child: const Icon(
-                      Icons.local_bar,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const CandyPage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      CustomIcons.candy_cane,
-                      color: Colors.red,
-                      size: 35,
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const LongdatePage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      Icons.access_time,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => DrugPage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      CustomIcons.pills,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => MenuPage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      Icons.restaurant,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20),
-                        primary: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => ListPage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      Icons.view_list,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
         ),
       ),
@@ -229,11 +76,15 @@ class _MyDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.green),
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 0, 51, 54)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Jesteś zalogowany jako $email'),
+                      Text(
+                        'Jesteś zalogowany jako $email',
+                        style: const TextStyle(color: Colors.white),
+                      ),
                       InkWell(
                         onTap: () {
                           showDialog(
@@ -245,7 +96,8 @@ class _MyDrawer extends StatelessWidget {
                                           Navigator.of(context).pop();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.teal[900]),
+                                            primary: const Color.fromARGB(
+                                                255, 0, 51, 54)),
                                         child: const Text('Nie'),
                                       ),
                                       ElevatedButton(
@@ -254,7 +106,8 @@ class _MyDrawer extends StatelessWidget {
                                           Navigator.of(context).pop();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.teal[900]),
+                                            primary: const Color.fromARGB(
+                                                255, 0, 51, 54)),
                                         child: const Text('Tak'),
                                       ),
                                     ],
@@ -264,11 +117,19 @@ class _MyDrawer extends StatelessWidget {
                         },
                         child: Row(
                           children: const [
-                            Icon(Icons.logout),
+                            Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
                             SizedBox(
                               width: 4,
                             ),
-                            Text('Wyloguj')
+                            Text(
+                              'Wyloguj',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
                           ],
                         ),
                       )

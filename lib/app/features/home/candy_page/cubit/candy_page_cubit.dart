@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/model/candy_document_model.dart';
 import 'package:moja_lodowka/app/features/home/candy_page/repository/candy_documents_repository.dart';
 
@@ -10,8 +11,7 @@ part 'candy_page_state.dart';
 class CandyPageCubit extends Cubit<CandyPageState> {
   CandyPageCubit(this._documentsRepository)
       : super(const CandyPageState(
-          documents: [],
-        ));
+            documents: [], status: Status.initial, errorMessage: ''));
   final CandyDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
@@ -25,10 +25,26 @@ class CandyPageCubit extends Cubit<CandyPageState> {
   }
 
   Future<void> start() async {
+    emit(
+      const CandyPageState(
+          documents: [], status: Status.loading, errorMessage: ''),
+    );
     _streamSubscription =
         _documentsRepository.getDocumentsStream().listen((documents) {
-      emit(CandyPageState(documents: documents));
-    });
+      emit(CandyPageState(
+          documents: documents,
+          status: Status.success,
+          errorMessage: ''));
+    })
+          ..onError((error) {
+            emit(
+              CandyPageState(
+                documents: const [],
+                status: Status.error,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   @override
