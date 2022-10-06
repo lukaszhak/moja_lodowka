@@ -154,7 +154,7 @@ class CandyPage extends StatelessWidget {
                   if (state.documents.isEmpty) {
                     return const Center(
                       child: Text(
-                        'Brak dokumentów do wyświetlenia',
+                        'Brak produktów do wyświetlenia',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
