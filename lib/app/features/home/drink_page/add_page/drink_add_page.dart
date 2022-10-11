@@ -22,7 +22,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 245, 112, 3),
+              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               title: const Text('Dodaj Produkt'),
               actions: [
                 IconButton(
@@ -98,14 +98,16 @@ class _AddPageBody extends StatelessWidget {
                   builder: (context, child) {
                     return Theme(
                         data: Theme.of(context).copyWith(
-                            colorScheme: const ColorScheme.light(
-                                primary: Color.fromARGB(255, 245, 112, 3))),
+                          colorScheme: const ColorScheme.light(
+                            primary: Color.fromARGB(255, 0, 51, 54),
+                          ),
+                        ),
                         child: child!);
                   });
               onDateChanged(selectedDate);
             },
             style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 245, 112, 3)),
+                primary: const Color.fromARGB(255, 0, 51, 54)),
             child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'))
       ],
     );

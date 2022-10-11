@@ -141,11 +141,15 @@ class _MyDrawer extends StatelessWidget {
                     Icon(
                       CustomIcons.pills,
                       color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 9,
+                      width: 13,
                     ),
-                    Text('Leki'),
+                    Text(
+                      'Leki',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -159,12 +163,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       Icons.local_bar,
-                      color: Color.fromARGB(255, 245, 112, 3),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 12,
                     ),
-                    Text('Napoje'),
+                    Text(
+                      'Napoje',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -178,12 +186,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       Icons.access_time,
-                      color: Color.fromARGB(255, 126, 68, 1),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 12,
                     ),
-                    Text('Produkty długoterminowe'),
+                    Text(
+                      'Produkty długoterminowe',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -197,12 +209,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       Icons.kitchen,
-                      color: Color.fromARGB(255, 3, 7, 248),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 12,
                     ),
-                    Text('Produkty lodówkowe')
+                    Text(
+                      'Produkty lodówkowe',
+                      style: TextStyle(fontSize: 18),
+                    )
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -216,12 +232,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       CustomIcons.candy_cane,
-                      color: Color.fromARGB(255, 245, 3, 3),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 12,
                     ),
-                    Text('Słodycze'),
+                    Text(
+                      'Słodycze',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -235,12 +255,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       Icons.view_list,
-                      color: Color.fromARGB(255, 1, 107, 17),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 4,
+                      width: 12,
                     ),
-                    Text('Lista zakupów'),
+                    Text(
+                      'Lista zakupów',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -254,12 +278,16 @@ class _MyDrawer extends StatelessWidget {
                   title: Row(children: const [
                     Icon(
                       Icons.restaurant,
-                      color: Color.fromARGB(255, 108, 3, 247),
+                      color: Colors.black,
+                      size: 35,
                     ),
                     SizedBox(
-                      width: 3,
+                      width: 12,
                     ),
-                    Text('Przepisy kulinarne'),
+                    Text(
+                      'Przepisy kulinarne',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ]),
                   onTap: () {
                     Navigator.of(context).push(
@@ -275,11 +303,15 @@ class _MyDrawer extends StatelessWidget {
                       Icon(
                         Icons.sunny,
                         color: Colors.black,
+                        size: 35,
                       ),
                       SizedBox(
-                        width: 3,
+                        width: 12,
                       ),
-                      Text('Sprawdź pogodę'),
+                      Text(
+                        'Sprawdź pogodę',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ],
                   ),
                   onTap: () {

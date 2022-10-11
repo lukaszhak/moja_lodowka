@@ -31,7 +31,7 @@ class WeatherPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 50,
-              backgroundColor: const Color.fromARGB(255, 0, 54, 58),
+              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               title: const Text('Sprawdź dzisiejszą pogodę'),
             ),
             body: Center(child: Builder(builder: (context) {
@@ -169,7 +169,7 @@ class _SearchWidget extends StatelessWidget {
           ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 0, 54, 58),
+                primary: const Color.fromARGB(255, 0, 51, 54),
               ),
               onPressed: () {
                 context
