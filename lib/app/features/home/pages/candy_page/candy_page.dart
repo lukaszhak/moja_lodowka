@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/app/features/home/pages/candy_page/add_page/candy_add_page.dart';
+import 'package:moja_lodowka/app/features/home/pages/candy_page/candy_add_page/candy_add_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/model/candy_document_model.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/repository/candy_documents_repository.dart';

@@ -235,7 +235,7 @@ class _MyDrawer extends StatelessWidget {
                 ListTile(
                   title: Row(children: const [
                     Icon(
-                      CustomIcons.candy_cane,
+                      CustomIcons.candyCane,
                       color: Colors.black,
                       size: 35,
                     ),

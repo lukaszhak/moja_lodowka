@@ -27,6 +27,6 @@ class CustomIcons {
 
   static const IconData pills =
       IconData(0xf484, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData candy_cane =
+  static const IconData candyCane =
       IconData(0xf786, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
