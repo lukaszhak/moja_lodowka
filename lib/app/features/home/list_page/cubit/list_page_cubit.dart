@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/list_page/model/list_document_model.dart';
 import 'package:moja_lodowka/app/features/home/list_page/repository/list_documents_repository.dart';
 
@@ -11,8 +12,7 @@ class ListPageCubit extends Cubit<ListPageState> {
   ListPageCubit(this._documentsRepository)
       : super(
           const ListPageState(
-            documents: [],
-          ),
+              documents: [], status: Status.initial, errorMessage: ''),
         );
 
   final ListDocumentsRepository _documentsRepository;
@@ -30,16 +30,23 @@ class ListPageCubit extends Cubit<ListPageState> {
   Future<void> start() async {
     emit(
       const ListPageState(
-        documents: [],
-      ),
+          documents: [], status: Status.loading, errorMessage: ''),
     );
 
     _streamSubscription =
         _documentsRepository.getDocumentsStream().listen((documents) {
       emit(ListPageState(
-        documents: documents,
-      ));
-    });
+          documents: documents, status: Status.success, errorMessage: ''));
+    })
+          ..onError((error) {
+            emit(
+              ListPageState(
+                documents: const [],
+                status: Status.error,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   @override

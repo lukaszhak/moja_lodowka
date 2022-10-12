@@ -23,7 +23,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Dodaj Lek'),
-              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
                   onPressed: _title == null || _expDate == null
@@ -97,14 +97,14 @@ class _DrugPageBody extends StatelessWidget {
                   return Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: const ColorScheme.light(
-                        primary: Color.fromARGB(255, 0, 0, 0),
+                        primary: Color.fromARGB(255, 0, 51, 54),
                       )),
                       child: child!);
                 });
             onDateChanged(selectedDate);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromARGB(255, 0, 0, 0),
+            primary: const Color.fromARGB(255, 0, 51, 54),
           ),
           child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'),
         ),

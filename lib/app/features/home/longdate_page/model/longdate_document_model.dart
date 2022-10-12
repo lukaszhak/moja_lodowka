@@ -12,6 +12,21 @@ class LongDateDocumentModel {
   final DateTime expDate;
 
   String expDateFormated() {
-    return DateFormat.yMMMd().format(expDate);
+    return DateFormat.yMd().format(expDate);
+  }
+  String daysLeft() {
+    return expDate.difference(DateTime.now()).inDays.toString();
+  }
+
+  String closeCall() {
+    return 7.toString();
+  }
+
+  String nearlyOutDate() {
+    return 3.toString();
+  }
+
+  String outDated() {
+    return 0.toString();
   }
 }

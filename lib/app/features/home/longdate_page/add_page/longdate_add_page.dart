@@ -23,7 +23,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Dodaj Produkt'),
-              backgroundColor: const Color.fromARGB(255, 126, 68, 1),
+              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
                   onPressed: _title == null || _expDate == null
@@ -100,7 +100,7 @@ class _AddPageBody extends StatelessWidget {
                   return Theme(
                     data: Theme.of(context).copyWith(
                       colorScheme: const ColorScheme.light(
-                          primary: Color.fromARGB(255, 126, 68, 1)),
+                          primary: Color.fromARGB(255, 0, 51, 54)),
                     ),
                     child: child!,
                   );
@@ -108,7 +108,7 @@ class _AddPageBody extends StatelessWidget {
             onDateChanged(selectedDate);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromARGB(255, 126, 68, 1),
+            primary: const Color.fromARGB(255, 0, 51, 54),
           ),
           child: Text(selectedDateFormated ?? 'Wybierz datę ważności'),
         )

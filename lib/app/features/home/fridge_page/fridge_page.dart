@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/add_page/fridge_add_page.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/cubit/fridge_page_cubit.dart';
 import 'package:moja_lodowka/app/features/home/fridge_page/model/fridge_document_model.dart';
@@ -16,7 +17,7 @@ class FridgePage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 50,
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 3, 28, 245),
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         title: const Text(
           'Produkty Lodówkowe',
           style: TextStyle(
@@ -24,12 +25,85 @@ class FridgePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Column(
+                          children: const [
+                            Text('Legenda'),
+                            Divider(
+                              color: Colors.black,
+                            )
+                          ],
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 13,
+                                  height: 13,
+                                  decoration:
+                                      const BoxDecoration(color: Colors.black),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Text('Produkt przeterminowany')
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 13,
+                                  height: 13,
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 0, 0)),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Text('7 dni do końca daty ważności')
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 13,
+                                  height: 13,
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 148, 0, 0),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Text('3 dni do końca daty ważności')
+                              ],
+                            ),
+                          ],
+                        ),
+                      ));
+            },
+            icon: const Icon(Icons.info_outline),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 3, 28, 245),
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const FridgeAddPage()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const FridgeAddPage()));
         },
         child: const Icon(
           Icons.add,
@@ -45,25 +119,82 @@ class FridgePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => FridgePageCubit(FridgeDocumentsRepository())..start(),
+          create: (context) =>
+              FridgePageCubit(FridgeDocumentsRepository())..start(),
           child: BlocBuilder<FridgePageCubit, FridgePageState>(
             builder: (context, state) {
               final documentModels = state.documents;
-              return ListView(
-                children: [
-                  const SizedBox(height: 10),
-                  for (final documentModel in documentModels) ...[
-                    Dismissible(
-                        key: ValueKey(documentModel.id),
-                        onDismissed: (_) {
-                          context
-                              .read<FridgePageCubit>()
-                              .delete(document: documentModel.id);
-                        },
-                        child: _FridgePageItem(documentModel: documentModel)),
-                  ],
-                ],
-              );
+              switch (state.status) {
+                case Status.initial:
+                  return const Center(
+                    child: Text('Initial Status'),
+                  );
+                case Status.loading:
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(
+                          color: Color.fromARGB(255, 0, 37, 2),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          'Ładowanie dokumentów',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                case Status.success:
+                  if (state.documents.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'Brak produktów do wyświetlenia',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    );
+                  }
+                  return ListView(
+                    children: [
+                      const SizedBox(height: 10),
+                      for (final documentModel in documentModels) ...[
+                        Dismissible(
+                            key: ValueKey(documentModel.id),
+                            onDismissed: (_) {
+                              context
+                                  .read<FridgePageCubit>()
+                                  .delete(document: documentModel.id)
+                                  .whenComplete(
+                                    () => ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 0, 51, 54),
+                                        content: Text('Pomyślnie usunięto'),
+                                        duration: Duration(seconds: 1),
+                                      ),
+                                    ),
+                                  );
+                            },
+                            child:
+                                _FridgePageItem(documentModel: documentModel)),
+                      ],
+                    ],
+                  );
+                case Status.error:
+                  return Center(
+                    child: Text(
+                      state.errorMessage!,
+                      style: TextStyle(
+                        color: Theme.of(context).errorColor,
+                      ),
+                    ),
+                  );
+              }
             },
           ),
         ),
@@ -82,8 +213,42 @@ class _FridgePageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (documentModel.daysLeft() == documentModel.closeCall()) {
+      return _ItemContainer(
+        documentModel: documentModel,
+        color: const Color.fromARGB(255, 255, 0, 0),
+      );
+    }
+    if (documentModel.daysLeft() == documentModel.nearlyOutDate()) {
+      return _ItemContainer(
+        documentModel: documentModel,
+        color: const Color.fromARGB(255, 148, 0, 0),
+      );
+    }
+    if (documentModel.daysLeft() == documentModel.outDated()) {
+      return _ItemContainer(documentModel: documentModel, color: Colors.black);
+    }
+    return _ItemContainer(
+      documentModel: documentModel,
+      color: const Color.fromARGB(255, 0, 51, 54),
+    );
+  }
+}
+
+class _ItemContainer extends StatelessWidget {
+  const _ItemContainer({
+    Key? key,
+    required this.documentModel,
+    required this.color
+  }) : super(key: key);
+
+  final FridgeDocumentModel documentModel;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 3, 28, 245),
+      color: color,
       padding: const EdgeInsets.all(18),
       margin: const EdgeInsets.all(15),
       child: Row(

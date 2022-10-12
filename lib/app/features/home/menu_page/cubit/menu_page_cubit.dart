@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/model/menu_document_model.dart';
 import 'package:moja_lodowka/app/features/home/menu_page/repository/menu_documents_repository.dart';
 
@@ -11,8 +12,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   MenuPageCubit(this._documentsRepository)
       : super(
           const MenuPageState(
-            documents: [],
-          ),
+              documents: [], status: Status.initial, errorMessage: ''),
         );
 
   final MenuDocumentsRepository _documentsRepository;
@@ -35,16 +35,23 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   Future<void> start() async {
     emit(
       const MenuPageState(
-        documents: [],
-      ),
+          documents: [], status: Status.loading, errorMessage: ''),
     );
 
     _streamSubscription =
         _documentsRepository.getDocumentsStream().listen((documents) {
       emit(MenuPageState(
-        documents: documents,
-      ));
-    });
+          documents: documents, status: Status.success, errorMessage: ''));
+    })
+          ..onError((error) {
+            emit(
+              MenuPageState(
+                documents: const [],
+                status: Status.error,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   @override

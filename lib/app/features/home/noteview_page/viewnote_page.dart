@@ -30,7 +30,7 @@ class _NoteViewState extends State<ViewNote> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: const Color.fromARGB(255, 108, 3, 247),
+        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       ),
       body: Builder(
         builder: (context) {
