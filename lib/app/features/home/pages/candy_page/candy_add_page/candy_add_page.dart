@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/candy_page/data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/repository/candy_documents_repository.dart';
 
 class CandyAddPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CandyPageCubit(CandyDocumentsRepository()),
+      create: (context) => CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource())),
       child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
           return Scaffold(

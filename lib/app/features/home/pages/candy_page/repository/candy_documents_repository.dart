@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moja_lodowka/app/features/home/pages/candy_page/data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/model/candy_document_model.dart';
 
 class CandyDocumentsRepository {
+  final CandyRemoteDataSource _candyRemoteDataSource;
+
+  CandyDocumentsRepository(this._candyRemoteDataSource);
+
   Stream<List<CandyDocumentModel>> getDocumentsStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('slodycze')
-        .orderBy('title')
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map((doc) {
+    return _candyRemoteDataSource.getDocumentsData().map((querysnapshot) {
+      return querysnapshot.docs.map((doc) {
         return CandyDocumentModel(
             id: doc.id,
             title: doc['title'],
