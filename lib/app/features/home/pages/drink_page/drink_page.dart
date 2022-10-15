@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/drink_page/data_source/drink_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/drink_add_page/drink_add_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/model/drink_document_model.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/repository/drink_documents_repository.dart';
@@ -121,7 +122,7 @@ class DrinkPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              DrinkPageCubit(DrinkDocumentsRepository())..start(),
+              DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource()))..start(),
           child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
             builder: (context, state) {
               final documentModels = state.documents;

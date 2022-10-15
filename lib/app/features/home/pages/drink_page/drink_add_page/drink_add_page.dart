@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/drink_page/data_source/drink_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/repository/drink_documents_repository.dart';
 
 class DrinkAddPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DrinkPageCubit(DrinkDocumentsRepository()),
+      create: (context) => DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource())),
       child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
         builder: (context, state) {
           return Scaffold(
