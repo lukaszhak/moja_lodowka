@@ -123,7 +123,8 @@ class CandyPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource()))..start(),
+              CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource()))
+                ..start(),
           child: BlocBuilder<CandyPageCubit, CandyPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -218,20 +219,14 @@ class _CandyPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (documentModel.daysLeft() == documentModel.closeCall()) {
+    if (documentModel.daysToExpire() <= documentModel.outDated()) {
+      return _ItemContainer(documentModel: documentModel, color: Colors.black);
+    }
+    if (documentModel.daysToExpire() <= documentModel.closeCall()) {
       return _ItemContainer(
         documentModel: documentModel,
         color: const Color.fromARGB(255, 255, 0, 0),
       );
-    }
-    if (documentModel.daysLeft() == documentModel.nearlyOutDate()) {
-      return _ItemContainer(
-        documentModel: documentModel,
-        color: const Color.fromARGB(255, 148, 0, 0),
-      );
-    }
-    if (documentModel.daysLeft() == documentModel.outDated()) {
-      return _ItemContainer(documentModel: documentModel, color: Colors.black);
     }
     return _ItemContainer(
       documentModel: documentModel,

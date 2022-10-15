@@ -29,7 +29,7 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
         documents: [], status: Status.loading, errorMessage: ''));
 
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getDrinksDocuments().listen((documents) {
       emit(DrinkPageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })

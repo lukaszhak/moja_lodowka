@@ -7,7 +7,7 @@ class DrinkDocumentsRepository {
 
   DrinkDocumentsRepository(this._drinkRemoteDataSource);
 
-  Stream<List<DrinkDocumentModel>> getDocumentsStream() {
+  Stream<List<DrinkDocumentModel>> getDrinksDocuments() {
     return _drinkRemoteDataSource.getDrinksData().map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
         return DrinkDocumentModel(
