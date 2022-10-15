@@ -4,7 +4,7 @@ class WeatherDataSource {
   Future<Map<String, dynamic>?> getWeatherData({required String city}) async {
     try {
       final response = await Dio().get<Map<String, dynamic>>(
-          'http://api.weatherapi.com/v1/current.json?key=67f1bdd89b1e487b8b6164908220110&q=$city&aqi=no');
+          'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$city?unitGroup=metric&key=WCPLFA6FEK4E4CY7CCDRVBLAL&contentType=json');
       return response.data;
     } on DioError catch (error) {
       throw Exception(

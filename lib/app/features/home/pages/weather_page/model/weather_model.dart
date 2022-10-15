@@ -9,7 +9,7 @@ class WeatherModel {
   final String condition;
 
   WeatherModel.fromJson(Map<String, dynamic> json)
-      : temperature = json['current']['temp_c'] + 0.0,
-        city = json['location']['name'],
-        condition = json['current']['condition']['text'];
+      : temperature = json['days'][0]['temp'] + 0.0,
+        city = json['address'],
+        condition = json['days'][0]['conditions'];
 }

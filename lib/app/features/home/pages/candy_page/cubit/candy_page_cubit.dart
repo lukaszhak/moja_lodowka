@@ -30,7 +30,7 @@ class CandyPageCubit extends Cubit<CandyPageState> {
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getCandysDocuments().listen((documents) {
       emit(CandyPageState(
           documents: documents,
           status: Status.success,
