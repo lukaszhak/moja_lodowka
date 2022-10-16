@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/cubit/fridge_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/fridge_page/data_source/fridge_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/fridge_add_page/fridge_add_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/model/fridge_document_model.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/repository/fridge_documents_repository.dart';
@@ -73,24 +74,6 @@ class FridgePage extends StatelessWidget {
                                 const Text('7 dni do końca daty ważności')
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 148, 0, 0),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('3 dni do końca daty ważności')
-                              ],
-                            ),
                           ],
                         ),
                       ));
@@ -119,8 +102,9 @@ class FridgePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>
-              FridgePageCubit(FridgeDocumentsRepository())..start(),
+          create: (context) => FridgePageCubit(
+              FridgeDocumentsRepository(FridgeRemoteDataSource()))
+            ..start(),
           child: BlocBuilder<FridgePageCubit, FridgePageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -141,7 +125,7 @@ class FridgePage extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie dokumentów',
+                          'Trwa ładowanie',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -213,20 +197,17 @@ class _FridgePageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (documentModel.daysLeft() == documentModel.closeCall()) {
+    if (documentModel.daysToExpire() <= documentModel.outDated()) {
+      return _ItemContainer(
+        documentModel: documentModel,
+        color: Colors.black,
+      );
+    }
+    if (documentModel.daysToExpire() <= documentModel.closeCall()) {
       return _ItemContainer(
         documentModel: documentModel,
         color: const Color.fromARGB(255, 255, 0, 0),
       );
-    }
-    if (documentModel.daysLeft() == documentModel.nearlyOutDate()) {
-      return _ItemContainer(
-        documentModel: documentModel,
-        color: const Color.fromARGB(255, 148, 0, 0),
-      );
-    }
-    if (documentModel.daysLeft() == documentModel.outDated()) {
-      return _ItemContainer(documentModel: documentModel, color: Colors.black);
     }
     return _ItemContainer(
       documentModel: documentModel,
@@ -236,11 +217,9 @@ class _FridgePageItem extends StatelessWidget {
 }
 
 class _ItemContainer extends StatelessWidget {
-  const _ItemContainer({
-    Key? key,
-    required this.documentModel,
-    required this.color
-  }) : super(key: key);
+  const _ItemContainer(
+      {Key? key, required this.documentModel, required this.color})
+      : super(key: key);
 
   final FridgeDocumentModel documentModel;
   final Color color;

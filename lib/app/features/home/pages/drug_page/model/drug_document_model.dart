@@ -15,19 +15,15 @@ class DrugDocumentModel {
     return DateFormat.yM().format(expDate);
   }
 
-  String daysLeft() {
-    return expDate.difference(DateTime.now()).inDays.toString();
+  int daysToExpire() {
+    return expDate.difference(DateTime.now()).inDays;
   }
 
-  String closeCall() {
-    return 7.toString();
+  int closeCall() {
+    return (30);
   }
 
-  String nearlyOutDate() {
-    return 3.toString();
-  }
-
-  String outDated() {
-    return 0.toString();
+  int outDated() {
+    return (0);
   }
 }

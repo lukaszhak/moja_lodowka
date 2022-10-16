@@ -34,7 +34,7 @@ class ListPageCubit extends Cubit<ListPageState> {
     );
 
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getShopListDocuments().listen((documents) {
       emit(ListPageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })

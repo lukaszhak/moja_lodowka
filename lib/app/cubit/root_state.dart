@@ -2,7 +2,7 @@ part of 'root_cubit.dart';
 
 @immutable
 class RootState {
-  final User? user;
+  final UserModel? user;
   final bool isLoading;
   final String errorMessage;
 

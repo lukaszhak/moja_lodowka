@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/home_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/menu_page/data_source/menu_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/menu_page/repository/menu_documents_repository.dart';
 import 'package:moja_lodowka/app/features/home/pages/noteview_page/viewnote_page.dart';
 
@@ -34,7 +35,7 @@ class MenuPage extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => BlocProvider(
-              create: (context) => MenuPageCubit(MenuDocumentsRepository()),
+              create: (context) => MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource())),
               child: BlocBuilder<MenuPageCubit, MenuPageState>(
                 builder: (context, state) {
                   return AlertDialog(
@@ -91,7 +92,7 @@ class MenuPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              MenuPageCubit(MenuDocumentsRepository())..start(),
+              MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource()))..start(),
           child: BlocBuilder<MenuPageCubit, MenuPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -112,7 +113,7 @@ class MenuPage extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie dokumentów',
+                          'Trwa ładowanie',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

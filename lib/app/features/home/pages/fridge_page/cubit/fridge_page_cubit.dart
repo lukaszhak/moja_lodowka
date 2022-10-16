@@ -31,7 +31,7 @@ class FridgePageCubit extends Cubit<FridgePageState> {
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getFridgeDocuments().listen((documents) {
       emit(FridgePageState(
           documents: documents, status: Status.success, errorMessage: ''),);
     })

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/home_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/list_page/cubit/list_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/list_page/data_source/list_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/list_page/repository/list_documents_repository.dart';
 class ListPage extends StatelessWidget {
   ListPage({
@@ -33,7 +34,7 @@ class ListPage extends StatelessWidget {
             context: context,
             builder: (context) {
               return BlocProvider(
-                create: (context) => ListPageCubit(ListDocumentsRepository()),
+                create: (context) => ListPageCubit(ListDocumentsRepository(ListRemoteDataSource())),
                 child: BlocBuilder<ListPageCubit, ListPageState>(
                   builder: (context, state) {
                     return AlertDialog(
@@ -89,7 +90,7 @@ class ListPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              ListPageCubit(ListDocumentsRepository())..start(),
+              ListPageCubit(ListDocumentsRepository(ListRemoteDataSource()))..start(),
           child: BlocBuilder<ListPageCubit, ListPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -110,7 +111,7 @@ class ListPage extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie dokumentów',
+                          'Trwa ładowanie',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/features/home/pages/drug_page/cubit/drug_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/drug_page/data_source/drug_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/drug_page/drug_add_page/drug_add_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/drug_page/model/drug_document_model.dart';
 import 'package:moja_lodowka/app/features/home/pages/drug_page/repository/drug_documents_repository.dart';
@@ -29,71 +30,54 @@ class DrugPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Column(
-                          children: const [
-                            Text('Legenda'),
-                            Divider(
-                              color: Colors.black,
-                            )
-                          ],
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration:
-                                      const BoxDecoration(color: Colors.black),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('Lek przeterminowany')
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 255, 0, 0)),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('7 dni do końca daty ważności')
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 148, 0, 0),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('3 dni do końca daty ważności')
-                              ],
-                            ),
-                          ],
-                        ),
-                      ));
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Column(
+                    children: const [
+                      Text('Legenda'),
+                      Divider(
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 13,
+                            height: 13,
+                            decoration:
+                                const BoxDecoration(color: Colors.black),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const Text('Lek przeterminowany')
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 13,
+                            height: 13,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 255, 0, 0)),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const Text('30 dni do końca daty ważności')
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.info_outline),
           ),
@@ -122,7 +106,8 @@ class DrugPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              DrugPageCubit(DrugDocumentsRepository())..start(),
+              DrugPageCubit(DrugDocumentsRepository(DrugRemoteDataSource()))
+                ..start(),
           child: BlocBuilder<DrugPageCubit, DrugPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -143,7 +128,7 @@ class DrugPage extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie dokumentów',
+                          'Trwa ładowanie',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -216,20 +201,14 @@ class _DrugPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (documentModel.daysLeft() == documentModel.closeCall()) {
+    if (documentModel.daysToExpire() <= documentModel.outDated()) {
+      return _ItemContainer(documentModel: documentModel, color: Colors.black);
+    }
+    if (documentModel.daysToExpire() <= documentModel.closeCall()) {
       return _ItemContainer(
         documentModel: documentModel,
         color: const Color.fromARGB(255, 255, 0, 0),
       );
-    }
-    if (documentModel.daysLeft() == documentModel.nearlyOutDate()) {
-      return _ItemContainer(
-        documentModel: documentModel,
-        color: const Color.fromARGB(255, 148, 0, 0),
-      );
-    }
-    if (documentModel.daysLeft() == documentModel.outDated()) {
-      return _ItemContainer(documentModel: documentModel, color: Colors.black);
     }
     return _ItemContainer(
       documentModel: documentModel,

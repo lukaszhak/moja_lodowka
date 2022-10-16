@@ -33,7 +33,7 @@ class LongdatePageCubit extends Cubit<LongdatePageState> {
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getLongDateDocuments().listen((documents) {
       emit(LongdatePageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })

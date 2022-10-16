@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
-import 'package:moja_lodowka/app/cubit/root_repository/root_repository.dart';
+import 'package:moja_lodowka/app/data_source/root_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/candy_page/candy_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/drink_page/drink_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/drug_page/drug_page.dart';
@@ -12,11 +11,13 @@ import 'package:moja_lodowka/app/features/home/pages/longdate_page/longdate_page
 import 'package:moja_lodowka/app/features/home/pages/menu_page/menu_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/app/features/home/pages/weather_page/weather_page.dart';
+import 'package:moja_lodowka/app/model/user_model.dart';
+import 'package:moja_lodowka/app/root_repository/root_repository.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
-  final User user;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class _MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: BlocProvider(
-        create: (context) => RootCubit(RootRepository()),
+        create: (context) => RootCubit(RootRepository(RootRemoteDataSource())),
         child: BlocBuilder<RootCubit, RootState>(
           builder: (context, state) {
             return ListView(

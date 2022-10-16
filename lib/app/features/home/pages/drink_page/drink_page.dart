@@ -30,71 +30,54 @@ class DrinkPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Column(
-                          children: const [
-                            Text('Legenda'),
-                            Divider(
-                              color: Colors.black,
-                            )
-                          ],
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration:
-                                      const BoxDecoration(color: Colors.black),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('Produkt przeterminowany')
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 255, 0, 0)),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('7 dni do końca daty ważności')
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 13,
-                                  height: 13,
-                                  decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 148, 0, 0),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text('3 dni do końca daty ważności')
-                              ],
-                            ),
-                          ],
-                        ),
-                      ));
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Column(
+                    children: const [
+                      Text('Legenda'),
+                      Divider(
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 13,
+                            height: 13,
+                            decoration:
+                                const BoxDecoration(color: Colors.black),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const Text('Produkt przeterminowany')
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 13,
+                            height: 13,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 255, 0, 0)),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const Text('7 dni do końca daty ważności')
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.info_outline),
           ),
@@ -144,7 +127,7 @@ class DrinkPage extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie dokumentów',
+                          'Trwa ładowanie',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/longdate_page/data_source/longdate_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/longdate_page/repository/longdate_documents_repository.dart';
 
 class LongDateAddPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LongdatePageCubit(LongDateDocumentsRepository()),
+      create: (context) => LongdatePageCubit(LongDateDocumentsRepository(LongDateRemoteDataSource())),
       child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
         builder: (context, state) {
           return Scaffold(

@@ -39,7 +39,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
     );
 
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getMenuDocuments().listen((documents) {
       emit(MenuPageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })

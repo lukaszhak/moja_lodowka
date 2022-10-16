@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
-import 'package:moja_lodowka/app/cubit/root_repository/root_repository.dart';
+import 'package:moja_lodowka/app/data_source/root_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/home_page.dart';
 import 'package:moja_lodowka/app/features/login/login_page/login_page.dart';
+import 'package:moja_lodowka/app/root_repository/root_repository.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(RootRepository())..start(),
+      create: (context) => RootCubit(RootRepository(RootRemoteDataSource()))..start(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

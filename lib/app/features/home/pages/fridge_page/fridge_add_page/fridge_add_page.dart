@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/cubit/fridge_page_cubit.dart';
+import 'package:moja_lodowka/app/features/home/pages/fridge_page/data_source/fridge_remote_data_source.dart';
 import 'package:moja_lodowka/app/features/home/pages/fridge_page/repository/fridge_documents_repository.dart';
 
 class FridgeAddPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FridgePageCubit(FridgeDocumentsRepository()),
+      create: (context) => FridgePageCubit(FridgeDocumentsRepository(FridgeRemoteDataSource())),
       child: BlocBuilder<FridgePageCubit, FridgePageState>(
         builder: (context, state) {
           return Scaffold(

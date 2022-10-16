@@ -33,7 +33,7 @@ class DrugPageCubit extends Cubit<DrugPageState> {
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
-        _documentsRepository.getDocumentsStream().listen((documents) {
+        _documentsRepository.getDrugsDocuments().listen((documents) {
       emit(
         DrugPageState(
             documents: documents, status: Status.success, errorMessage: ''),
