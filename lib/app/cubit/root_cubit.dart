@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:moja_lodowka/app/cubit/root_repository/root_repository.dart';
+import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
+import 'package:moja_lodowka/domain/repositories/root_repository/root_repository.dart';
 
 part 'root_state.dart';
 
@@ -47,8 +47,7 @@ class RootCubit extends Cubit<RootState> {
         errorMessage: '',
       ),
     );
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    _streamSubscription = _rootRepository.getUser().listen((user) {
       emit(
         RootState(
           user: user,
