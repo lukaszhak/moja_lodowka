@@ -151,10 +151,7 @@ class MenuPage extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => ViewNote(
-                                  documentModel.title,
-                                  documentModel.content,
-                                  documentModel.document),
+                              builder: (_) => ViewNote(documentModel:documentModel),
                             ),
                           );
                         },

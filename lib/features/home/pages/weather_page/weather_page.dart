@@ -36,32 +36,50 @@ class WeatherPage extends StatelessWidget {
             ),
             body: Center(child: Builder(builder: (context) {
               if (state.status == Status.loading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Ładowanie, proszę czekać',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                return Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      opacity: 0.6,
+                      image: AssetImage('images/weather.jpg'),
+                    ),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Ładowanie, proszę czekać',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  if (weatherModel != null)
-                    _DisplayWeatherWidget(
-                      weatherModel: weatherModel,
-                    ),
-                  _SearchWidget(),
-                ],
+              return Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    opacity: 0.6,
+                    image: AssetImage('images/weather.jpg'),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (weatherModel != null)
+                      _DisplayWeatherWidget(
+                        weatherModel: weatherModel,
+                      ),
+                    _SearchWidget(),
+                  ],
+                ),
               );
             })),
           );
@@ -83,59 +101,67 @@ class _DisplayWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherPageCubit, WeatherPageState>(
       builder: (context, state) {
-        return Column(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  'Wybrane Miasto:',
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Wybrane Miasto',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 40,
                 ),
                 Text(
-                  weatherModel.city,
-                  style: const TextStyle(fontSize: 22),
+                  'Temperatura',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  'Warunki Pogodowe',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                )
               ],
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Column(
               children: [
-                const Text(
-                  'Temperatura:',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                Text(
+                  weatherModel.city,
+                  style: const TextStyle(
+                    fontSize: 22,
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
                 ),
                 Row(
                   children: [
-                    Text(weatherModel.temperature.toString(),
-                        style: const TextStyle(fontSize: 22)),
-                    const SizedBox(
-                      width: 5,
+                    Text(
+                      weatherModel.temperature.toString(),
+                      style: const TextStyle(
+                        fontSize: 22,
+                      ),
                     ),
                     const Text(
                       '°C',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 22,
+                      ),
                     )
                   ],
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  'Warunki pogodowe:',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                const SizedBox(
+                  height: 40,
                 ),
                 Text(
                   weatherModel.condition,
-                  style: const TextStyle(fontSize: 22),
+                  style: const TextStyle(
+                    fontSize: 22,
+                  ),
                 ),
               ],
             ),
@@ -164,7 +190,8 @@ class _SearchWidget extends StatelessWidget {
               controller: _controller,
               decoration: const InputDecoration(
                   hintText: 'Miasto',
-                  border: OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(0)))),
             ),
           ),

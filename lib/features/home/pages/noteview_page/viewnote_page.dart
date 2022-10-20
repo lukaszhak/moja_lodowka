@@ -1,41 +1,33 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/noteedit_page/noteedit_page.dart';
+
 class ViewNote extends StatefulWidget {
-  const ViewNote(
-    this.title,
-    this.content,
-    this.document, {
+  const ViewNote( {
+      required this.documentModel,
     Key? key,
   }) : super(key: key);
-  final String title;
-  final String content;
-  final QueryDocumentSnapshot document;
+
+  final MenuDocumentModel documentModel;
+
   @override
   State<ViewNote> createState() => _NoteViewState();
 }
 
 class _NoteViewState extends State<ViewNote> {
-  TextEditingController controller = TextEditingController();
   var currentIndex = 0;
-  @override
-  void initState() {
-    controller = TextEditingController(text: widget.content);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.documentModel.title),
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       ),
       body: Builder(
         builder: (context) {
           if (currentIndex == 1) {
-            return EditNote(
-              widget.content,
+            return EditNote(documentModel: widget.documentModel,
               onSave: () {
                 setState(
                   () {
@@ -43,14 +35,13 @@ class _NoteViewState extends State<ViewNote> {
                   },
                 );
               },
-              document: widget.document,
             );
           }
           return ListView(
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(widget.content),
+                child: Text(widget.documentModel.content),
               ),
             ],
           );

@@ -6,9 +6,8 @@ class MenuPageState {
   final Status status;
   final String? errorMessage;
 
-  const MenuPageState({
-    required this.documents,
-    required this.status,
-    required this.errorMessage
-  });
+  const MenuPageState(
+      {required this.documents,
+      required this.status,
+      required this.errorMessage,});
 }
