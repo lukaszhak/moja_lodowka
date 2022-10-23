@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/longdate_document_model/longdate_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/longdate_documents_repository.dart';
@@ -9,6 +10,7 @@ import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/l
 part 'longdate_page_state.dart';
 part 'longdate_page_cubit.freezed.dart';
 
+@injectable 
 class LongDatePageCubit extends Cubit<LongDatePageState> {
   LongDatePageCubit(this._documentsRepository)
       : super(

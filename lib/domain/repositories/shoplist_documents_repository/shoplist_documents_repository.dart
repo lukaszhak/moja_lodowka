@@ -1,10 +1,9 @@
-
-
-
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/shoplist_remote_data_source/shoplist_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 
 
+@injectable 
 class ShopListDocumentsRepository {
   final ShopListRemoteDataSource _listRemoteDataSource;
 

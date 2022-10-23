@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/drug_remote_data_source/drug_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/drug_document_model/drug_document_model.dart';
 
+@injectable 
 class DrugDocumentsRepository {
   final DrugRemoteDataSource _drugRemoteDataSource;
 

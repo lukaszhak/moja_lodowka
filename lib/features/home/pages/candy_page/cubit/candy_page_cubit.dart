@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
@@ -9,6 +10,7 @@ import 'package:moja_lodowka/domain/repositories/candy_documents_repository/cand
 part 'candy_page_state.dart';
 part 'candy_page_cubit.freezed.dart';
 
+@injectable 
 class CandyPageCubit extends Cubit<CandyPageState> {
   CandyPageCubit(this._documentsRepository)
       : super(CandyPageState(

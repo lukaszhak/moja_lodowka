@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'weather_remote_data_source.g.dart';
 
+@injectable 
 @RestApi()
 abstract class WeatherRemoteRetrofitDataSource {
+  @factoryMethod
   factory WeatherRemoteRetrofitDataSource(
     Dio dio,
   ) = _WeatherRemoteRetrofitDataSource;

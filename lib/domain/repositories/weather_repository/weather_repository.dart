@@ -1,8 +1,8 @@
-
-
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/weather_remote_data_source/weather_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
 
+@injectable 
 class WeatherRepository {
   WeatherRepository(this._weatherDataSource);
   final WeatherRemoteRetrofitDataSource _weatherDataSource;
