@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/weather_remote_data_source/weather_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
-import 'package:moja_lodowka/domain/repositories/weather_repository/weather_repository.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/cubit/weather_page_cubit.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -14,7 +12,7 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          WeatherPageCubit(WeatherRepository(WeatherRemoteRetrofitDataSource(Dio()))),
+          getIt<WeatherPageCubit>(),
       child: BlocConsumer<WeatherPageCubit, WeatherPageState>(
         listener: (context, state) {
           if (state.status == Status.error) {

@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
 import 'package:moja_lodowka/domain/repositories/root_repository/root_repository.dart';
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/shoplist_remote_data_source/shoplist_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/shoplist_documents_repository/shoplist_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 class ShopListPage extends StatelessWidget {
@@ -34,7 +33,7 @@ class ShopListPage extends StatelessWidget {
             context: context,
             builder: (context) {
               return BlocProvider(
-                create: (context) => ShopListPageCubit(ShopListDocumentsRepository(ShopListRemoteDataSource())),
+                create: (context) => getIt<ShopListPageCubit>(),
                 child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
                   builder: (context, state) {
                     return AlertDialog(
@@ -89,8 +88,7 @@ class ShopListPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>
-              ShopListPageCubit(ShopListDocumentsRepository(ShopListRemoteDataSource()))..start(),
+          create: (context) =>getIt<ShopListPageCubit>()..start(),
           child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
             builder: (context, state) {
               final documentModels = state.documents;

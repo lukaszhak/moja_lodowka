@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/drug_remote_data_source/drug_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/drug_document_model/drug_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/drug_documents_repository/drug_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/cubit/drug_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/drug_add_page/drug_add_page.dart';
 
@@ -106,8 +105,7 @@ class DrugPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              DrugPageCubit(DrugDocumentsRepository(DrugRemoteDataSource()))
-                ..start(),
+              getIt<DrugPageCubit>()..start(),
           child: BlocBuilder<DrugPageCubit, DrugPageState>(
             builder: (context, state) {
               final documentModels = state.documents;

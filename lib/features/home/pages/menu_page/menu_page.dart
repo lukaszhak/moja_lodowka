@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/menu_remote_data_source/menu_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/menu_documents_repository/menu_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/noteview_page/viewnote_page.dart';
@@ -35,7 +34,7 @@ class MenuPage extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => BlocProvider(
-              create: (context) => MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource())),
+              create: (context) => getIt<MenuPageCubit>(),
               child: BlocBuilder<MenuPageCubit, MenuPageState>(
                 builder: (context, state) {
                   return AlertDialog(
@@ -92,7 +91,7 @@ class MenuPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource()))..start(),
+          getIt<MenuPageCubit>()..start(),
           child: BlocBuilder<MenuPageCubit, MenuPageState>(
             builder: (context, state) {
               final documentModels = state.documents;

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/fridge_document_model/fridge_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/fridge_documents_repository/fridge_documents_repository.dart';

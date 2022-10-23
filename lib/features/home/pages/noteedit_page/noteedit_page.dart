@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/data/remote_data_sources/menu_remote_data_source/menu_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/menu_documents_repository/menu_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 
 class EditNote extends StatelessWidget {
@@ -17,9 +16,7 @@ class EditNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource()))
-            ..start(),
+      create: (context) =>getIt<MenuPageCubit>(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           final controller = TextEditingController(text: documentModel.content);
