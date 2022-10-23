@@ -5,15 +5,9 @@ import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
 
 class WeatherRepository {
   WeatherRepository(this._weatherDataSource);
-  final WeatherDataSource _weatherDataSource;
+  final WeatherRemoteRetrofitDataSource _weatherDataSource;
 
   Future<WeatherModel?> getWeatherModel({required String city}) async {
-    final json = await _weatherDataSource.getWeatherData(city: city);
-
-    if (json == null) {
-      return null;
-    }
-
-    return WeatherModel.fromJson(json);
+    return _weatherDataSource.getWeatherData(city);
   }
 }
