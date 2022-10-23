@@ -1,16 +1,18 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/fridge_document_model/fridge_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/fridge_documents_repository/fridge_documents_repository.dart';
 
 part 'fridge_page_state.dart';
+part 'fridge_page_cubit.freezed.dart';
 
 class FridgePageCubit extends Cubit<FridgePageState> {
   FridgePageCubit(this._documentsRepository)
-      : super(const FridgePageState(
+      : super( FridgePageState(
             documents: [], status: Status.initial, errorMessage: ''),);
 
   final FridgeDocumentsRepository _documentsRepository;
@@ -27,7 +29,7 @@ class FridgePageCubit extends Cubit<FridgePageState> {
 
   Future<void> start() async {
     emit(
-      const FridgePageState(
+       FridgePageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =

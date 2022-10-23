@@ -7,8 +7,8 @@ import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/l
 import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_add_page/longdate_add_page.dart';
 
-class LongdatePage extends StatelessWidget {
-  const LongdatePage({
+class LongDatePage extends StatelessWidget {
+  const LongDatePage({
     Key? key,
   }) : super(key: key);
 
@@ -104,10 +104,10 @@ class LongdatePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => LongdatePageCubit(
+          create: (context) => LongDatePageCubit(
               LongDateDocumentsRepository(LongDateRemoteDataSource()))
             ..start(),
-          child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
+          child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
             builder: (context, state) {
               final documentModels = state.documents;
               switch (state.status) {
@@ -152,7 +152,7 @@ class LongdatePage extends StatelessWidget {
                             key: ValueKey(documentModel.id),
                             onDismissed: (_) {
                               context
-                                  .read<LongdatePageCubit>()
+                                  .read<LongDatePageCubit>()
                                   .delete(document: documentModel.id)
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)

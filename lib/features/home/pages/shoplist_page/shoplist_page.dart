@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/list_remote_data_source/list_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/list_documents_repository/list_documents_repository.dart';
+import 'package:moja_lodowka/data/remote_data_sources/shoplist_remote_data_source/shoplist_remote_data_source.dart';
+import 'package:moja_lodowka/domain/repositories/shoplist_documents_repository/shoplist_documents_repository.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
-import 'package:moja_lodowka/features/home/pages/list_page/cubit/list_page_cubit.dart';
-class ListPage extends StatelessWidget {
-  ListPage({
+import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
+class ShopListPage extends StatelessWidget {
+  ShopListPage({
     Key? key,
   }) : super(key: key);
 
@@ -34,8 +34,8 @@ class ListPage extends StatelessWidget {
             context: context,
             builder: (context) {
               return BlocProvider(
-                create: (context) => ListPageCubit(ListDocumentsRepository(ListRemoteDataSource())),
-                child: BlocBuilder<ListPageCubit, ListPageState>(
+                create: (context) => ShopListPageCubit(ShopListDocumentsRepository(ShopListRemoteDataSource())),
+                child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
                   builder: (context, state) {
                     return AlertDialog(
                       actions: [
@@ -51,7 +51,7 @@ class ListPage extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             context
-                                .read<ListPageCubit>()
+                                .read<ShopListPageCubit>()
                                 .add(title: controller.text);
                             controller.clear();
                             Navigator.of(context).pop();
@@ -90,8 +90,8 @@ class ListPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              ListPageCubit(ListDocumentsRepository(ListRemoteDataSource()))..start(),
-          child: BlocBuilder<ListPageCubit, ListPageState>(
+              ShopListPageCubit(ShopListDocumentsRepository(ShopListRemoteDataSource()))..start(),
+          child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
               switch (state.status) {
@@ -136,7 +136,7 @@ class ListPage extends StatelessWidget {
                           key: ValueKey(documentModel.id),
                           onDismissed: (_) {
                             context
-                                .read<ListPageCubit>()
+                                .read<ShopListPageCubit>()
                                 .delete(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)

@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/longdate_document_model/longdate_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/longdate_documents_repository.dart';
 
 part 'longdate_page_state.dart';
+part 'longdate_page_cubit.freezed.dart';
 
-class LongdatePageCubit extends Cubit<LongdatePageState> {
-  LongdatePageCubit(this._documentsRepository)
+class LongDatePageCubit extends Cubit<LongDatePageState> {
+  LongDatePageCubit(this._documentsRepository)
       : super(
-          const LongdatePageState(
+           LongDatePageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
@@ -29,16 +31,16 @@ class LongdatePageCubit extends Cubit<LongdatePageState> {
 
   Future<void> start() async {
     emit(
-      const LongdatePageState(
+       LongDatePageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
         _documentsRepository.getLongDateDocuments().listen((documents) {
-      emit(LongdatePageState(
+      emit(LongDatePageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })
           ..onError((error) {
-            emit(LongdatePageState(
+            emit(LongDatePageState(
               documents: const [],
               status: Status.error,
               errorMessage: error.toString(),

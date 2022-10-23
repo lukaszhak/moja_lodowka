@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/menu_documents_repository/menu_documents_repository.dart';
 
 part 'menu_page_state.dart';
+part 'menu_page_cubit.freezed.dart';
 
 class MenuPageCubit extends Cubit<MenuPageState> {
   MenuPageCubit(this._documentsRepository)
       : super(
-          const MenuPageState(
+           MenuPageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
@@ -34,7 +36,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
 
   Future<void> start() async {
     emit(
-      const MenuPageState(
+       MenuPageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
 

@@ -1,21 +1,23 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/domain/models/list_document_model/list_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/list_documents_repository/list_documents_repository.dart';
+import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
+import 'package:moja_lodowka/domain/repositories/shoplist_documents_repository/shoplist_documents_repository.dart';
 
-part 'list_page_state.dart';
+part 'shoplist_page_state.dart';
+part 'shoplist_page_cubit.freezed.dart';
 
-class ListPageCubit extends Cubit<ListPageState> {
-  ListPageCubit(this._documentsRepository)
+class ShopListPageCubit extends Cubit<ShopListPageState> {
+  ShopListPageCubit(this._documentsRepository)
       : super(
-          const ListPageState(
+           ShopListPageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
-  final ListDocumentsRepository _documentsRepository;
+  final ShopListDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
 
@@ -29,18 +31,18 @@ class ListPageCubit extends Cubit<ListPageState> {
 
   Future<void> start() async {
     emit(
-      const ListPageState(
+       ShopListPageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
 
     _streamSubscription =
         _documentsRepository.getShopListDocuments().listen((documents) {
-      emit(ListPageState(
+      emit(ShopListPageState(
           documents: documents, status: Status.success, errorMessage: ''));
     })
           ..onError((error) {
             emit(
-              ListPageState(
+              ShopListPageState(
                 documents: const [],
                 status: Status.error,
                 errorMessage: error.toString(),

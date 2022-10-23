@@ -3,16 +3,18 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
 import 'package:moja_lodowka/domain/repositories/root_repository/root_repository.dart';
 
 part 'root_state.dart';
+part 'root_cubit.freezed.dart';
 
 class RootCubit extends Cubit<RootState> {
   RootCubit(this._rootRepository)
       : super(
-          const RootState(
+           RootState(
             user: null,
             isLoading: false,
             errorMessage: '',
@@ -43,7 +45,7 @@ class RootCubit extends Cubit<RootState> {
 
   Future<void> start() async {
     emit(
-      const RootState(
+      RootState(
         user: null,
         isLoading: true,
         errorMessage: '',
