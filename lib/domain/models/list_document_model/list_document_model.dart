@@ -1,6 +1,12 @@
-class ListDocumentModel {
-  ListDocumentModel({required this.id, required this.title});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String id;
-  final String title;
+part 'list_document_model.freezed.dart';
+
+@freezed
+class ListDocumentModel with _$ListDocumentModel {
+  const ListDocumentModel._();
+  factory ListDocumentModel({
+    required String id,
+    required String title,
+  }) = _ListDocumentModel;
 }

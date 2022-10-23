@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UserModel {
-  final User? user;
+part 'user_model.freezed.dart';
 
-  UserModel({required this.user});
+@freezed
+class UserModel with _$UserModel {
+  const UserModel._();
+  factory UserModel({
+    required User? user,
+  }) = _UserModel;
 
   String? get email {
-      return user?.email;
-    
+    return user?.email;
   }
 }
