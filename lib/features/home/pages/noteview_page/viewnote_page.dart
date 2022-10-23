@@ -3,8 +3,8 @@ import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_mod
 import 'package:moja_lodowka/features/home/pages/noteedit_page/noteedit_page.dart';
 
 class ViewNote extends StatefulWidget {
-  const ViewNote( {
-      required this.documentModel,
+  const ViewNote({
+    required this.documentModel,
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +27,8 @@ class _NoteViewState extends State<ViewNote> {
       body: Builder(
         builder: (context) {
           if (currentIndex == 1) {
-            return EditNote(documentModel: widget.documentModel,
+            return EditNote(
+              documentModel: widget.documentModel,
               onSave: () {
                 setState(
                   () {

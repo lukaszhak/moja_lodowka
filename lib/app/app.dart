@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(RootRepository(RootRemoteDataSource()))..start(),
+      create: (context) =>
+          RootCubit(RootRepository(RootRemoteDataSource()))..start(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

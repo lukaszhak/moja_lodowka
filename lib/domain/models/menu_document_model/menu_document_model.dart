@@ -11,4 +11,6 @@ class MenuDocumentModel {
   final String title;
   final String content;
   final QueryDocumentSnapshot document;
+
+ 
 }

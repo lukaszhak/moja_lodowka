@@ -5,7 +5,7 @@ import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_mod
 import 'package:moja_lodowka/domain/repositories/menu_documents_repository/menu_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 
-class EditNote extends StatefulWidget {
+class EditNote extends StatelessWidget {
   const EditNote({
     required this.onSave,
     required this.documentModel,
@@ -15,19 +15,6 @@ class EditNote extends StatefulWidget {
   final MenuDocumentModel documentModel;
 
   @override
-  State<EditNote> createState() => _EditNoteState();
-}
-
-class _EditNoteState extends State<EditNote> {
-  TextEditingController controller = TextEditingController();
-
-  @override
-  void initState() {
-    controller = TextEditingController(text: widget.documentModel.content);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
@@ -35,6 +22,7 @@ class _EditNoteState extends State<EditNote> {
             ..start(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
+          final controller = TextEditingController(text: documentModel.content);
           return Scaffold(
             body: ListView(
               children: [
@@ -56,8 +44,8 @@ class _EditNoteState extends State<EditNote> {
               onPressed: () {
                 context.read<MenuPageCubit>().update(
                     content: controller.text,
-                    document: widget.documentModel.document.id);
-                widget.onSave();
+                    document: documentModel.document.id);
+                onSave();
               },
               child: const Icon(
                 Icons.done,
