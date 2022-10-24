@@ -28,7 +28,7 @@ class RootCubit extends Cubit<RootState> {
     required String email,
     required String password,
   }) async {
-    _rootRepository.createAccount(email, password);
+    await _rootRepository.createAccount(email, password);
   }
 
   Future<void> deleteAccount() async {
@@ -39,11 +39,11 @@ class RootCubit extends Cubit<RootState> {
     required String email,
     required String password,
   }) async {
-    _rootRepository.logIn(email, password);
+    await _rootRepository.logIn(email, password);
   }
 
   Future<void> signOut() async {
-    _rootRepository.logOut();
+    await _rootRepository.logOut();
   }
 
   Future<void> start() async {
