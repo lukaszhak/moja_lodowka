@@ -12,8 +12,9 @@ import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_page.dar
 import 'package:moja_lodowka/features/home/pages/menu_page/menu_page.dart';
 import 'package:moja_lodowka/features/home/pages/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/weather_page.dart';
-
 import 'pages/shoplist_page/shoplist_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -24,9 +25,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text(
-          'Kontroluj Swoje Produkty!',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.controlYourProducts,
+          style: const TextStyle(
             letterSpacing: 2,
             fontWeight: FontWeight.bold,
           ),

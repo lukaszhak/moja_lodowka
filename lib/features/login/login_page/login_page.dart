@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                isCreatingAccount == true ? 'Zarejestruj się' : 'Zaloguj się',
+                isCreatingAccount == true ? AppLocalizations.of(context)!.register : AppLocalizations.of(context)!.logIn,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: widget.passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(hintText: 'Hasło'),
+                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.password),
               ),
               const SizedBox(
                 height: 20,
@@ -95,8 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 child: Text(isCreatingAccount == true
-                    ? 'Zarejestruj się'
-                    : 'Zaloguj się'),
+                    ? AppLocalizations.of(context)!.register
+                    : AppLocalizations.of(context)!.logIn),
               ),
               const SizedBox(
                 height: 20,
@@ -108,9 +109,9 @@ class _LoginPageState extends State<LoginPage> {
                       isCreatingAccount = true;
                     });
                   },
-                  child: const Text(
-                    'Utwórz konto',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.makeAnAccount,
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                         color: Color.fromARGB(255, 0, 51, 54)),
@@ -124,9 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                       isCreatingAccount = false;
                     });
                   },
-                  child: const Text(
-                    'Masz już konto?',
-                    style: TextStyle(
+                  child:  Text(
+                    AppLocalizations.of(context)!.alreadyHaveAnAccount,
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                         color: Color.fromARGB(255, 0, 51, 54)),

@@ -4,6 +4,8 @@ import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/login/login_page/login_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,10 +13,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<RootCubit>()..start(),
+      create: (context) => getIt<RootCubit>()..start(),
       child: MaterialApp(
         title: 'Flutter Demo',
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''), // English, no country code
+          Locale('pl', ''), // Polish, no country code
+        ],
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
