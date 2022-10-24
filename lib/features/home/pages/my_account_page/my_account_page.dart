@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
+import 'package:moja_lodowka/features/login/login_page/login_page.dart';
 
 class MyAccountPage extends StatelessWidget {
   const MyAccountPage({
@@ -16,8 +18,40 @@ class MyAccountPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.delete),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: const Color.fromARGB(255, 0, 51, 54)),
+                            child: const Text('Nie'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<RootCubit>()
+                                  .deleteAccount()
+                                  .whenComplete(() => Navigator.of(context)
+                                      .pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const RootPage()),
+                                          (Route<dynamic> route) => false));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: const Color.fromARGB(255, 0, 51, 54)),
+                            child: const Text('Tak'),
+                          ),
+                        ],
+                        title: const Text('Czy napewno chcesz usunąć konto?'),
+                      ));
+            },
+            icon: const Icon(Icons.delete),
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
