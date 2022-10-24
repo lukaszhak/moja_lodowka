@@ -14,6 +14,12 @@ class MyAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.delete),
+          ),
+        ],
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
         title: const Text(

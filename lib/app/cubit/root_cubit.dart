@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -11,11 +9,11 @@ import 'package:moja_lodowka/domain/repositories/root_repository/root_repository
 part 'root_state.dart';
 part 'root_cubit.freezed.dart';
 
-@injectable 
+@injectable
 class RootCubit extends Cubit<RootState> {
   RootCubit(this._rootRepository)
       : super(
-           RootState(
+          RootState(
             user: null,
             isLoading: false,
             errorMessage: '',
@@ -31,6 +29,10 @@ class RootCubit extends Cubit<RootState> {
     required String password,
   }) async {
     _rootRepository.createAccount(email, password);
+  }
+
+  Future<void> deleteAccount() async {
+    await _rootRepository.deleteAccount();
   }
 
   Future<void> logIn({
@@ -61,15 +63,15 @@ class RootCubit extends Cubit<RootState> {
         ),
       );
     })
-          ..onError((error) {
-            emit(
-              RootState(
-                user: null,
-                isLoading: false,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+      ..onError((error) {
+        emit(
+          RootState(
+            user: null,
+            isLoading: false,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
   @override

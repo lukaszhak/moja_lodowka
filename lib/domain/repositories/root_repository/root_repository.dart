@@ -1,9 +1,8 @@
-
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/root_remote_data_source/root_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
 
-@injectable 
+@injectable
 class RootRepository {
   final RootRemoteDataSource _rootRemoteDataSource;
 
@@ -25,5 +24,9 @@ class RootRepository {
 
   Future<void> logOut() async {
     await _rootRemoteDataSource.logOut();
+  }
+
+  Future<void> deleteAccount() async {
+    await _rootRemoteDataSource.deleteAccount();
   }
 }

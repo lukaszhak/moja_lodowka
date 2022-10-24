@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable 
+@injectable
 class RootRemoteDataSource {
   Stream<User?> getUserData() {
     return FirebaseAuth.instance.authStateChanges();
@@ -19,5 +19,9 @@ class RootRemoteDataSource {
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> deleteAccount() async {
+    await FirebaseAuth.instance.currentUser!.delete();
   }
 }
