@@ -1,13 +1,11 @@
 part of 'longdate_page_cubit.dart';
 
-@immutable
-class LongdatePageState {
-  final List<LongDateDocumentModel> documents;
-  final Status status;
-  final String? errorMessage;
-
-  const LongdatePageState(
-      {required this.documents,
-      required this.status,
-      required this.errorMessage});
+@freezed
+class LongDatePageState with _$LongDatePageState {
+  factory LongDatePageState({
+    required List<LongDateDocumentModel> documents,
+    required Status status,
+    required String? errorMessage,
+  }) = _LongDatePageState;
 }
+

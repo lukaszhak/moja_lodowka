@@ -1,14 +1,19 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
+import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
+import 'package:retrofit/retrofit.dart';
 
-class WeatherDataSource {
-  Future<Map<String, dynamic>?> getWeatherData({required String city}) async {
-    try {
-      final response = await Dio().get<Map<String, dynamic>>(
-          'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$city?unitGroup=metric&key=WCPLFA6FEK4E4CY7CCDRVBLAL&contentType=json');
-      return response.data;
-    } on DioError catch (error) {
-      throw Exception(
-          error.response?.data['error']['message'] ?? 'Wystąpił błąd');
-    }
-  }
+part 'weather_remote_data_source.g.dart';
+
+@injectable 
+@RestApi()
+abstract class WeatherRemoteRetrofitDataSource {
+  @factoryMethod
+  factory WeatherRemoteRetrofitDataSource(
+    Dio dio,
+  ) = _WeatherRemoteRetrofitDataSource;
+
+  @GET(
+      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=metric&key=WCPLFA6FEK4E4CY7CCDRVBLAL&contentType=json")
+  Future<WeatherModel> getWeatherData(@Path('city') String city);
 }

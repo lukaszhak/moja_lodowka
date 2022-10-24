@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
@@ -54,7 +55,14 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-              Text(errorMessage),
+              Text(
+                errorMessage,
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 150, 10, 0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -65,23 +73,23 @@ class _LoginPageState extends State<LoginPage> {
                   if (isCreatingAccount == true) {
                     // rejestracja
                     try {
-                      context.read<RootCubit>().createAccount(
+                      await context.read<RootCubit>().createAccount(
                           email: widget.emailController.text,
                           password: widget.passwordController.text);
-                    } catch (error) {
+                    } on FirebaseAuthException catch (error) {
                       setState(() {
-                        errorMessage = error.toString();
+                        errorMessage = 'Error: ${error.message}';
                       });
                     }
                   } else {
                     // logowanie
                     try {
-                      context.read<RootCubit>().logIn(
+                      await context.read<RootCubit>().logIn(
                           email: widget.emailController.text,
                           password: widget.passwordController.text);
-                    } catch (error) {
+                    } on FirebaseAuthException catch (error) {
                       setState(() {
-                        errorMessage = error.toString();
+                        errorMessage = 'Error: ${error.message}';
                       });
                     }
                   }

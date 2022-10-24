@@ -1,14 +1,10 @@
 part of 'drug_page_cubit.dart';
 
-@immutable
-class DrugPageState {
-  final List<DrugDocumentModel> documents;
-  final Status status;
-  final String? errorMessage;
-
-  const DrugPageState({
-    required this.documents,
-    required this.status,
-    required this.errorMessage
-  });
+@freezed
+class DrugPageState with _$DrugPageState {
+  factory DrugPageState({
+    required List<DrugDocumentModel> documents,
+    required Status status,
+    required String? errorMessage,
+  }) = _DrugPageState;
 }

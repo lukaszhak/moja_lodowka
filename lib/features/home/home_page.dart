@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
-import 'package:moja_lodowka/data/remote_data_sources/root_remote_data_source/root_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
-import 'package:moja_lodowka/domain/repositories/root_repository/root_repository.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_page.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/drink_page.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/drug_page.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/fridge_page.dart';
-import 'package:moja_lodowka/features/home/pages/list_page/list_page.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/menu_page.dart';
 import 'package:moja_lodowka/features/home/pages/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/weather_page.dart';
+
+import 'pages/shoplist_page/shoplist_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -70,7 +70,7 @@ class _MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: BlocProvider(
-        create: (context) => RootCubit(RootRepository(RootRemoteDataSource())),
+        create: (context) => getIt<RootCubit>(),
         child: BlocBuilder<RootCubit, RootState>(
           builder: (context, state) {
             return ListView(
@@ -205,7 +205,7 @@ class _MyDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const LongdatePage(),
+                        builder: (context) => const LongDatePage(),
                       ),
                     );
                   },
@@ -274,7 +274,7 @@ class _MyDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => ListPage(),
+                        builder: (context) => ShopListPage(),
                       ),
                     );
                   },

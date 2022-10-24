@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
 
 part 'candy_page_state.dart';
+part 'candy_page_cubit.freezed.dart';
 
+@injectable 
 class CandyPageCubit extends Cubit<CandyPageState> {
   CandyPageCubit(this._documentsRepository)
-      : super(const CandyPageState(
+      : super(CandyPageState(
             documents: [], status: Status.initial, errorMessage: ''));
   final CandyDocumentsRepository _documentsRepository;
 
@@ -26,7 +29,7 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
   Future<void> start() async {
     emit(
-      const CandyPageState(
+      CandyPageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/fridge_remote_data_source/fridge_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/fridge_document_model/fridge_document_model.dart';
 
+@injectable 
 class FridgeDocumentsRepository {
   final FridgeRemoteDataSource _fridgeRemoteDataSource;
 

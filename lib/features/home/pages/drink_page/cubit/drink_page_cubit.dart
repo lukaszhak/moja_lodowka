@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/drink_document_model/drink_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/drink_documents_repository/drink_documents_repository.dart';
 
 part 'drink_page_state.dart';
+part 'drink_page_cubit.freezed.dart';
 
+@injectable 
 class DrinkPageCubit extends Cubit<DrinkPageState> {
   DrinkPageCubit(this._documentsRepository)
-      : super(const DrinkPageState(
+      : super(DrinkPageState(
             documents: [], status: Status.initial, errorMessage: ''));
   final DrinkDocumentsRepository _documentsRepository;
 
@@ -25,7 +28,7 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
   }
 
   Future<void> start() async {
-    emit(const DrinkPageState(
+    emit( DrinkPageState(
         documents: [], status: Status.loading, errorMessage: ''));
 
     _streamSubscription =

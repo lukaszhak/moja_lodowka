@@ -1,40 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/data/remote_data_sources/menu_remote_data_source/menu_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/menu_documents_repository/menu_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
+import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 
-class EditNote extends StatefulWidget {
-  const EditNote(
-    this.content, {
+class EditNote extends StatelessWidget {
+  const EditNote({
     required this.onSave,
+    required this.documentModel,
     Key? key,
-    required this.document,
   }) : super(key: key);
-  final String content;
   final Function onSave;
-  final QueryDocumentSnapshot document;
-
-  @override
-  State<EditNote> createState() => _EditNoteState();
-}
-
-class _EditNoteState extends State<EditNote> {
-  TextEditingController controller = TextEditingController();
-
-  @override
-  void initState() {
-    controller = TextEditingController(text: widget.content);
-    super.initState();
-  }
+  final MenuDocumentModel documentModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuPageCubit(MenuDocumentsRepository(MenuRemoteDataSource()))..start(),
+      create: (context) =>getIt<MenuPageCubit>(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
+          final controller = TextEditingController(text: documentModel.content);
           return Scaffold(
             body: ListView(
               children: [
@@ -55,8 +40,9 @@ class _EditNoteState extends State<EditNote> {
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               onPressed: () {
                 context.read<MenuPageCubit>().update(
-                    content: controller.text, document: widget.document.id);
-                widget.onSave();
+                    content: controller.text,
+                    document: documentModel.document.id);
+                onSave();
               },
               child: const Icon(
                 Icons.done,

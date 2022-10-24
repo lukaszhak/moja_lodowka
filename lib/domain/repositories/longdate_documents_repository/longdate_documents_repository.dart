@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/longdate_remote_data_source/longdate_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/longdate_document_model/longdate_document_model.dart';
 
+@injectable 
 class LongDateDocumentsRepository {
   final LongDateRemoteDataSource _longDateRemoteDataSource;
 

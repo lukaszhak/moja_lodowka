@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
 import 'package:moja_lodowka/domain/repositories/root_repository/root_repository.dart';
 
 part 'root_state.dart';
+part 'root_cubit.freezed.dart';
 
+@injectable
 class RootCubit extends Cubit<RootState> {
   RootCubit(this._rootRepository)
       : super(
-          const RootState(
+          RootState(
             user: null,
             isLoading: false,
             errorMessage: '',
@@ -25,23 +28,27 @@ class RootCubit extends Cubit<RootState> {
     required String email,
     required String password,
   }) async {
-    _rootRepository.createAccount(email, password);
+    await _rootRepository.createAccount(email, password);
+  }
+
+  Future<void> deleteAccount() async {
+    await _rootRepository.deleteAccount();
   }
 
   Future<void> logIn({
     required String email,
     required String password,
   }) async {
-    _rootRepository.logIn(email, password);
+    await _rootRepository.logIn(email, password);
   }
 
   Future<void> signOut() async {
-    _rootRepository.logOut();
+    await _rootRepository.logOut();
   }
 
   Future<void> start() async {
     emit(
-      const RootState(
+      RootState(
         user: null,
         isLoading: true,
         errorMessage: '',
@@ -56,15 +63,15 @@ class RootCubit extends Cubit<RootState> {
         ),
       );
     })
-          ..onError((error) {
-            emit(
-              RootState(
-                user: null,
-                isLoading: false,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+      ..onError((error) {
+        emit(
+          RootState(
+            user: null,
+            isLoading: false,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
   @override

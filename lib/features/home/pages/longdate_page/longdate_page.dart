@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/longdate_remote_data_source/longdate_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/longdate_document_model/longdate_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/longdate_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_add_page/longdate_add_page.dart';
 
-class LongdatePage extends StatelessWidget {
-  const LongdatePage({
+class LongDatePage extends StatelessWidget {
+  const LongDatePage({
     Key? key,
   }) : super(key: key);
 
@@ -104,10 +103,8 @@ class LongdatePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => LongdatePageCubit(
-              LongDateDocumentsRepository(LongDateRemoteDataSource()))
-            ..start(),
-          child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
+          create: (context) => getIt<LongDatePageCubit>()..start(),
+          child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
             builder: (context, state) {
               final documentModels = state.documents;
               switch (state.status) {
@@ -152,7 +149,7 @@ class LongdatePage extends StatelessWidget {
                             key: ValueKey(documentModel.id),
                             onDismissed: (_) {
                               context
-                                  .read<LongdatePageCubit>()
+                                  .read<LongDatePageCubit>()
                                   .delete(document: documentModel.id)
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)

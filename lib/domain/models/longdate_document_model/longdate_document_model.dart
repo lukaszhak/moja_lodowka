@@ -1,15 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
-class LongDateDocumentModel {
-  LongDateDocumentModel({
-    required this.id,
-    required this.title,
-    required this.expDate,
-  });
+part 'longdate_document_model.freezed.dart';
 
-  final String id;
-  final String title;
-  final DateTime expDate;
+@freezed
+class LongDateDocumentModel with _$LongDateDocumentModel {
+  const LongDateDocumentModel._();
+  factory LongDateDocumentModel({
+    required String id,
+    required String title,
+    required DateTime expDate,
+  }) = _LongDateDocumentModel;
 
   String expDateFormated() {
     return DateFormat.yMd().format(expDate);

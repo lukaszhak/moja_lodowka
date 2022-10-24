@@ -1,15 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
-class CandyDocumentModel {
-  CandyDocumentModel({
-    required this.id,
-    required this.title,
-    required this.expDate,
-  });
+part 'candy_document_model.freezed.dart';
 
-  final String id;
-  final String title;
-  final DateTime expDate;
+@freezed
+class CandyDocumentModel with _$CandyDocumentModel {
+  const CandyDocumentModel._();
+  factory CandyDocumentModel({
+    required String id,
+    required String title,
+    required DateTime expDate,
+  }) = _CandyDocumentModel;
 
   String expDateFormated() {
     return DateFormat.yMd().format(expDate);

@@ -1,8 +1,8 @@
-
-
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/menu_remote_data_source/menu_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
 
+@injectable 
 class MenuDocumentsRepository {
   final MenuRemoteDataSource _menuRemoteDataSource;
 

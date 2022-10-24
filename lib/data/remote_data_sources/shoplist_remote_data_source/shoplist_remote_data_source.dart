@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class ListRemoteDataSource {
+@injectable 
+class ShopListRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getShopListData() {
     try {
       final userID = FirebaseAuth.instance.currentUser?.uid;

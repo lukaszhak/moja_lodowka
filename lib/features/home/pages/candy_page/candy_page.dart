@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_add_page/candy_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 
@@ -106,8 +105,7 @@ class CandyPage extends StatelessWidget {
         ),
         child: BlocProvider(
           create: (context) =>
-              CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource()))
-                ..start(),
+              getIt<CandyPageCubit>()..start(),
           child: BlocBuilder<CandyPageCubit, CandyPageState>(
             builder: (context, state) {
               final documentModels = state.documents;

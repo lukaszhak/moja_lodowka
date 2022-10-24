@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/drink_remote_data_source/drink_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/drink_document_model/drink_document_model.dart';
 
+@injectable 
 class DrinkDocumentsRepository {
   final DrinkRemoteDataSource _drinkRemoteDataSource;
 

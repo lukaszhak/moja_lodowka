@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
-import 'package:moja_lodowka/data/remote_data_sources/fridge_remote_data_source/fridge_remote_data_source.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/fridge_document_model/fridge_document_model.dart';
-import 'package:moja_lodowka/domain/repositories/fridge_documents_repository/fridge_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/cubit/fridge_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/fridge_add_page/fridge_add_page.dart';
 
@@ -102,9 +101,7 @@ class FridgePage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) => FridgePageCubit(
-              FridgeDocumentsRepository(FridgeRemoteDataSource()))
-            ..start(),
+          create: (context) => getIt<FridgePageCubit>()..start(),
           child: BlocBuilder<FridgePageCubit, FridgePageState>(
             builder: (context, state) {
               final documentModels = state.documents;

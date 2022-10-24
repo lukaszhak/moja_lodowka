@@ -1,14 +1,10 @@
 part of 'candy_page_cubit.dart';
 
-@immutable
-class CandyPageState {
-  final List<CandyDocumentModel> documents;
-  final Status status;
-  final String? errorMessage;
-
-  const CandyPageState({
-    required this.documents,
-    required this.status,
-    required this.errorMessage
-  });
+@freezed
+class CandyPageState with _$CandyPageState {
+  factory CandyPageState({
+    required List<CandyDocumentModel> documents,
+    required Status status,
+    required String? errorMessage,
+  }) = _CandyPageState;
 }

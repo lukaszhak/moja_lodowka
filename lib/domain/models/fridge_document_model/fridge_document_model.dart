@@ -1,14 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+part 'fridge_document_model.freezed.dart';
 
-class FridgeDocumentModel {
-  FridgeDocumentModel({
-    required this.id,
-    required this.title,
-    required this.expDate,
-  });
-  final String id;
-  final String title;
-  final DateTime expDate;
+@freezed
+class FridgeDocumentModel with _$FridgeDocumentModel {
+  const FridgeDocumentModel._();
+  factory FridgeDocumentModel({
+    required String id,
+    required String title,
+    required DateTime expDate,
+  }) = _FridgeDocumentModel;
 
   String expDateFormated() {
     return DateFormat.yMd().format(expDate);

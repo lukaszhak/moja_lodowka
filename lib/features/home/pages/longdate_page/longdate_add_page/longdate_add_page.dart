@@ -18,8 +18,8 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LongdatePageCubit(LongDateDocumentsRepository(LongDateRemoteDataSource())),
-      child: BlocBuilder<LongdatePageCubit, LongdatePageState>(
+      create: (context) => LongDatePageCubit(LongDateDocumentsRepository(LongDateRemoteDataSource())),
+      child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
@@ -31,7 +31,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
                       ? null
                       : () {
                           context
-                              .read<LongdatePageCubit>()
+                              .read<LongDatePageCubit>()
                               .add(_title!, _expDate!);
                           Navigator.of(context).pop();
                         },
