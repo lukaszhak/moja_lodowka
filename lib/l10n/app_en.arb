@@ -9,7 +9,7 @@
     "yes": "Yes",
     "logOutInfo": "Do You really want to log out?",
     "logOut": "Log Out",
-    "medicines": "Medicines",
+    "medications": "Medications",
     "drinks": "Drinks",
     "longTerm": "Long-term products",
     "fridge": "Fridge products",
@@ -19,5 +19,12 @@
     "weatherCheck": "Check the weather",
     "deleteAccount": "Do You really want to delete Your account?",
     "myAccount": "My Account",
-    "loggedInAs": "You are logged in as"
+    "loggedInAs": "You are logged in as",
+    "description": "Description",
+    "medicineOutDate": "Medicine outdated",
+    "monthToOutDate": "30 days until the expiration date",
+    "loading": "Loading, please wait",
+    "noMedications": "No medications to display",
+    "deleteInfo": "Successfully deleted",
+    "expDate": "Expiration date"
 }

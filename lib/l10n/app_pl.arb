@@ -9,7 +9,7 @@
     "yes": "Tak",
     "logOutInfo": "Czy napewno chcesz się wylogować?",
     "logOut": "Wyloguj się",
-    "medicines": "Leki",
+    "medications": "Leki",
     "drinks": "Napoje",
     "longTerm": "Produkty długoterminowe",
     "fridge": "Produkty lodówkowe",
@@ -19,5 +19,12 @@
     "weatherCheck": "Sprawdź pogodę",
     "deleteAccount": "Czy napewno chcesz usunąć konto?",
     "myAccount": "Moje Konto",
-    "loggedInAs": "Jesteś zalogowany jako"
+    "loggedInAs": "Jesteś zalogowany jako",
+    "description": "Legenda",
+    "medicineOutDate": "Lek przeterminowany",
+    "monthToOutDate": "30 dni do końca daty ważności",
+    "loading": "Ładowanie, proszę czekać",
+    "noMedications": "Brak leków do wyświetlenia",
+    "deleteInfo": "Pomyślnie usunięto",
+    "expDate": "Data ważności"
 }

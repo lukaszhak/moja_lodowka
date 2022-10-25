@@ -143,7 +143,7 @@ class _MyDrawer extends StatelessWidget {
                 ),
                 _HomePageListTile(
                   icon: CustomIcons.pills,
-                  title: AppLocalizations.of(context)!.medicines,
+                  title: AppLocalizations.of(context)!.medications,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
