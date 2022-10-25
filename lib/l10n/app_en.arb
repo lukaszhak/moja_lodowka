@@ -26,5 +26,8 @@
     "loading": "Loading, please wait",
     "noMedications": "No medications to display",
     "deleteInfo": "Successfully deleted",
-    "expDate": "Expiration date"
+    "expDate": "Expiration date",
+    "productOutDate": "Product outdated",
+    "weekToOutDate": "7 days until the expiration date",
+    "noProducts": "No products to display"
 }
