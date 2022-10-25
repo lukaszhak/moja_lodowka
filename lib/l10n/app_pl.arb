@@ -16,5 +16,8 @@
     "candys": "Słodycze",
     "shopList": "Lista zakupów",
     "recipes": "Przepisy kulinarne",
-    "weatherCheck": "Sprawdź pogodę"
+    "weatherCheck": "Sprawdź pogodę",
+    "deleteAccount": "Czy napewno chcesz usunąć konto?",
+    "myAccount": "Moje Konto",
+    "loggedInAs": "Jesteś zalogowany jako"
 }

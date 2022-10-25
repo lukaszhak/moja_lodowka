@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/app.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
-import 'package:moja_lodowka/features/login/login_page/login_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAccountPage extends StatelessWidget {
   const MyAccountPage({
@@ -29,7 +29,7 @@ class MyAccountPage extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: const Color.fromARGB(255, 0, 51, 54)),
-                            child: const Text('Nie'),
+                            child:  Text(AppLocalizations.of(context)!.no),
                           ),
                           ElevatedButton(
                             onPressed: () {
@@ -45,20 +45,20 @@ class MyAccountPage extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: const Color.fromARGB(255, 0, 51, 54)),
-                            child: const Text('Tak'),
+                            child:  Text(AppLocalizations.of(context)!.yes),
                           ),
                         ],
-                        title: const Text('Czy napewno chcesz usunąć konto?'),
-                      ));
+                        title:  Text(AppLocalizations.of(context)!.deleteAccount),
+                      ),);
             },
             icon: const Icon(Icons.delete),
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
-        title: const Text(
-          'Moje Konto',
-          style: TextStyle(fontSize: 23),
+        title:  Text(
+          AppLocalizations.of(context)!.myAccount,
+          style: const TextStyle(fontSize: 23),
         ),
       ),
       body: Container(
@@ -84,9 +84,9 @@ class MyAccountPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              const Text(
-                'Jesteś zalogowany jako',
-                style: TextStyle(
+               Text(
+                AppLocalizations.of(context)!.loggedInAs,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -108,7 +108,7 @@ class MyAccountPage extends StatelessWidget {
                   context.read<RootCubit>().signOut();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Wyloguj się'),
+                child:  Text(AppLocalizations.of(context)!.logOut),
               ),
             ],
           ),

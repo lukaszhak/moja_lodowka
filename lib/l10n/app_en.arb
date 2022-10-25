@@ -16,5 +16,8 @@
     "candys": "Candys",
     "shopList": "Shop list",
     "recipes": "Recipes",
-    "weatherCheck": "Check the weather"
+    "weatherCheck": "Check the weather",
+    "deleteAccount": "Do You really want to delete Your account?",
+    "myAccount": "My Account",
+    "loggedInAs": "You are logged in as"
 }
