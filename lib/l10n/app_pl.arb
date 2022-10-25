@@ -27,7 +27,7 @@
     "noMedications": "Brak leków do wyświetlenia",
     "deleteInfo": "Pomyślnie usunięto",
     "expDate": "Data ważności",
-    "productOutDate": "Product outdated",
-    "weekToOutDate": "7 days until the expiration date",
-    "noProducts": "No products to display"
+    "productOutDate": "Produkt przeterminowany",
+    "weekToOutDate": "7 dni do końca daty ważności",
+    "noProducts": "Brak produktów do wyświetlenia"
 }
