@@ -4,5 +4,17 @@
     "register": "Zarejestruj się",
     "makeAnAccount": "Utwórz konto",
     "alreadyHaveAnAccount": "Masz już konto?",
-    "controlYourProducts": "Kontroluj Swoje Produkty!"
+    "controlYourProducts": "Kontroluj Swoje Produkty!",
+    "no": "Nie",
+    "yes": "Tak",
+    "logOutInfo": "Czy napewno chcesz się wylogować?",
+    "logOut": "Wyloguj się",
+    "medicines": "Leki",
+    "drinks": "Napoje",
+    "longTerm": "Produkty długoterminowe",
+    "fridge": "Produkty lodówkowe",
+    "candys": "Słodycze",
+    "shopList": "Lista zakupów",
+    "recipes": "Przepisy kulinarne",
+    "weatherCheck": "Sprawdź pogodę"
 }

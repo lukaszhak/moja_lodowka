@@ -4,5 +4,17 @@
     "register": "Register",
     "makeAnAccount": "Make an Account",
     "alreadyHaveAnAccount": "Already have an Account?",
-    "controlYourProducts": "Control Your Products!"
+    "controlYourProducts": "Control Your Products!",
+    "no": "No",
+    "yes": "Yes",
+    "logOutInfo": "Do You really want to log out?",
+    "logOut": "Log Out",
+    "medicines": "Medicines",
+    "drinks": "Drinks",
+    "longTerm": "Long-term products",
+    "fridge": "Fridge products",
+    "candys": "Candys",
+    "shopList": "Shop list",
+    "recipes": "Recipes",
+    "weatherCheck": "Check the weather"
 }
