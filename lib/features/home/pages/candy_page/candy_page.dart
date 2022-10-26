@@ -5,6 +5,7 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_add_page/candy_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CandyPage extends StatelessWidget {
   const CandyPage({
@@ -18,9 +19,9 @@ class CandyPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
         centerTitle: true,
-        title: const Text(
-          'Słodycze',
-          style: TextStyle(
+        title:  Text(
+          AppLocalizations.of(context)!.candys,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -32,9 +33,9 @@ class CandyPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Column(
-                    children: const [
-                      Text('Legenda'),
-                      Divider(
+                    children:  [
+                      Text(AppLocalizations.of(context)!.description),
+                      const Divider(
                         color: Colors.black,
                       )
                     ],
@@ -53,7 +54,7 @@ class CandyPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          const Text('Produkt przeterminowany')
+                           Text(AppLocalizations.of(context)!.productOutDate)
                         ],
                       ),
                       const SizedBox(
@@ -70,7 +71,7 @@ class CandyPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          const Text('7 dni do końca daty ważności')
+                           Text(AppLocalizations.of(context)!.weekToOutDate)
                         ],
                       ),
                     ],
@@ -118,16 +119,16 @@ class CandyPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(
+                      children:  [
+                        const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie, proszę czekać',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.loading,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -135,10 +136,10 @@ class CandyPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return const Center(
+                    return  Center(
                       child: Text(
-                        'Brak produktów do wyświetlenia',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.noProducts,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     );
@@ -156,11 +157,11 @@ class CandyPage extends StatelessWidget {
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                       backgroundColor:
-                                          Color.fromARGB(255, 0, 51, 54),
-                                      content: Text('Pomyślnie usunięto'),
-                                      duration: Duration(seconds: 1),
+                                          const Color.fromARGB(255, 0, 51, 54),
+                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      duration: const Duration(seconds: 1),
                                     ),
                                   ),
                                 );
@@ -243,9 +244,9 @@ class _ItemContainer extends StatelessWidget {
         ),
         Column(
           children: [
-            const Text(
-              'Termin Ważności',
-              style: TextStyle(color: Colors.white),
+             Text(
+              AppLocalizations.of(context)!.expDate,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(
               height: 4,
