@@ -29,5 +29,14 @@
     "expDate": "Data ważności",
     "productOutDate": "Produkt przeterminowany",
     "weekToOutDate": "7 dni do końca daty ważności",
-    "noProducts": "Brak produktów do wyświetlenia"
+    "noProducts": "Brak produktów do wyświetlenia",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "addProduct": "Dodaj produkt",
+    "typeInfo": "Wpisz tutaj",
+    "emptyShopList": "Lista zakupów jest pusta",
+    "addRecipe": "Dodaj przepis",
+    "noRecipes": "Brak przepisów do wyświetlenia",
+    "view": "Opis",
+    "edit": "Edycja"
 }

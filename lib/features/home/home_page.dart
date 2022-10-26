@@ -198,7 +198,7 @@ class _MyDrawer extends StatelessWidget {
                 ),
                 _HomePageListTile(
                   icon: Icons.view_list,
-                  title: AppLocalizations.of(context)!.shopList,
+                  title: AppLocalizations.of(context)!.shoppingList,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

@@ -4,6 +4,9 @@ import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
 class ShopListPage extends StatelessWidget {
   ShopListPage({
     Key? key,
@@ -18,9 +21,9 @@ class ShopListPage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text(
-          'Lista zakupów',
-          style: TextStyle(
+        title:  Text(
+          AppLocalizations.of(context)!.shoppingList,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -45,7 +48,7 @@ class ShopListPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: const Color.fromARGB(255, 0, 51, 54),
                           ),
-                          child: const Text('Cofnij'),
+                          child:  Text(AppLocalizations.of(context)!.cancel),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -58,14 +61,14 @@ class ShopListPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: const Color.fromARGB(255, 0, 51, 54),
                           ),
-                          child: const Text('Dodaj'),
+                          child:  Text(AppLocalizations.of(context)!.add),
                         ),
                       ],
-                      title: const Text('Dodaj produkt'),
+                      title:  Text(AppLocalizations.of(context)!.addProduct),
                       content: TextField(
                         controller: controller,
                         decoration:
-                            const InputDecoration(hintText: 'Wpisz tutaj'),
+                             InputDecoration(hintText: AppLocalizations.of(context)!.typeInfo),
                       ),
                     );
                   },
@@ -101,16 +104,16 @@ class ShopListPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(
+                      children:  [
+                        const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie, proszę czekać',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.loading,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -118,10 +121,10 @@ class ShopListPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return const Center(
+                    return  Center(
                       child: Text(
-                        'Lista zakupów jest pusta',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.emptyShopList,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     );
@@ -139,11 +142,11 @@ class ShopListPage extends StatelessWidget {
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                       backgroundColor:
-                                          Color.fromARGB(255, 0, 51, 54),
-                                      content: Text('Pomyślnie usunięto'),
-                                      duration: Duration(seconds: 1),
+                                          const Color.fromARGB(255, 0, 51, 54),
+                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      duration: const Duration(seconds: 1),
                                     ),
                                   ),
                                 );

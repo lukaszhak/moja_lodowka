@@ -14,7 +14,7 @@
     "longTerm": "Long-term products",
     "fridge": "Fridge products",
     "candys": "Candys",
-    "shopList": "Shop list",
+    "shoppingList": "Shopping list",
     "recipes": "Recipes",
     "weatherCheck": "Check the weather",
     "deleteAccount": "Do You really want to delete Your account?",
@@ -29,5 +29,14 @@
     "expDate": "Expiration date",
     "productOutDate": "Product outdated",
     "weekToOutDate": "7 days until the expiration date",
-    "noProducts": "No products to display"
+    "noProducts": "No products to display",
+    "cancel": "Cancel",
+    "add": "Add",
+    "addProduct": "Add product",
+    "typeInfo": "Type here",
+    "emptyShopList": "Shopping list is empty",
+    "addRecipe": "Add recipe",
+    "noRecipes": "No recipes to display",
+    "view": "View",
+    "edit": "Edit"
 }
