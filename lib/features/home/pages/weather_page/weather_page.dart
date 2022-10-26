@@ -4,6 +4,7 @@ import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/cubit/weather_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class WeatherPage extends StatelessWidget {
       child: BlocConsumer<WeatherPageCubit, WeatherPageState>(
         listener: (context, state) {
           if (state.status == Status.error) {
-            final errorMessage = state.errorMessage ?? 'Wystąpił błąd';
+            final errorMessage = state.errorMessage ?? AppLocalizations.of(context)!.errorOccurred;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(errorMessage),
@@ -31,7 +32,7 @@ class WeatherPage extends StatelessWidget {
             appBar: AppBar(
               toolbarHeight: 50,
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-              title: const Text('Sprawdź dzisiejszą pogodę'),
+              title:  Text(AppLocalizations.of(context)!.checkWeather),
             ),
             body: Center(child: Builder(builder: (context) {
               if (state.status == Status.loading) {
@@ -46,14 +47,14 @@ class WeatherPage extends StatelessWidget {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(),
-                        SizedBox(
+                      children:  [
+                        const CircularProgressIndicator(),
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'Ładowanie, proszę czekać',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.loading,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -105,24 +106,24 @@ class _DisplayWeatherWidget extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children:  [
                 Text(
-                  'Wybrane Miasto',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context)!.selectedCity,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Text(
-                  'Temperatura',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context)!.temp,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Text(
-                  'Warunki Pogodowe',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context)!.conditions,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -187,9 +188,9 @@ class _SearchWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: _controller,
-              decoration: const InputDecoration(
-                  hintText: 'Miasto',
-                  enabledBorder: OutlineInputBorder(
+              decoration:  InputDecoration(
+                  hintText: AppLocalizations.of(context)!.city,
+                  enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(0)))),
             ),
@@ -206,7 +207,7 @@ class _SearchWidget extends StatelessWidget {
                     .read<WeatherPageCubit>()
                     .getWeatherModel(city: _controller.text);
               },
-              child: const Text('Sprawdź'))
+              child:  Text(AppLocalizations.of(context)!.check))
         ],
       ),
     );

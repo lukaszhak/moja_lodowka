@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/domain/models/menu_document_model/menu_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/noteedit_page/noteedit_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewNote extends StatefulWidget {
   const ViewNote({
@@ -60,17 +61,17 @@ class _NoteViewState extends State<ViewNote> {
             },
           );
         },
-        items: const [
+        items:  [
           BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.list,
               ),
-              label: 'Opis'),
-          BottomNavigationBarItem(
-              icon: Icon(
+              label: AppLocalizations.of(context)!.view),
+           BottomNavigationBarItem(
+              icon: const Icon(
                 Icons.edit,
               ),
-              label: 'Edycja'),
+              label: AppLocalizations.of(context)!.edit),
         ],
       ),
     );

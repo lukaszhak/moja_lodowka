@@ -12,8 +12,8 @@ import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_page.dar
 import 'package:moja_lodowka/features/home/pages/menu_page/menu_page.dart';
 import 'package:moja_lodowka/features/home/pages/my_account_page/my_account_page.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/weather_page.dart';
-
 import 'pages/shoplist_page/shoplist_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -24,9 +24,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text(
-          'Kontroluj Swoje Produkty!',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.controlYourProducts,
+          style: const TextStyle(
             letterSpacing: 2,
             fontWeight: FontWeight.bold,
           ),
@@ -103,7 +103,7 @@ class _MyDrawer extends StatelessWidget {
                                         style: ElevatedButton.styleFrom(
                                             primary: const Color.fromARGB(
                                                 255, 0, 51, 54)),
-                                        child: const Text('Nie'),
+                                        child: Text(AppLocalizations.of(context)!.no),
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
@@ -113,25 +113,25 @@ class _MyDrawer extends StatelessWidget {
                                         style: ElevatedButton.styleFrom(
                                             primary: const Color.fromARGB(
                                                 255, 0, 51, 54)),
-                                        child: const Text('Tak'),
+                                        child:  Text(AppLocalizations.of(context)!.yes),
                                       ),
                                     ],
-                                    title: const Text(
-                                        'Czy napewno chcesz się wylogować?'),
+                                    title:  Text(
+                                        AppLocalizations.of(context)!.logOutInfo),
                                   ));
                         },
                         child: Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.logout,
                               color: Colors.white,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 4,
                             ),
                             Text(
-                              'Wyloguj',
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.logOut,
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             )
@@ -141,198 +141,132 @@ class _MyDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      CustomIcons.pills,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 13,
-                    ),
-                    Text(
-                      'Leki',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: CustomIcons.pills,
+                  title: AppLocalizations.of(context)!.medications,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const DrugPage(),
+                        builder: (_) => const DrugPage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      Icons.local_bar,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Napoje',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: Icons.local_bar,
+                  title: AppLocalizations.of(context)!.drinks,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const DrinkPage(),
+                        builder: (_) => const DrinkPage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      Icons.access_time,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Produkty długoterminowe',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: Icons.access_time,
+                  title: AppLocalizations.of(context)!.longTerm,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const LongDatePage(),
+                        builder: (_) => const LongDatePage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      Icons.kitchen,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Produkty lodówkowe',
-                      style: TextStyle(fontSize: 18),
-                    )
-                  ]),
+                _HomePageListTile(
+                  icon: Icons.kitchen,
+                  title: AppLocalizations.of(context)!.fridge,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const FridgePage(),
+                        builder: (_) => const FridgePage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      CustomIcons.candyCane,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Słodycze',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: CustomIcons.candyCane,
+                  title: AppLocalizations.of(context)!.candys,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const CandyPage(),
+                        builder: (_) => const CandyPage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      Icons.view_list,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Lista zakupów',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: Icons.view_list,
+                  title: AppLocalizations.of(context)!.shoppingList,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => ShopListPage(),
+                        builder: (_) => ShopListPage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(children: const [
-                    Icon(
-                      Icons.restaurant,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      'Przepisy kulinarne',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ]),
+                _HomePageListTile(
+                  icon: Icons.restaurant,
+                  title: AppLocalizations.of(context)!.recipes,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => MenuPage(),
+                        builder: (_) => MenuPage(),
                       ),
                     );
                   },
                 ),
-                ListTile(
-                  title: Row(
-                    children: const [
-                      Icon(
-                        Icons.sunny,
-                        color: Colors.black,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Text(
-                        'Sprawdź pogodę',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const WeatherPage(),
-                      ),
-                    );
-                  },
-                )
+                _HomePageListTile(
+                    icon: Icons.sunny,
+                    title: AppLocalizations.of(context)!.weatherCheck,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const WeatherPage(),
+                        ),
+                      );
+                    })
               ],
             );
           },
         ),
       ),
     );
+  }
+}
+
+class _HomePageListTile extends StatelessWidget {
+  const _HomePageListTile({
+    Key? key,
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  }) : super(key: key);
+
+  final IconData icon;
+  final String title;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Row(children: [
+          Icon(
+            icon,
+            color: Colors.black,
+            size: 35,
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18),
+          ),
+        ]),
+        onTap: onTap);
   }
 }
 

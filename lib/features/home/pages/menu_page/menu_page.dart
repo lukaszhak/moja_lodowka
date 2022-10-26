@@ -5,6 +5,7 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/noteview_page/viewnote_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage({
@@ -20,9 +21,9 @@ class MenuPage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text(
-          'Przepisy kulinarne',
-          style: TextStyle(
+        title:  Text(
+          AppLocalizations.of(context)!.recipes,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -46,7 +47,7 @@ class MenuPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           primary: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child: const Text('Cofnij'),
+                        child:  Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -59,14 +60,14 @@ class MenuPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           primary: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child: const Text('Dodaj'),
+                        child:  Text(AppLocalizations.of(context)!.add),
                       ),
                     ],
-                    title: const Text('Dodaj przepis'),
+                    title:  Text(AppLocalizations.of(context)!.addRecipe),
                     content: TextField(
                       controller: controller,
                       decoration:
-                          const InputDecoration(hintText: 'Wpisz tutaj'),
+                           InputDecoration(hintText: AppLocalizations.of(context)!.typeInfo),
                     ),
                   );
                 },
@@ -104,16 +105,16 @@ class MenuPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(
+                      children:  [
+                        const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie, proszę czekać',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.loading,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -121,10 +122,10 @@ class MenuPage extends StatelessWidget {
                   );
                   case Status.success:
                   if (state.documents.isEmpty) {
-                    return const Center(
+                    return  Center(
                       child: Text(
-                        'Brak przepisów do wyświetlenia',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.noRecipes,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     );
@@ -139,11 +140,11 @@ class MenuPage extends StatelessWidget {
                           .read<MenuPageCubit>()
                           .delete(document: documentModel.id).whenComplete(() => ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                       backgroundColor:
-                                          Color.fromARGB(255, 0, 51, 54),
-                                      content: Text('Pomyślnie usunięto'),
-                                      duration: Duration(seconds: 1),
+                                          const Color.fromARGB(255, 0, 51, 54),
+                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      duration: const Duration(seconds: 1),
                                     ),
                                   ),),
                       child: InkWell(

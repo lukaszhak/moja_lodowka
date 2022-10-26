@@ -5,6 +5,7 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/drug_document_model/drug_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/cubit/drug_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/drug_add_page/drug_add_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrugPage extends StatelessWidget {
   const DrugPage({
@@ -18,9 +19,9 @@ class DrugPage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text(
-          'Leki',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.medications,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -32,9 +33,9 @@ class DrugPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Column(
-                    children: const [
-                      Text('Legenda'),
-                      Divider(
+                    children:  [
+                      Text(AppLocalizations.of(context)!.description),
+                      const Divider(
                         color: Colors.black,
                       )
                     ],
@@ -53,7 +54,7 @@ class DrugPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          const Text('Lek przeterminowany')
+                           Text(AppLocalizations.of(context)!.medicineOutDate)
                         ],
                       ),
                       const SizedBox(
@@ -70,7 +71,7 @@ class DrugPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          const Text('30 dni do końca daty ważności')
+                           Text(AppLocalizations.of(context)!.monthToOutDate)
                         ],
                       ),
                     ],
@@ -118,16 +119,16 @@ class DrugPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(
+                      children:  [
+                        const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          'Ładowanie, proszę czekać',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.loading,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -135,10 +136,10 @@ class DrugPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return const Center(
+                    return  Center(
                       child: Text(
-                        'Brak leków do wyświetlenia',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.noMedications,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     );
@@ -156,11 +157,11 @@ class DrugPage extends StatelessWidget {
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)
                                         .showSnackBar(
-                                      const SnackBar(
+                                       SnackBar(
                                         backgroundColor:
-                                            Color.fromARGB(255, 0, 51, 54),
-                                        content: Text('Pomyślnie usunięto'),
-                                        duration: Duration(seconds: 1),
+                                            const Color.fromARGB(255, 0, 51, 54),
+                                        content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                        duration: const Duration(seconds: 1),
                                       ),
                                     ),
                                   );
@@ -238,9 +239,9 @@ class _ItemContainer extends StatelessWidget {
           ),
           Column(
             children: [
-              const Text(
-                'Termin Ważności',
-                style: TextStyle(color: Colors.white),
+               Text(
+                AppLocalizations.of(context)!.expDate,
+                style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(
                 height: 4,
