@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:moja_lodowka/data/remote_data_sources/drug_remote_data_source/drug_remote_data_source.dart';
 import 'package:moja_lodowka/domain/repositories/drug_documents_repository/drug_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/cubit/drug_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class DrugAddPage extends StatefulWidget {
   const DrugAddPage({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Dodaj Lek'),
+              title:  Text(AppLocalizations.of(context)!.addMedication),
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
@@ -77,10 +79,10 @@ class _DrugPageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onTitleChanged,
-          decoration: const InputDecoration(
-              label: Text('Nazwa Leku'),
-              border: OutlineInputBorder(),
-              hintText: 'Wpisz Nazwę Leku'),
+          decoration:  InputDecoration(
+              label: Text(AppLocalizations.of(context)!.medicationName),
+              border: const OutlineInputBorder(),
+              hintText: AppLocalizations.of(context)!.typeMedication),
         ),
         const SizedBox(
           height: 20,
@@ -107,7 +109,7 @@ class _DrugPageBody extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             primary: const Color.fromARGB(255, 0, 51, 54),
           ),
-          child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'),
+          child: Text(selectedDateFormated ?? AppLocalizations.of(context)!.selectDate),
         ),
       ],
     );

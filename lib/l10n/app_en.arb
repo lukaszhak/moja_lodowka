@@ -45,5 +45,11 @@
     "temp": "Temperature",
     "conditions": "Weather conditions",
     "city": "City",
-    "check": "Check"
+    "check": "Check",
+    "productName": "Product name",
+    "typeName": "Type the product name",
+    "selectDate": "Select an expiration date",
+    "addMedication": "Add medication",
+    "medicationName": "Medication name",
+    "typeMedication": "Type the medication name"
 }

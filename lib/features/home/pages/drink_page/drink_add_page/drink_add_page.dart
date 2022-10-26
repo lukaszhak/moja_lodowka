@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:moja_lodowka/data/remote_data_sources/drink_remote_data_source/drink_remote_data_source.dart';
 import 'package:moja_lodowka/domain/repositories/drink_documents_repository/drink_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrinkAddPage extends StatefulWidget {
   const DrinkAddPage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-              title: const Text('Dodaj Produkt'),
+              title:  Text(AppLocalizations.of(context)!.addProduct),
               actions: [
                 IconButton(
                     onPressed: _title == null || _expDate == null
@@ -79,10 +80,10 @@ class _AddPageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onTitleChanged,
-          decoration: const InputDecoration(
-              label: Text('Nazwa Produktu'),
-              border: OutlineInputBorder(),
-              hintText: 'Wpisz Nazwę Produktu'),
+          decoration:  InputDecoration(
+              label: Text(AppLocalizations.of(context)!.productName),
+              border: const OutlineInputBorder(),
+              hintText: AppLocalizations.of(context)!.typeName),
         ),
         const SizedBox(
           height: 20,
@@ -109,7 +110,7 @@ class _AddPageBody extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
                 primary: const Color.fromARGB(255, 0, 51, 54)),
-            child: Text(selectedDateFormated ?? 'Wybierz Datę Ważności'))
+            child: Text(selectedDateFormated ?? AppLocalizations.of(context)!.selectDate))
       ],
     );
   }

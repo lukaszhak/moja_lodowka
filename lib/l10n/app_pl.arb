@@ -45,5 +45,11 @@
     "temp": "Temperatura",
     "conditions": "Warunki pogodowe",
     "city": "Miasto",
-    "check": "Sprawdź"
+    "check": "Sprawdź",
+    "productName": "Nazwa produktu",
+    "typeName": "Wpisz nazwę produktu",
+    "selectDate": "Wybierz datę ważności",
+    "addMedication": "Dodaj lek",
+    "medicationName": "Nazwa leku",
+    "typeMedication": "Wpisz nazwę leku"
 }
