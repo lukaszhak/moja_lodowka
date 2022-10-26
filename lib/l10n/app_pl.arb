@@ -38,5 +38,12 @@
     "addRecipe": "Dodaj przepis",
     "noRecipes": "Brak przepisów do wyświetlenia",
     "view": "Opis",
-    "edit": "Edycja"
+    "edit": "Edycja",
+    "errorOccurred": "Wystąpił błąd",
+    "checkWeather": "Sprawdź dzisiejszą pogodę",
+    "selectedCity": "Wybrane miasto",
+    "temp": "Temperatura",
+    "conditions": "Warunki pogodowe",
+    "city": "Miasto",
+    "check": "Sprawdź"
 }

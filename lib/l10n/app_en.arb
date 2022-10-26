@@ -38,5 +38,12 @@
     "addRecipe": "Add recipe",
     "noRecipes": "No recipes to display",
     "view": "View",
-    "edit": "Edit"
+    "edit": "Edit",
+    "errorOccurred": "An error occurred",
+    "checkWeather": "Check today's weather",
+    "selectedCity": "Selected city",
+    "temp": "Temperature",
+    "conditions": "Weather conditions",
+    "city": "City",
+    "check": "Check"
 }
