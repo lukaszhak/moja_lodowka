@@ -78,6 +78,8 @@ class _DrugPageBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       children: [
         TextField(
+          textCapitalization: TextCapitalization.sentences,
+          autofocus: true,
           onChanged: onTitleChanged,
           decoration: InputDecoration(
               label: Text(AppLocalizations.of(context)!.medicationName),

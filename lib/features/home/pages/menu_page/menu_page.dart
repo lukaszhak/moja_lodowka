@@ -65,6 +65,8 @@ class MenuPage extends StatelessWidget {
                     ],
                     title: Text(AppLocalizations.of(context)!.addRecipe),
                     content: TextField(
+                      textCapitalization: TextCapitalization.sentences,
+                      autofocus: true,
                       controller: controller,
                       decoration: InputDecoration(
                           hintText: AppLocalizations.of(context)!.typeInfo),
