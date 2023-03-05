@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
-import 'package:moja_lodowka/features/home/home_page.dart';
+import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -135,30 +135,27 @@ class ShopListPage extends StatelessWidget {
                       const SizedBox(height: 10),
                       for (final documentModel in documentModels) ...[
                         Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<ShopListPageCubit>()
-                                .delete(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
+                            key: ValueKey(documentModel.id),
+                            onDismissed: (_) {
+                              context
+                                  .read<ShopListPageCubit>()
+                                  .delete(document: documentModel.id)
+                                  .whenComplete(
+                                    () => ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 0, 51, 54),
+                                        content: Text(
+                                            AppLocalizations.of(context)!
+                                                .deleteInfo),
+                                        duration: const Duration(seconds: 1),
+                                      ),
                                     ),
-                                  ),
-                                );
-                          },
-                          child: CategoryWidget(
-                            documentModel.title,
-                            const Color.fromARGB(255, 0, 51, 54),
-                          ),
-                        ),
+                                  );
+                            },
+                            child: _ShoppingListWidget(
+                                documentModel: documentModel)),
                       ],
                     ],
                   );
@@ -177,5 +174,72 @@ class ShopListPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ShoppingListWidget extends StatefulWidget {
+  const _ShoppingListWidget({
+    required this.documentModel,
+  });
+
+  final ShopListDocumentModel documentModel;
+
+  @override
+  State<_ShoppingListWidget> createState() => _ShoppingListWidgetState();
+}
+
+class _ShoppingListWidgetState extends State<_ShoppingListWidget> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(255, 0, 51, 54),
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            widget.documentModel.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 19,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Checkbox(
+              value: isChecked,
+              onChanged: (bool? value) {
+                setState(() {
+                  isChecked = value!;
+                });
+              })
+        ],
+      ),
+    );
+  }
+}
+
+class _SchoppingCheckBox extends StatefulWidget {
+  const _SchoppingCheckBox();
+
+  @override
+  State<_SchoppingCheckBox> createState() => _SchoppingCheckBoxState();
+}
+
+class _SchoppingCheckBoxState extends State<_SchoppingCheckBox> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+        value: isChecked,
+        onChanged: (bool? value) {
+          setState(() {
+            isChecked = value!;
+          });
+        });
   }
 }
