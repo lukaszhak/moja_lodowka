@@ -19,13 +19,14 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource())),
+      create: (context) =>
+          DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource())),
       child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-              title:  Text(AppLocalizations.of(context)!.addProduct),
+              title: Text(AppLocalizations.of(context)!.addProduct),
               actions: [
                 IconButton(
                     onPressed: _title == null || _expDate == null
@@ -80,7 +81,7 @@ class _AddPageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onTitleChanged,
-          decoration:  InputDecoration(
+          decoration: InputDecoration(
               label: Text(AppLocalizations.of(context)!.productName),
               border: const OutlineInputBorder(),
               hintText: AppLocalizations.of(context)!.typeName),
@@ -109,8 +110,9 @@ class _AddPageBody extends StatelessWidget {
               onDateChanged(selectedDate);
             },
             style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 0, 51, 54)),
-            child: Text(selectedDateFormated ?? AppLocalizations.of(context)!.selectDate))
+                backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
+            child: Text(selectedDateFormated ??
+                AppLocalizations.of(context)!.selectDate))
       ],
     );
   }

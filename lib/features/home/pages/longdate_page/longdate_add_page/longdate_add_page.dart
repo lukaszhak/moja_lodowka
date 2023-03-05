@@ -6,7 +6,6 @@ import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/l
 import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class LongDateAddPage extends StatefulWidget {
   const LongDateAddPage({Key? key}) : super(key: key);
 
@@ -20,12 +19,13 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LongDatePageCubit(LongDateDocumentsRepository(LongDateRemoteDataSource())),
+      create: (context) => LongDatePageCubit(
+          LongDateDocumentsRepository(LongDateRemoteDataSource())),
       child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text(AppLocalizations.of(context)!.addProduct),
+              title: Text(AppLocalizations.of(context)!.addProduct),
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
@@ -82,7 +82,7 @@ class _AddPageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onTitleChanged,
-          decoration:  InputDecoration(
+          decoration: InputDecoration(
               label: Text(AppLocalizations.of(context)!.productName),
               border: const OutlineInputBorder(),
               hintText: AppLocalizations.of(context)!.typeName),
@@ -111,9 +111,10 @@ class _AddPageBody extends StatelessWidget {
             onDateChanged(selectedDate);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromARGB(255, 0, 51, 54),
+            backgroundColor: const Color.fromARGB(255, 0, 51, 54),
           ),
-          child: Text(selectedDateFormated ?? AppLocalizations.of(context)!.selectDate),
+          child: Text(
+              selectedDateFormated ?? AppLocalizations.of(context)!.selectDate),
         )
       ],
     );

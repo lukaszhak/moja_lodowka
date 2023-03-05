@@ -33,7 +33,7 @@ class DrugPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Column(
-                    children:  [
+                    children: [
                       Text(AppLocalizations.of(context)!.description),
                       const Divider(
                         color: Colors.black,
@@ -54,7 +54,7 @@ class DrugPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                           Text(AppLocalizations.of(context)!.medicineOutDate)
+                          Text(AppLocalizations.of(context)!.medicineOutDate)
                         ],
                       ),
                       const SizedBox(
@@ -71,7 +71,7 @@ class DrugPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                           Text(AppLocalizations.of(context)!.monthToOutDate)
+                          Text(AppLocalizations.of(context)!.monthToOutDate)
                         ],
                       ),
                     ],
@@ -105,8 +105,7 @@ class DrugPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>
-              getIt<DrugPageCubit>()..start(),
+          create: (context) => getIt<DrugPageCubit>()..start(),
           child: BlocBuilder<DrugPageCubit, DrugPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -119,7 +118,7 @@ class DrugPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
@@ -136,7 +135,7 @@ class DrugPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.noMedications,
                         style: const TextStyle(
@@ -157,10 +156,12 @@ class DrugPage extends StatelessWidget {
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)
                                         .showSnackBar(
-                                       SnackBar(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 0, 51, 54),
-                                        content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      SnackBar(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 0, 51, 54),
+                                        content: Text(
+                                            AppLocalizations.of(context)!
+                                                .deleteInfo),
                                         duration: const Duration(seconds: 1),
                                       ),
                                     ),
@@ -177,7 +178,7 @@ class DrugPage extends StatelessWidget {
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
@@ -239,7 +240,7 @@ class _ItemContainer extends StatelessWidget {
           ),
           Column(
             children: [
-               Text(
+              Text(
                 AppLocalizations.of(context)!.expDate,
                 style: const TextStyle(color: Colors.white),
               ),

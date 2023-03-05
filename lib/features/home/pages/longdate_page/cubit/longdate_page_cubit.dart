@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
@@ -10,11 +10,11 @@ import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/l
 part 'longdate_page_state.dart';
 part 'longdate_page_cubit.freezed.dart';
 
-@injectable 
+@injectable
 class LongDatePageCubit extends Cubit<LongDatePageState> {
   LongDatePageCubit(this._documentsRepository)
       : super(
-           LongDatePageState(
+          LongDatePageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
@@ -32,7 +32,7 @@ class LongDatePageCubit extends Cubit<LongDatePageState> {
 
   Future<void> start() async {
     emit(
-       LongDatePageState(
+      LongDatePageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =

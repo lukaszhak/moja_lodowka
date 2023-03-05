@@ -19,7 +19,7 @@ class CandyPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
         centerTitle: true,
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.candys,
           style: const TextStyle(
             fontSize: 22,
@@ -33,7 +33,7 @@ class CandyPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Column(
-                    children:  [
+                    children: [
                       Text(AppLocalizations.of(context)!.description),
                       const Divider(
                         color: Colors.black,
@@ -54,7 +54,7 @@ class CandyPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                           Text(AppLocalizations.of(context)!.productOutDate)
+                          Text(AppLocalizations.of(context)!.productOutDate)
                         ],
                       ),
                       const SizedBox(
@@ -71,7 +71,7 @@ class CandyPage extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                           Text(AppLocalizations.of(context)!.weekToOutDate)
+                          Text(AppLocalizations.of(context)!.weekToOutDate)
                         ],
                       ),
                     ],
@@ -105,8 +105,7 @@ class CandyPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>
-              getIt<CandyPageCubit>()..start(),
+          create: (context) => getIt<CandyPageCubit>()..start(),
           child: BlocBuilder<CandyPageCubit, CandyPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -119,7 +118,7 @@ class CandyPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
@@ -136,7 +135,7 @@ class CandyPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.noProducts,
                         style: const TextStyle(
@@ -157,10 +156,12 @@ class CandyPage extends StatelessWidget {
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                       backgroundColor:
                                           const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      content: Text(
+                                          AppLocalizations.of(context)!
+                                              .deleteInfo),
                                       duration: const Duration(seconds: 1),
                                     ),
                                   ),
@@ -178,7 +179,7 @@ class CandyPage extends StatelessWidget {
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
@@ -244,7 +245,7 @@ class _ItemContainer extends StatelessWidget {
         ),
         Column(
           children: [
-             Text(
+            Text(
               AppLocalizations.of(context)!.expDate,
               style: const TextStyle(color: Colors.white),
             ),

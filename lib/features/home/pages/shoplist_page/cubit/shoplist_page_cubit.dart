@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
@@ -10,11 +10,11 @@ import 'package:moja_lodowka/domain/repositories/shoplist_documents_repository/s
 part 'shoplist_page_state.dart';
 part 'shoplist_page_cubit.freezed.dart';
 
-@injectable 
+@injectable
 class ShopListPageCubit extends Cubit<ShopListPageState> {
   ShopListPageCubit(this._documentsRepository)
       : super(
-           ShopListPageState(
+          ShopListPageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
@@ -32,7 +32,7 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
 
   Future<void> start() async {
     emit(
-       ShopListPageState(
+      ShopListPageState(
           documents: [], status: Status.loading, errorMessage: ''),
     );
 

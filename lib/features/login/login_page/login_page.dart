@@ -37,7 +37,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                isCreatingAccount == true ? AppLocalizations.of(context)!.register : AppLocalizations.of(context)!.logIn,
+                isCreatingAccount == true
+                    ? AppLocalizations.of(context)!.register
+                    : AppLocalizations.of(context)!.logIn,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -51,7 +53,8 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: widget.passwordController,
                 obscureText: true,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.password),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.password),
               ),
               const SizedBox(
                 height: 20,
@@ -69,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 51, 54)),
+                    backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
                 onPressed: () async {
                   if (isCreatingAccount == true) {
                     // rejestracja
@@ -125,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                       isCreatingAccount = false;
                     });
                   },
-                  child:  Text(
+                  child: Text(
                     AppLocalizations.of(context)!.alreadyHaveAnAccount,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,

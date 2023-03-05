@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
@@ -10,11 +10,11 @@ import 'package:moja_lodowka/domain/repositories/drug_documents_repository/drug_
 part 'drug_page_state.dart';
 part 'drug_page_cubit.freezed.dart';
 
-@injectable 
+@injectable
 class DrugPageCubit extends Cubit<DrugPageState> {
   DrugPageCubit(this._documentsRepository)
       : super(
-           DrugPageState(
+          DrugPageState(
               documents: [], status: Status.initial, errorMessage: ''),
         );
 
@@ -32,8 +32,7 @@ class DrugPageCubit extends Cubit<DrugPageState> {
 
   Future<void> start() async {
     emit(
-       DrugPageState(
-          documents: [], status: Status.loading, errorMessage: ''),
+      DrugPageState(documents: [], status: Status.loading, errorMessage: ''),
     );
     _streamSubscription =
         _documentsRepository.getDrugsDocuments().listen((documents) {

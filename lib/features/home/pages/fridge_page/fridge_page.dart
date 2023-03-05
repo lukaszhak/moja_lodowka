@@ -19,7 +19,7 @@ class FridgePage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.fridge,
           style: const TextStyle(
             fontSize: 22,
@@ -33,7 +33,7 @@ class FridgePage extends StatelessWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                         title: Column(
-                          children:  [
+                          children: [
                             Text(AppLocalizations.of(context)!.description),
                             const Divider(
                               color: Colors.black,
@@ -54,7 +54,8 @@ class FridgePage extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                 Text(AppLocalizations.of(context)!.productOutDate)
+                                Text(AppLocalizations.of(context)!
+                                    .productOutDate)
                               ],
                             ),
                             const SizedBox(
@@ -71,7 +72,8 @@ class FridgePage extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                 Text(AppLocalizations.of(context)!.weekToOutDate)
+                                Text(
+                                    AppLocalizations.of(context)!.weekToOutDate)
                               ],
                             ),
                           ],
@@ -115,7 +117,7 @@ class FridgePage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
@@ -132,7 +134,7 @@ class FridgePage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.noProducts,
                         style: const TextStyle(
@@ -153,10 +155,12 @@ class FridgePage extends StatelessWidget {
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)
                                         .showSnackBar(
-                                       SnackBar(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 0, 51, 54),
-                                        content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      SnackBar(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 0, 51, 54),
+                                        content: Text(
+                                            AppLocalizations.of(context)!
+                                                .deleteInfo),
                                         duration: const Duration(seconds: 1),
                                       ),
                                     ),
@@ -172,7 +176,7 @@ class FridgePage extends StatelessWidget {
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
@@ -241,7 +245,7 @@ class _ItemContainer extends StatelessWidget {
           ),
           Column(
             children: [
-               Text(
+              Text(
                 AppLocalizations.of(context)!.expDate,
                 style: const TextStyle(color: Colors.white),
               ),

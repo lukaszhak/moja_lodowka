@@ -20,43 +20,42 @@ class MyAccountPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                primary: const Color.fromARGB(255, 0, 51, 54)),
-                            child:  Text(AppLocalizations.of(context)!.no),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<RootCubit>()
-                                  .deleteAccount()
-                                  .whenComplete(() => Navigator.of(context)
-                                      .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const RootPage()),
-                                          (Route<dynamic> route) => false));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                primary: const Color.fromARGB(255, 0, 51, 54)),
-                            child:  Text(AppLocalizations.of(context)!.yes),
-                          ),
-                        ],
-                        title:  Text(AppLocalizations.of(context)!.deleteAccount),
-                      ),);
+                context: context,
+                builder: (context) => AlertDialog(
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 0, 51, 54)),
+                      child: Text(AppLocalizations.of(context)!.no),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<RootCubit>().deleteAccount().whenComplete(
+                            () => Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => const RootPage()),
+                                (Route<dynamic> route) => false));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 0, 51, 54)),
+                      child: Text(AppLocalizations.of(context)!.yes),
+                    ),
+                  ],
+                  title: Text(AppLocalizations.of(context)!.deleteAccount),
+                ),
+              );
             },
             icon: const Icon(Icons.delete),
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         toolbarHeight: 50,
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.myAccount,
           style: const TextStyle(fontSize: 23),
         ),
@@ -84,7 +83,7 @@ class MyAccountPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-               Text(
+              Text(
                 AppLocalizations.of(context)!.loggedInAs,
                 style: const TextStyle(
                   fontSize: 20,
@@ -103,12 +102,12 @@ class MyAccountPage extends StatelessWidget {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 0, 51, 54)),
+                    backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
                 onPressed: () {
                   context.read<RootCubit>().signOut();
                   Navigator.of(context).pop();
                 },
-                child:  Text(AppLocalizations.of(context)!.logOut),
+                child: Text(AppLocalizations.of(context)!.logOut),
               ),
             ],
           ),

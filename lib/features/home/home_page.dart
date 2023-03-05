@@ -101,9 +101,11 @@ class _MyDrawer extends StatelessWidget {
                                           Navigator.of(context).pop();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 0, 51, 54)),
-                                        child: Text(AppLocalizations.of(context)!.no),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 0, 51, 54)),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.no),
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
@@ -111,13 +113,15 @@ class _MyDrawer extends StatelessWidget {
                                           Navigator.of(context).pop();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 0, 51, 54)),
-                                        child:  Text(AppLocalizations.of(context)!.yes),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 0, 51, 54)),
+                                        child: Text(
+                                            AppLocalizations.of(context)!.yes),
                                       ),
                                     ],
-                                    title:  Text(
-                                        AppLocalizations.of(context)!.logOutInfo),
+                                    title: Text(AppLocalizations.of(context)!
+                                        .logOutInfo),
                                   ));
                         },
                         child: Row(

@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/home_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class ShopListPage extends StatelessWidget {
   ShopListPage({
     Key? key,
@@ -21,7 +20,7 @@ class ShopListPage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.shoppingList,
           style: const TextStyle(
             fontSize: 22,
@@ -46,9 +45,10 @@ class ShopListPage extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 0, 51, 54),
+                            backgroundColor:
+                                const Color.fromARGB(255, 0, 51, 54),
                           ),
-                          child:  Text(AppLocalizations.of(context)!.cancel),
+                          child: Text(AppLocalizations.of(context)!.cancel),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -59,16 +59,17 @@ class ShopListPage extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 0, 51, 54),
+                            backgroundColor:
+                                const Color.fromARGB(255, 0, 51, 54),
                           ),
-                          child:  Text(AppLocalizations.of(context)!.add),
+                          child: Text(AppLocalizations.of(context)!.add),
                         ),
                       ],
-                      title:  Text(AppLocalizations.of(context)!.addProduct),
+                      title: Text(AppLocalizations.of(context)!.addProduct),
                       content: TextField(
                         controller: controller,
-                        decoration:
-                             InputDecoration(hintText: AppLocalizations.of(context)!.typeInfo),
+                        decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.typeInfo),
                       ),
                     );
                   },
@@ -91,7 +92,7 @@ class ShopListPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>getIt<ShopListPageCubit>()..start(),
+          create: (context) => getIt<ShopListPageCubit>()..start(),
           child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -104,7 +105,7 @@ class ShopListPage extends StatelessWidget {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
@@ -121,7 +122,7 @@ class ShopListPage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.emptyShopList,
                         style: const TextStyle(
@@ -142,10 +143,12 @@ class ShopListPage extends StatelessWidget {
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                       backgroundColor:
                                           const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      content: Text(
+                                          AppLocalizations.of(context)!
+                                              .deleteInfo),
                                       duration: const Duration(seconds: 1),
                                     ),
                                   ),
@@ -164,7 +167,7 @@ class ShopListPage extends StatelessWidget {
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );

@@ -33,7 +33,7 @@ class LongDatePage extends StatelessWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                         title: Column(
-                          children:  [
+                          children: [
                             Text(AppLocalizations.of(context)!.description),
                             const Divider(
                               color: Colors.black,
@@ -54,7 +54,8 @@ class LongDatePage extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                 Text(AppLocalizations.of(context)!.productOutDate)
+                                Text(AppLocalizations.of(context)!
+                                    .productOutDate)
                               ],
                             ),
                             const SizedBox(
@@ -71,7 +72,8 @@ class LongDatePage extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                 Text(AppLocalizations.of(context)!.weekToOutDate)
+                                Text(
+                                    AppLocalizations.of(context)!.weekToOutDate)
                               ],
                             ),
                           ],
@@ -134,7 +136,7 @@ class LongDatePage extends StatelessWidget {
                   );
                 case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.noProducts,
                         style: const TextStyle(
@@ -155,10 +157,12 @@ class LongDatePage extends StatelessWidget {
                                   .whenComplete(
                                     () => ScaffoldMessenger.of(context)
                                         .showSnackBar(
-                                       SnackBar(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 0, 51, 54),
-                                        content: Text(AppLocalizations.of(context)!.deleteInfo),
+                                      SnackBar(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 0, 51, 54),
+                                        content: Text(
+                                            AppLocalizations.of(context)!
+                                                .deleteInfo),
                                         duration: const Duration(seconds: 1),
                                       ),
                                     ),
@@ -175,7 +179,7 @@ class LongDatePage extends StatelessWidget {
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
@@ -240,7 +244,7 @@ class _ItemContainer extends StatelessWidget {
             ),
             Column(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.expDate,
                   style: const TextStyle(color: Colors.white),
                 ),

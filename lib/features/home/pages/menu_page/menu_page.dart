@@ -21,7 +21,7 @@ class MenuPage extends StatelessWidget {
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.recipes,
           style: const TextStyle(
             fontSize: 22,
@@ -45,9 +45,9 @@ class MenuPage extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 0, 51, 54),
+                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child:  Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -58,16 +58,16 @@ class MenuPage extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 0, 51, 54),
+                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child:  Text(AppLocalizations.of(context)!.add),
+                        child: Text(AppLocalizations.of(context)!.add),
                       ),
                     ],
-                    title:  Text(AppLocalizations.of(context)!.addRecipe),
+                    title: Text(AppLocalizations.of(context)!.addRecipe),
                     content: TextField(
                       controller: controller,
-                      decoration:
-                           InputDecoration(hintText: AppLocalizations.of(context)!.typeInfo),
+                      decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.typeInfo),
                     ),
                   );
                 },
@@ -91,8 +91,7 @@ class MenuPage extends StatelessWidget {
           ),
         ),
         child: BlocProvider(
-          create: (context) =>
-          getIt<MenuPageCubit>()..start(),
+          create: (context) => getIt<MenuPageCubit>()..start(),
           child: BlocBuilder<MenuPageCubit, MenuPageState>(
             builder: (context, state) {
               final documentModels = state.documents;
@@ -101,11 +100,11 @@ class MenuPage extends StatelessWidget {
                   return const Center(
                     child: Text('Initial State'),
                   );
-                  case Status.loading:
+                case Status.loading:
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(
                           color: Color.fromARGB(255, 0, 37, 2),
                         ),
@@ -120,9 +119,9 @@ class MenuPage extends StatelessWidget {
                       ],
                     ),
                   );
-                  case Status.success:
+                case Status.success:
                   if (state.documents.isEmpty) {
-                    return  Center(
+                    return Center(
                       child: Text(
                         AppLocalizations.of(context)!.noRecipes,
                         style: const TextStyle(
@@ -131,51 +130,54 @@ class MenuPage extends StatelessWidget {
                     );
                   }
                   return ListView(
-                children: [
-                  const SizedBox(height: 10),
-                  for (final documentModel in documentModels) ...[
-                    Dismissible(
-                      key: ValueKey(documentModel.id),
-                      onDismissed: (_) => context
-                          .read<MenuPageCubit>()
-                          .delete(document: documentModel.id).whenComplete(() => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                     SnackBar(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(AppLocalizations.of(context)!.deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
-                                  ),),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => ViewNote(documentModel:documentModel),
+                    children: [
+                      const SizedBox(height: 10),
+                      for (final documentModel in documentModels) ...[
+                        Dismissible(
+                          key: ValueKey(documentModel.id),
+                          onDismissed: (_) => context
+                              .read<MenuPageCubit>()
+                              .delete(document: documentModel.id)
+                              .whenComplete(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 0, 51, 54),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .deleteInfo),
+                                    duration: const Duration(seconds: 1),
+                                  ),
+                                ),
+                              ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      ViewNote(documentModel: documentModel),
+                                ),
+                              );
+                            },
+                            child: CategoryWidget(
+                              documentModel.title,
+                              const Color.fromARGB(255, 0, 51, 54),
                             ),
-                          );
-                        },
-                        child: CategoryWidget(
-                          documentModel.title,
-                          const Color.fromARGB(255, 0, 51, 54),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ],
-              );
-              case Status.error:
-              return Center(
+                      ],
+                    ],
+                  );
+                case Status.error:
+                  return Center(
                     child: Text(
                       state.errorMessage!,
                       style: TextStyle(
-                        color: Theme.of(context).errorColor,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
               }
-
-              
             },
           ),
         ),

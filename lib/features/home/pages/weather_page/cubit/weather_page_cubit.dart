@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
@@ -8,7 +8,7 @@ import 'package:moja_lodowka/domain/repositories/weather_repository/weather_repo
 part 'weather_page_state.dart';
 part 'weather_page_cubit.freezed.dart';
 
-@injectable 
+@injectable
 class WeatherPageCubit extends Cubit<WeatherPageState> {
   WeatherPageCubit(this._weatherRepository)
       : super(WeatherPageState(

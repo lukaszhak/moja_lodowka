@@ -12,12 +12,12 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<WeatherPageCubit>(),
+      create: (context) => getIt<WeatherPageCubit>(),
       child: BlocConsumer<WeatherPageCubit, WeatherPageState>(
         listener: (context, state) {
           if (state.status == Status.error) {
-            final errorMessage = state.errorMessage ?? AppLocalizations.of(context)!.errorOccurred;
+            final errorMessage = state.errorMessage ??
+                AppLocalizations.of(context)!.errorOccurred;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(errorMessage),
@@ -32,7 +32,7 @@ class WeatherPage extends StatelessWidget {
             appBar: AppBar(
               toolbarHeight: 50,
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-              title:  Text(AppLocalizations.of(context)!.checkWeather),
+              title: Text(AppLocalizations.of(context)!.checkWeather),
             ),
             body: Center(child: Builder(builder: (context) {
               if (state.status == Status.loading) {
@@ -47,7 +47,7 @@ class WeatherPage extends StatelessWidget {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const CircularProgressIndicator(),
                         const SizedBox(
                           height: 10,
@@ -106,24 +106,27 @@ class _DisplayWeatherWidget extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 Text(
                   AppLocalizations.of(context)!.selectedCity,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 Text(
                   AppLocalizations.of(context)!.temp,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 Text(
                   AppLocalizations.of(context)!.conditions,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -188,7 +191,7 @@ class _SearchWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: _controller,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.city,
                   enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -200,14 +203,14 @@ class _SearchWidget extends StatelessWidget {
           ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 0, 51, 54),
+                backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               ),
               onPressed: () {
                 context
                     .read<WeatherPageCubit>()
                     .getWeatherModel(city: _controller.text);
               },
-              child:  Text(AppLocalizations.of(context)!.check))
+              child: Text(AppLocalizations.of(context)!.check))
         ],
       ),
     );
