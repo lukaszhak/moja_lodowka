@@ -17,6 +17,63 @@ class ShopListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return BlocProvider(
+                    create: (context) => getIt<ShopListPageCubit>(),
+                    child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
+                      builder: (context, state) {
+                        return AlertDialog(
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 0, 51, 54),
+                              ),
+                              child: Text(AppLocalizations.of(context)!.cancel),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<ShopListPageCubit>()
+                                    .add(title: controller.text);
+                                controller.clear();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 0, 51, 54),
+                              ),
+                              child: Text(AppLocalizations.of(context)!.add),
+                            ),
+                          ],
+                          title: Text(AppLocalizations.of(context)!.addProduct),
+                          content: TextField(
+                            autofocus: true,
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: controller,
+                            decoration: InputDecoration(
+                                hintText:
+                                    AppLocalizations.of(context)!.typeInfo),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.add_shopping_cart),
+            iconSize: 27,
+          ),
+        ],
         toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -26,60 +83,6 @@ class ShopListPage extends StatelessWidget {
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return BlocProvider(
-                create: (context) => getIt<ShopListPageCubit>(),
-                child: BlocBuilder<ShopListPageCubit, ShopListPageState>(
-                  builder: (context, state) {
-                    return AlertDialog(
-                      actions: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 51, 54),
-                          ),
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<ShopListPageCubit>()
-                                .add(title: controller.text);
-                            controller.clear();
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 51, 54),
-                          ),
-                          child: Text(AppLocalizations.of(context)!.add),
-                        ),
-                      ],
-                      title: Text(AppLocalizations.of(context)!.addProduct),
-                      content: TextField(
-                        controller: controller,
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.typeInfo),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-          );
-        },
-        child: const Icon(
-          Icons.add,
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 250, 252, 250),
@@ -198,7 +201,7 @@ class _ShoppingListWidgetState extends State<_ShoppingListWidget> {
       padding: const EdgeInsets.all(18),
       margin: const EdgeInsets.all(15),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             widget.documentModel.title,
@@ -209,13 +212,18 @@ class _ShoppingListWidgetState extends State<_ShoppingListWidget> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value!;
-                });
-              })
+          Theme(
+            data: ThemeData(unselectedWidgetColor: Colors.white),
+            child: Checkbox(
+                activeColor: Colors.green,
+                checkColor: Colors.white,
+                value: isChecked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isChecked = value!;
+                  });
+                }),
+          )
         ],
       ),
     );
