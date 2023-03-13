@@ -101,73 +101,69 @@ class _DisplayWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherPageCubit, WeatherPageState>(
       builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        return Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   AppLocalizations.of(context)!.selectedCity,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 22),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.temp,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.conditions,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            Column(
-              children: [
                 Text(
                   weatherModel.city,
-                  style: const TextStyle(
-                    fontSize: 22,
-                  ),
+                  style: const TextStyle(fontSize: 22),
                 ),
-                const SizedBox(
-                  height: 40,
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.temp,
+                  style: const TextStyle(fontSize: 22),
                 ),
                 Row(
                   children: [
                     Text(
                       weatherModel.temperature.toString(),
-                      style: const TextStyle(
-                        fontSize: 22,
-                      ),
+                      style: const TextStyle(fontSize: 22),
+                    ),
+                    const SizedBox(
+                      width: 2,
                     ),
                     const Text(
                       '°C',
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
-                    )
+                      style: TextStyle(fontSize: 22),
+                    ),
                   ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  weatherModel.condition,
-                  style: const TextStyle(
-                    fontSize: 22,
-                  ),
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.conditions,
+                    style: const TextStyle(fontSize: 22),
+                  ),
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  Flexible(
+                    child: Text(
+                      weatherModel.condition,
+                      style: const TextStyle(fontSize: 22),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         );
       },
