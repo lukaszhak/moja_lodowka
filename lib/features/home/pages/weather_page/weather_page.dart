@@ -126,20 +126,9 @@ class _DisplayWeatherWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.temp,
                   style: const TextStyle(fontSize: 22),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      weatherModel.temperature.toString(),
-                      style: const TextStyle(fontSize: 22),
-                    ),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    const Text(
-                      '°C',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ],
+                Text(
+                  '${weatherModel.temperature} °C',
+                  style: const TextStyle(fontSize: 22),
                 ),
               ],
             ),
