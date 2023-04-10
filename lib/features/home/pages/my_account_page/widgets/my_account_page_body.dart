@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-
 class MyAccountPageBody extends StatelessWidget {
   const MyAccountPageBody({
     super.key,
@@ -24,15 +22,28 @@ class MyAccountPageBody extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(35.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.black,
-                radius: 135,
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('images/tiger.jpg'),
-                  radius: 130,
-                ),
+            Padding(
+              padding: const EdgeInsets.all(35.0),
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 135,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('images/upload.png'),
+                      radius: 130,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Dodaj Zdjęcie',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 30, 201),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(
