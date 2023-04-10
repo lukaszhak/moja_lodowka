@@ -14,15 +14,15 @@ class CandyPageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (documentModel.daysToExpire() <= documentModel.outDated()) {
-      return ItemContainer(documentModel: documentModel, color: Colors.black);
+      return _ItemContainer(documentModel: documentModel, color: Colors.black);
     }
     if (documentModel.daysToExpire() <= documentModel.closeCall()) {
-      return ItemContainer(
+      return _ItemContainer(
         documentModel: documentModel,
         color: const Color.fromARGB(255, 255, 0, 0),
       );
     }
-    return ItemContainer(
+    return _ItemContainer(
       documentModel: documentModel,
       color: const Color.fromARGB(255, 0, 51, 54),
     );
@@ -31,8 +31,8 @@ class CandyPageItem extends StatelessWidget {
 
 
 
-class ItemContainer extends StatelessWidget {
-  const ItemContainer({
+class _ItemContainer extends StatelessWidget {
+  const _ItemContainer({
     Key? key,
     required this.documentModel,
     required this.color,

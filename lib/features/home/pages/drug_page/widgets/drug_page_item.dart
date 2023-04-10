@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/domain/models/drug_document_model/drug_document_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:moja_lodowka/domain/models/drink_document_model/drink_document_model.dart';
 
 
-class DrinkPageItem extends StatelessWidget {
-  const DrinkPageItem({
-    Key? key,
+class DrugPageItem extends StatelessWidget {
+  const DrugPageItem({
     required this.documentModel,
+    Key? key,
   }) : super(key: key);
 
-  final DrinkDocumentModel documentModel;
+  final DrugDocumentModel documentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,8 @@ class _ItemContainer extends StatelessWidget {
       {Key? key, required this.documentModel, required this.color})
       : super(key: key);
 
-  final DrinkDocumentModel documentModel;
+  final DrugDocumentModel documentModel;
   final Color color;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,10 +48,7 @@ class _ItemContainer extends StatelessWidget {
           Text(
             documentModel.title,
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-            ),
+                color: Colors.white, fontSize: 19, fontWeight: FontWeight.bold),
           ),
           Column(
             children: [
