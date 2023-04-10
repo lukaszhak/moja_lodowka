@@ -49,30 +49,3 @@ class HomePage extends StatelessWidget {
 
 
 
-class CategoryWidget extends StatelessWidget {
-  const CategoryWidget(
-    this.title,
-    this.color, {
-    Key? key,
-  }) : super(key: key);
-
-  final Color color;
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      padding: const EdgeInsets.all(18),
-      margin: const EdgeInsets.all(15),
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 19,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}
