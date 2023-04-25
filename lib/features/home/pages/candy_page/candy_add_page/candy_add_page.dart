@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class CandyAddPage extends StatefulWidget {
-  const CandyAddPage({Key? key}) : super(key: key);
+  CandyAddPage({Key? key}) : super(key: key);
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   State<CandyAddPage> createState() => _CandyAddPageState();
@@ -35,6 +40,9 @@ class _CandyAddPageState extends State<CandyAddPage> {
                           context
                               .read<CandyPageCubit>()
                               .add(_title!, _expDate!);
+                          context
+                              .read<CandyPageCubit>()
+                              .scheduleNotification(_expDate!, context);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
@@ -97,9 +105,9 @@ class _AddPageBody extends StatelessWidget {
           onPressed: () async {
             final selectedDate = await showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
+                initialDate: tz.TZDateTime.now(tz.local),
+                firstDate: tz.TZDateTime.now(tz.local),
+                lastDate: tz.TZDateTime.now(tz.local).add(
                   const Duration(days: 365 * 10),
                 ),
                 builder: (context, child) {

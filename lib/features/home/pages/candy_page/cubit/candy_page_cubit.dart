@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -18,6 +19,11 @@ class CandyPageCubit extends Cubit<CandyPageState> {
   final CandyDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> scheduleNotification(
+      DateTime expDate, BuildContext context) async {
+    await _documentsRepository.notification(expDate, context);
+  }
 
   Future<void> add(String title, DateTime expDate) async {
     await _documentsRepository.add(title, expDate);

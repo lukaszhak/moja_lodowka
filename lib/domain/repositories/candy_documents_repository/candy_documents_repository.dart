@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
 
-@injectable 
+@injectable
 class CandyDocumentsRepository {
   final CandyRemoteDataSource _candyRemoteDataSource;
 
@@ -26,5 +27,9 @@ class CandyDocumentsRepository {
 
   Future<void> delete({required String document}) async {
     await _candyRemoteDataSource.deleteDoc(document: document);
+  }
+
+  Future<void> notification(DateTime expDate, BuildContext context) async {
+    await _candyRemoteDataSource.scheduleNotification(expDate, context);
   }
 }

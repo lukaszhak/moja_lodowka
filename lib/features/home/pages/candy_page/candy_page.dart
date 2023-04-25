@@ -18,7 +18,7 @@ class CandyPage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const CandyAddPage(),
+              builder: (context) =>  CandyAddPage(),
             ),
           );
         },
