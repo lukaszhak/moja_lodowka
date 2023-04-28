@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,16 +56,16 @@ class CandyRemoteDataSource {
   }
 
   Future<void> scheduleNotification(
-      DateTime expDate, BuildContext context) async {
+      DateTime expDate, BuildContext context, String? title) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
-      const Duration(days: 7),
+      const Duration(days: 1),
     );
     AndroidNotificationDetails androidDetails =
         const AndroidNotificationDetails(
-      'channel.id',
-      'channel.name',
+      'channel 1',
+      'candys',
       'channel.discription',
       importance: Importance.high,
       priority: Priority.max,
@@ -72,11 +74,13 @@ class CandyRemoteDataSource {
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidDetails);
+    Random random = Random();
+    int notificationId = random.nextInt(1000);
 
     await flutterLocalNotificationsPlugin.schedule(
-      0,
+      notificationId,
       'Przypomnienie w ${AppLocalizations.of(context)!.candys}',
-      'Kończy się data ważności produktu',
+      'Kończy się data ważności produktu $title',
       scheduleNotificationDateTime,
       notificationDetails,
       androidAllowWhileIdle: true,

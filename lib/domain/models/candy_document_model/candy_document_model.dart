@@ -21,10 +21,10 @@ class CandyDocumentModel with _$CandyDocumentModel {
   }
 
   int closeCall() {
-    return (7);
+    return (8);
   }
 
   int outDated() {
-    return (0);
+    return (-1);
   }
 }

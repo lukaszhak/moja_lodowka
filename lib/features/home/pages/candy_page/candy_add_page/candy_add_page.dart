@@ -42,7 +42,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
                               .add(_title!, _expDate!);
                           context
                               .read<CandyPageCubit>()
-                              .scheduleNotification(_expDate!, context);
+                              .scheduleNotification(_expDate!, context, _title);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),

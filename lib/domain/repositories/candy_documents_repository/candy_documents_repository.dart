@@ -29,7 +29,7 @@ class CandyDocumentsRepository {
     await _candyRemoteDataSource.deleteDoc(document: document);
   }
 
-  Future<void> notification(DateTime expDate, BuildContext context) async {
-    await _candyRemoteDataSource.scheduleNotification(expDate, context);
+  Future<void> notification(DateTime expDate, BuildContext context, String? title) async {
+    await _candyRemoteDataSource.scheduleNotification(expDate, context, title);
   }
 }
