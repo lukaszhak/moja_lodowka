@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cub
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_item.dart';
 
-
 class CandyPageBody extends StatelessWidget {
   const CandyPageBody({
     super.key,
@@ -63,6 +62,9 @@ class CandyPageBody extends StatelessWidget {
                     ),
                   );
                 }
+
+                final notificationId = context.read<int>();
+                
                 return ListView(
                   children: [
                     const SizedBox(height: 10),
@@ -72,16 +74,18 @@ class CandyPageBody extends StatelessWidget {
                         onDismissed: (_) {
                           context
                               .read<CandyPageCubit>()
+                              .cancelNotification(notificationId);
+                          context
+                              .read<CandyPageCubit>()
                               .delete(document: documentModel.id)
                               .whenComplete(
-                                () => ScaffoldMessenger.of(context)
-                                    .showSnackBar(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     backgroundColor:
                                         const Color.fromARGB(255, 0, 51, 54),
-                                    content: Text(
-                                        AppLocalizations.of(context)!
-                                            .deleteInfo),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .deleteInfo),
                                     duration: const Duration(seconds: 1),
                                   ),
                                 ),

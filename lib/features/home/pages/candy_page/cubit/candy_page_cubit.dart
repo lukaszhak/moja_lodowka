@@ -20,9 +20,14 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> scheduleNotification(
-      DateTime expDate, BuildContext context, String? title) async {
-    await _documentsRepository.notification(expDate, context, title);
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    await _documentsRepository.notification(
+        expDate, context, title, notificationId);
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    await _documentsRepository.cancelNotification(notificationId);
   }
 
   Future<void> add(String title, DateTime expDate) async {

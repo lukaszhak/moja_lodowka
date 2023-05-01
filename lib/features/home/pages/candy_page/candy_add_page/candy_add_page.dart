@@ -6,7 +6,6 @@ import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/c
 import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 class CandyAddPage extends StatefulWidget {
   CandyAddPage({Key? key}) : super(key: key);
@@ -28,6 +27,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
           CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource())),
       child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -40,9 +40,8 @@ class _CandyAddPageState extends State<CandyAddPage> {
                           context
                               .read<CandyPageCubit>()
                               .add(_title!, _expDate!);
-                          context
-                              .read<CandyPageCubit>()
-                              .scheduleNotification(_expDate!, context, _title);
+                          context.read<CandyPageCubit>().scheduleNotification(
+                              _expDate!, context, _title, notificationId);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
@@ -105,9 +104,9 @@ class _AddPageBody extends StatelessWidget {
           onPressed: () async {
             final selectedDate = await showDatePicker(
                 context: context,
-                initialDate: tz.TZDateTime.now(tz.local),
-                firstDate: tz.TZDateTime.now(tz.local),
-                lastDate: tz.TZDateTime.now(tz.local).add(
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(
                   const Duration(days: 365 * 10),
                 ),
                 builder: (context, child) {

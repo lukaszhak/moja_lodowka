@@ -1,7 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +52,8 @@ class CandyRemoteDataSource {
         .delete();
   }
 
-  Future<void> scheduleNotification(
-      DateTime expDate, BuildContext context, String? title) async {
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
@@ -74,8 +71,6 @@ class CandyRemoteDataSource {
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidDetails);
-    Random random = Random();
-    int notificationId = random.nextInt(1000);
 
     await flutterLocalNotificationsPlugin.schedule(
       notificationId,
@@ -85,5 +80,12 @@ class CandyRemoteDataSource {
       notificationDetails,
       androidAllowWhileIdle: true,
     );
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 }
