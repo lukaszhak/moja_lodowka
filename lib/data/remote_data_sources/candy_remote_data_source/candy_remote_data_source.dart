@@ -57,7 +57,7 @@ class CandyRemoteDataSource {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
-      const Duration(days: 1),
+      const Duration(days: 7),
     );
     AndroidNotificationDetails androidDetails =
         const AndroidNotificationDetails(
@@ -79,6 +79,7 @@ class CandyRemoteDataSource {
       scheduleNotificationDateTime,
       notificationDetails,
       androidAllowWhileIdle: true,
+      
     );
   }
 

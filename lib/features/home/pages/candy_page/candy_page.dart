@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_add_page/candy_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_appbar.dart';
@@ -13,8 +11,7 @@ class CandyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Random random = Random();
-    final notificationId = random.nextInt(100);
+    final notificationId = UniqueKey().hashCode;
     return Provider<int>(
       create: (context) => notificationId,
       child: Scaffold(
