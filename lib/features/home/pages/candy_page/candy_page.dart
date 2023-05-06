@@ -4,14 +4,26 @@ import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_a
 import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_body.dart';
 import 'package:provider/provider.dart';
 
-class CandyPage extends StatelessWidget {
+class CandyPage extends StatefulWidget {
   const CandyPage({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<CandyPage> createState() => _CandyPageState();
+}
+
+class _CandyPageState extends State<CandyPage> {
+  int notificationId = UniqueKey().hashCode;
+
+  void newValue() {
+    setState(() {
+      notificationId++;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final notificationId = UniqueKey().hashCode;
     return Provider<int>(
       create: (context) => notificationId,
       child: Scaffold(
@@ -26,6 +38,7 @@ class CandyPage extends StatelessWidget {
                     create: (context) => notificationId, child: CandyAddPage()),
               ),
             );
+            newValue();
           },
           child: const Icon(
             Icons.add,
