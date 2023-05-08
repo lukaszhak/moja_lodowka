@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_pa
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/widgets/shoplist_page_item.dart';
 
-
 class ShopListPageBody extends StatelessWidget {
   const ShopListPageBody({
     super.key,
@@ -65,28 +64,7 @@ class ShopListPageBody extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
-                      Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<ShopListPageCubit>()
-                                .delete(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
-                                  ),
-                                );
-                          },
-                          child: ShoppingListItem(
-                              documentModel: documentModel)),
+                      ShoppingListItem(documentModel: documentModel),
                     ],
                   ],
                 );
@@ -106,4 +84,3 @@ class ShopListPageBody extends StatelessWidget {
     );
   }
 }
-

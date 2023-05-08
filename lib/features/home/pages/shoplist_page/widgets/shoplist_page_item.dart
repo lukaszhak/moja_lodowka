@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShoppingListItem extends StatelessWidget {
   const ShoppingListItem({
@@ -32,14 +33,36 @@ class ShoppingListItem extends StatelessWidget {
           ),
           Theme(
             data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Checkbox(
-                activeColor: Colors.green,
-                checkColor: Colors.white,
-                value: isChecked,
-                onChanged: (bool? newValue) {
-                  context.read<ShopListPageCubit>().update(documentModel.id, newValue!);
-                }),
-          )
+            child: Row(
+              children: [
+                Checkbox(
+                    activeColor: Colors.red,
+                    checkColor: Colors.white,
+                    value: isChecked,
+                    onChanged: (bool? newValue) {
+                      context
+                          .read<ShopListPageCubit>()
+                          .update(documentModel.id, newValue!);
+                    }),
+                const SizedBox(
+                  width: 15,
+                ),
+                Visibility(
+                    visible: isChecked == true ? true : false,
+                    child: IconButton(
+                      onPressed: () {
+                        context
+                            .read<ShopListPageCubit>()
+                            .delete(document: documentModel.id);
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    )),
+              ],
+            ),
+          ),
         ],
       ),
     );
