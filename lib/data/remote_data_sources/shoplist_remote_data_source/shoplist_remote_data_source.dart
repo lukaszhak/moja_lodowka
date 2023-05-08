@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable 
+@injectable
 class ShopListRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getShopListData() {
     try {
@@ -23,7 +23,7 @@ class ShopListRemoteDataSource {
     }
   }
 
-  Future<void> addDoc(String title) async {
+  Future<void> addDoc(String title, bool isChecked) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -32,7 +32,7 @@ class ShopListRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('lista')
-        .add({'title': title});
+        .add({'title': title, 'ischecked': isChecked});
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -47,5 +47,14 @@ class ShopListRemoteDataSource {
         .doc(document)
         .delete();
   }
-}
 
+  Future<void> updateValue({required String document, required bool newValue}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('lista')
+        .doc(document)
+        .update({'ischecked': newValue});
+  }
+}

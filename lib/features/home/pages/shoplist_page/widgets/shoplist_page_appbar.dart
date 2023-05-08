@@ -45,7 +45,7 @@ class ShopListPageAppBar extends StatelessWidget
                             onPressed: () {
                               context
                                   .read<ShopListPageCubit>()
-                                  .add(title: controller.text);
+                                  .add(title: controller.text, isChecked: false);
                               controller.clear();
                               Navigator.of(context).pop();
                             },

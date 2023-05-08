@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'shoplist_document_model.dart';
 
@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ShopListDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  bool get isChecked => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShopListDocumentModelCopyWith<ShopListDocumentModel> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $ShopListDocumentModelCopyWith<$Res> {
           $Res Function(ShopListDocumentModel) then) =
       _$ShopListDocumentModelCopyWithImpl<$Res, ShopListDocumentModel>;
   @useResult
-  $Res call({String id, String title});
+  $Res call({String id, String title, bool isChecked});
 }
 
 /// @nodoc
@@ -49,6 +50,7 @@ class _$ShopListDocumentModelCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? isChecked = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -59,6 +61,10 @@ class _$ShopListDocumentModelCopyWithImpl<$Res,
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      isChecked: null == isChecked
+          ? _value.isChecked
+          : isChecked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -71,7 +77,7 @@ abstract class _$$_ShopListDocumentModelCopyWith<$Res>
       __$$_ShopListDocumentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title});
+  $Res call({String id, String title, bool isChecked});
 }
 
 /// @nodoc
@@ -87,6 +93,7 @@ class __$$_ShopListDocumentModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? isChecked = null,
   }) {
     return _then(_$_ShopListDocumentModel(
       id: null == id
@@ -97,6 +104,10 @@ class __$$_ShopListDocumentModelCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      isChecked: null == isChecked
+          ? _value.isChecked
+          : isChecked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -104,16 +115,20 @@ class __$$_ShopListDocumentModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ShopListDocumentModel extends _ShopListDocumentModel {
-  _$_ShopListDocumentModel({required this.id, required this.title}) : super._();
+  _$_ShopListDocumentModel(
+      {required this.id, required this.title, required this.isChecked})
+      : super._();
 
   @override
   final String id;
   @override
   final String title;
+  @override
+  final bool isChecked;
 
   @override
   String toString() {
-    return 'ShopListDocumentModel(id: $id, title: $title)';
+    return 'ShopListDocumentModel(id: $id, title: $title, isChecked: $isChecked)';
   }
 
   @override
@@ -122,11 +137,13 @@ class _$_ShopListDocumentModel extends _ShopListDocumentModel {
         (other.runtimeType == runtimeType &&
             other is _$_ShopListDocumentModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.isChecked, isChecked) ||
+                other.isChecked == isChecked));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title);
+  int get hashCode => Object.hash(runtimeType, id, title, isChecked);
 
   @JsonKey(ignore: true)
   @override
@@ -139,13 +156,16 @@ class _$_ShopListDocumentModel extends _ShopListDocumentModel {
 abstract class _ShopListDocumentModel extends ShopListDocumentModel {
   factory _ShopListDocumentModel(
       {required final String id,
-      required final String title}) = _$_ShopListDocumentModel;
+      required final String title,
+      required final bool isChecked}) = _$_ShopListDocumentModel;
   _ShopListDocumentModel._() : super._();
 
   @override
   String get id;
   @override
   String get title;
+  @override
+  bool get isChecked;
   @override
   @JsonKey(ignore: true)
   _$$_ShopListDocumentModelCopyWith<_$_ShopListDocumentModel> get copyWith =>

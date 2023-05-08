@@ -22,8 +22,12 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> add({required String title}) async {
-    await _documentsRepository.add(title);
+  Future<void> update(String document, bool newValue) async {
+    await _documentsRepository.update(document, newValue);
+  }
+
+  Future<void> add({required String title, required bool isChecked}) async {
+    await _documentsRepository.add(title, isChecked);
   }
 
   Future<void> delete({required String document}) async {

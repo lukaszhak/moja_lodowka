@@ -8,5 +8,8 @@ class ShopListDocumentModel with _$ShopListDocumentModel {
   factory ShopListDocumentModel({
     required String id,
     required String title,
+    required bool isChecked,
   }) = _ShopListDocumentModel;
+
+
 }

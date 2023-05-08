@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
+import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 
-
-class ShoppingListItem extends StatefulWidget {
-  const ShoppingListItem({super.key, 
+class ShoppingListItem extends StatelessWidget {
+  const ShoppingListItem({
+    super.key,
     required this.documentModel,
   });
 
   final ShopListDocumentModel documentModel;
 
   @override
-  State<ShoppingListItem> createState() => ShoppingListItemState();
-}
-
-class ShoppingListItemState extends State<ShoppingListItem> {
-  bool isChecked = false;
-
-  @override
   Widget build(BuildContext context) {
+    bool isChecked = documentModel.isChecked;
     return Container(
       color: const Color.fromARGB(255, 0, 51, 54),
       padding: const EdgeInsets.all(18),
@@ -26,7 +22,7 @@ class ShoppingListItemState extends State<ShoppingListItem> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            widget.documentModel.title,
+            documentModel.title,
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
@@ -40,10 +36,8 @@ class ShoppingListItemState extends State<ShoppingListItem> {
                 activeColor: Colors.green,
                 checkColor: Colors.white,
                 value: isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isChecked = value!;
-                  });
+                onChanged: (bool? newValue) {
+                  context.read<ShopListPageCubit>().update(documentModel.id, newValue!);
                 }),
           )
         ],
