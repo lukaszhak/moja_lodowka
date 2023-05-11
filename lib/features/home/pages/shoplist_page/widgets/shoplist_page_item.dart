@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShoppingListItem extends StatelessWidget {
   const ShoppingListItem({

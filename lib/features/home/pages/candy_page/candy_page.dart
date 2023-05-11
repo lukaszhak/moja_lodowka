@@ -16,7 +16,7 @@ class CandyPage extends StatefulWidget {
 class _CandyPageState extends State<CandyPage> {
   int notificationId = UniqueKey().hashCode;
 
-  void newValue() {
+  void newId() {
     setState(() {
       notificationId++;
     });
@@ -38,7 +38,7 @@ class _CandyPageState extends State<CandyPage> {
                     create: (context) => notificationId, child: CandyAddPage()),
               ),
             );
-            newValue();
+            newId();
           },
           child: const Icon(
             Icons.add,

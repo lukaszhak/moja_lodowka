@@ -23,6 +23,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
           DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource())),
       child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -35,6 +36,8 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
                             context
                                 .read<DrinkPageCubit>()
                                 .add(_title!, _expDate!);
+                            context.read<DrinkPageCubit>().scheduleNotification(
+                                _expDate!, context, _title, notificationId);
                             Navigator.of(context).pop();
                           },
                     icon: const Icon(Icons.check)),

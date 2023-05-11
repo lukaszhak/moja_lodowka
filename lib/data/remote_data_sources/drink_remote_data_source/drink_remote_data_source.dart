@@ -1,8 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable 
+@injectable
 class DrinkRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getDrinksData() {
     try {
@@ -46,5 +51,41 @@ class DrinkRemoteDataSource {
         .collection('napoje')
         .doc(document)
         .delete();
+  }
+
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    var scheduleNotificationDateTime = expDate.subtract(
+      const Duration(days: 7),
+    );
+    AndroidNotificationDetails androidDetails =
+        const AndroidNotificationDetails(
+      'channel 2',
+      'drinks',
+      'channel.discription',
+      importance: Importance.high,
+      priority: Priority.max,
+      icon: '@mipmap/ic_launcher',
+      playSound: true,
+    );
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidDetails);
+
+    await flutterLocalNotificationsPlugin.schedule(
+        notificationId,
+        'Przypomnienie w ${AppLocalizations.of(context)!.drinks}',
+        'Kończy się data ważności produktu $title',
+        scheduleNotificationDateTime,
+        notificationDetails,
+        androidAllowWhileIdle: true);
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 }
