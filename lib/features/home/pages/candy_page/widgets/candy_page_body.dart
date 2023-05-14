@@ -63,8 +63,7 @@ class CandyPageBody extends StatelessWidget {
                   );
                 }
 
-                final notificationId = context.read<int>();
-                
+
                 return ListView(
                   children: [
                     const SizedBox(height: 10),
@@ -74,7 +73,7 @@ class CandyPageBody extends StatelessWidget {
                         onDismissed: (_) {
                           context
                               .read<CandyPageCubit>()
-                              .cancelNotification(notificationId);
+                              .cancelNotification(documentModel.notificationId);
                           context
                               .read<CandyPageCubit>()
                               .delete(document: documentModel.id)

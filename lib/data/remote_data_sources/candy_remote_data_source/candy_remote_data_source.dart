@@ -27,7 +27,7 @@ class CandyRemoteDataSource {
     }
   }
 
-  Future<void> addDoc(String title, DateTime expDate) async {
+  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -36,7 +36,7 @@ class CandyRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('slodycze')
-        .add({'title': title, 'expdate': expDate});
+        .add({'title': title, 'expdate': expDate, 'notificationid': notificationId});
   }
 
   Future<void> deleteDoc({required String document}) async {

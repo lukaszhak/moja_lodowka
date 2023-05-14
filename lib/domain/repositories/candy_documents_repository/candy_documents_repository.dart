@@ -16,13 +16,15 @@ class CandyDocumentsRepository {
         return CandyDocumentModel(
             id: doc.id,
             title: doc['title'],
+            notificationId: doc['notificationid'],
             expDate: (doc['expdate'] as Timestamp).toDate());
+            
       }).toList();
     });
   }
 
-  Future<void> add(String title, DateTime expDate) async {
-    await _candyRemoteDataSource.addDoc(title, expDate);
+  Future<void> add(String title, DateTime expDate, int notificationId) async {
+    await _candyRemoteDataSource.addDoc(title, expDate, notificationId);
   }
 
   Future<void> delete({required String document}) async {

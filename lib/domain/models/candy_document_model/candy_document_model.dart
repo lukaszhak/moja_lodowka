@@ -10,6 +10,7 @@ class CandyDocumentModel with _$CandyDocumentModel {
     required String id,
     required String title,
     required DateTime expDate,
+    required int notificationId,
   }) = _CandyDocumentModel;
 
   String expDateFormated() {

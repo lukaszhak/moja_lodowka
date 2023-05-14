@@ -30,8 +30,8 @@ class CandyPageCubit extends Cubit<CandyPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> add(String title, DateTime expDate) async {
-    await _documentsRepository.add(title, expDate);
+  Future<void> add(String title, DateTime expDate, int notificationId) async {
+    await _documentsRepository.add(title, expDate, notificationId);
   }
 
   Future<void> delete({required String document}) async {
