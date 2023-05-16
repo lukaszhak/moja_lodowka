@@ -9,6 +9,7 @@ class DrinkDocumentModel with _$DrinkDocumentModel {
     required String id,
     required String title,
     required DateTime expDate,
+    required int notificationId,
   }) = _DrinkDocumentModel;
 
   String expDateFormated() {

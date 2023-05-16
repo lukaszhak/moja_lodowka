@@ -14,6 +14,7 @@ class DrinkDocumentsRepository {
     return _drinkRemoteDataSource.getDrinksData().map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
         return DrinkDocumentModel(
+            notificationId: doc['notificationid'],
             id: doc.id,
             title: doc['title'],
             expDate: (doc['expdate'] as Timestamp).toDate());
@@ -21,8 +22,8 @@ class DrinkDocumentsRepository {
     });
   }
 
-  Future<void> add(String title, DateTime expDate) async {
-    await _drinkRemoteDataSource.addDoc(title, expDate);
+  Future<void> add(String title, DateTime expDate, int notificationId) async {
+    await _drinkRemoteDataSource.addDoc(title, expDate, notificationId);
   }
 
   Future<void> delete({required String document}) async {

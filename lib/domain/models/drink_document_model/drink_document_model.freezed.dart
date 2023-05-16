@@ -19,6 +19,7 @@ mixin _$DrinkDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   DateTime get expDate => throw _privateConstructorUsedError;
+  int get notificationId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DrinkDocumentModelCopyWith<DrinkDocumentModel> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $DrinkDocumentModelCopyWith<$Res> {
           DrinkDocumentModel value, $Res Function(DrinkDocumentModel) then) =
       _$DrinkDocumentModelCopyWithImpl<$Res, DrinkDocumentModel>;
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$DrinkDocumentModelCopyWithImpl<$Res, $Val extends DrinkDocumentModel>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,6 +66,10 @@ class _$DrinkDocumentModelCopyWithImpl<$Res, $Val extends DrinkDocumentModel>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_DrinkDocumentModelCopyWith<$Res>
       __$$_DrinkDocumentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_DrinkDocumentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_$_DrinkDocumentModel(
       id: null == id
@@ -107,6 +114,10 @@ class __$$_DrinkDocumentModelCopyWithImpl<$Res>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_DrinkDocumentModelCopyWithImpl<$Res>
 
 class _$_DrinkDocumentModel extends _DrinkDocumentModel {
   _$_DrinkDocumentModel(
-      {required this.id, required this.title, required this.expDate})
+      {required this.id,
+      required this.title,
+      required this.expDate,
+      required this.notificationId})
       : super._();
 
   @override
@@ -124,10 +138,12 @@ class _$_DrinkDocumentModel extends _DrinkDocumentModel {
   final String title;
   @override
   final DateTime expDate;
+  @override
+  final int notificationId;
 
   @override
   String toString() {
-    return 'DrinkDocumentModel(id: $id, title: $title, expDate: $expDate)';
+    return 'DrinkDocumentModel(id: $id, title: $title, expDate: $expDate, notificationId: $notificationId)';
   }
 
   @override
@@ -137,11 +153,14 @@ class _$_DrinkDocumentModel extends _DrinkDocumentModel {
             other is _$_DrinkDocumentModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.expDate, expDate) || other.expDate == expDate));
+            (identical(other.expDate, expDate) || other.expDate == expDate) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, expDate);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, expDate, notificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +174,8 @@ abstract class _DrinkDocumentModel extends DrinkDocumentModel {
   factory _DrinkDocumentModel(
       {required final String id,
       required final String title,
-      required final DateTime expDate}) = _$_DrinkDocumentModel;
+      required final DateTime expDate,
+      required final int notificationId}) = _$_DrinkDocumentModel;
   _DrinkDocumentModel._() : super._();
 
   @override
@@ -164,6 +184,8 @@ abstract class _DrinkDocumentModel extends DrinkDocumentModel {
   String get title;
   @override
   DateTime get expDate;
+  @override
+  int get notificationId;
   @override
   @JsonKey(ignore: true)
   _$$_DrinkDocumentModelCopyWith<_$_DrinkDocumentModel> get copyWith =>

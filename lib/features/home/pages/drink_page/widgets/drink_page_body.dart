@@ -63,7 +63,6 @@ class DrinkPageBody extends StatelessWidget {
                   );
                 }
 
-                final notificationId = context.read<int>();
 
                 return ListView(
                   children: [
@@ -74,7 +73,7 @@ class DrinkPageBody extends StatelessWidget {
                           onDismissed: (_) {
                             context
                                 .read<DrinkPageCubit>()
-                                .cancelNotification(notificationId);
+                                .cancelNotification(documentModel.notificationId);
                             context
                                 .read<DrinkPageCubit>()
                                 .delete(document: documentModel.id)
