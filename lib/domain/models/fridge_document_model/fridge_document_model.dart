@@ -9,6 +9,7 @@ class FridgeDocumentModel with _$FridgeDocumentModel {
     required String id,
     required String title,
     required DateTime expDate,
+    required int notificationId,
   }) = _FridgeDocumentModel;
 
   String expDateFormated() {
@@ -20,7 +21,7 @@ class FridgeDocumentModel with _$FridgeDocumentModel {
   }
 
   int closeCall() {
-    return (7);
+    return (6);
   }
 
   int outDated() {

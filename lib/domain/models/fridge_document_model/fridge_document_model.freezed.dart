@@ -19,6 +19,7 @@ mixin _$FridgeDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   DateTime get expDate => throw _privateConstructorUsedError;
+  int get notificationId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FridgeDocumentModelCopyWith<FridgeDocumentModel> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $FridgeDocumentModelCopyWith<$Res> {
           FridgeDocumentModel value, $Res Function(FridgeDocumentModel) then) =
       _$FridgeDocumentModelCopyWithImpl<$Res, FridgeDocumentModel>;
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$FridgeDocumentModelCopyWithImpl<$Res, $Val extends FridgeDocumentModel>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,6 +66,10 @@ class _$FridgeDocumentModelCopyWithImpl<$Res, $Val extends FridgeDocumentModel>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_FridgeDocumentModelCopyWith<$Res>
       __$$_FridgeDocumentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_FridgeDocumentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_$_FridgeDocumentModel(
       id: null == id
@@ -107,6 +114,10 @@ class __$$_FridgeDocumentModelCopyWithImpl<$Res>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_FridgeDocumentModelCopyWithImpl<$Res>
 
 class _$_FridgeDocumentModel extends _FridgeDocumentModel {
   _$_FridgeDocumentModel(
-      {required this.id, required this.title, required this.expDate})
+      {required this.id,
+      required this.title,
+      required this.expDate,
+      required this.notificationId})
       : super._();
 
   @override
@@ -124,10 +138,12 @@ class _$_FridgeDocumentModel extends _FridgeDocumentModel {
   final String title;
   @override
   final DateTime expDate;
+  @override
+  final int notificationId;
 
   @override
   String toString() {
-    return 'FridgeDocumentModel(id: $id, title: $title, expDate: $expDate)';
+    return 'FridgeDocumentModel(id: $id, title: $title, expDate: $expDate, notificationId: $notificationId)';
   }
 
   @override
@@ -137,11 +153,14 @@ class _$_FridgeDocumentModel extends _FridgeDocumentModel {
             other is _$_FridgeDocumentModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.expDate, expDate) || other.expDate == expDate));
+            (identical(other.expDate, expDate) || other.expDate == expDate) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, expDate);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, expDate, notificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +174,8 @@ abstract class _FridgeDocumentModel extends FridgeDocumentModel {
   factory _FridgeDocumentModel(
       {required final String id,
       required final String title,
-      required final DateTime expDate}) = _$_FridgeDocumentModel;
+      required final DateTime expDate,
+      required final int notificationId}) = _$_FridgeDocumentModel;
   _FridgeDocumentModel._() : super._();
 
   @override
@@ -164,6 +184,8 @@ abstract class _FridgeDocumentModel extends FridgeDocumentModel {
   String get title;
   @override
   DateTime get expDate;
+  @override
+  int get notificationId;
   @override
   @JsonKey(ignore: true)
   _$$_FridgeDocumentModelCopyWith<_$_FridgeDocumentModel> get copyWith =>

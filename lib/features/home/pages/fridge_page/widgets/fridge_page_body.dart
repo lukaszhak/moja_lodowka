@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/fridge_page/cubit/fridge_page_c
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/widgets/fridge_page_item.dart';
 
-
 class FridgePageBody extends StatelessWidget {
   const FridgePageBody({
     super.key,
@@ -66,27 +65,29 @@ class FridgePageBody extends StatelessWidget {
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
                       Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<FridgePageCubit>()
-                                .delete(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<FridgePageCubit>()
+                              .cancelNotification(documentModel.notificationId);
+                          context
+                              .read<FridgePageCubit>()
+                              .delete(document: documentModel.id)
+                              .whenComplete(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 0, 51, 54),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .deleteInfo),
+                                    duration: const Duration(seconds: 1),
                                   ),
-                                );
-                          },
-                          child:
-                              FridgePageItem(documentModel: documentModel),),
+                                ),
+                              );
+                        },
+                        child: FridgePageItem(documentModel: documentModel),
+                      ),
                     ],
                   ],
                 );
