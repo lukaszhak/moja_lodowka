@@ -19,6 +19,7 @@ mixin _$LongDateDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   DateTime get expDate => throw _privateConstructorUsedError;
+  int get notificationId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LongDateDocumentModelCopyWith<LongDateDocumentModel> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $LongDateDocumentModelCopyWith<$Res> {
           $Res Function(LongDateDocumentModel) then) =
       _$LongDateDocumentModelCopyWithImpl<$Res, LongDateDocumentModel>;
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$LongDateDocumentModelCopyWithImpl<$Res,
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -65,6 +67,10 @@ class _$LongDateDocumentModelCopyWithImpl<$Res,
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_LongDateDocumentModelCopyWith<$Res>
       __$$_LongDateDocumentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -94,6 +100,7 @@ class __$$_LongDateDocumentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_$_LongDateDocumentModel(
       id: null == id
@@ -108,6 +115,10 @@ class __$$_LongDateDocumentModelCopyWithImpl<$Res>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -116,7 +127,10 @@ class __$$_LongDateDocumentModelCopyWithImpl<$Res>
 
 class _$_LongDateDocumentModel extends _LongDateDocumentModel {
   _$_LongDateDocumentModel(
-      {required this.id, required this.title, required this.expDate})
+      {required this.id,
+      required this.title,
+      required this.expDate,
+      required this.notificationId})
       : super._();
 
   @override
@@ -125,10 +139,12 @@ class _$_LongDateDocumentModel extends _LongDateDocumentModel {
   final String title;
   @override
   final DateTime expDate;
+  @override
+  final int notificationId;
 
   @override
   String toString() {
-    return 'LongDateDocumentModel(id: $id, title: $title, expDate: $expDate)';
+    return 'LongDateDocumentModel(id: $id, title: $title, expDate: $expDate, notificationId: $notificationId)';
   }
 
   @override
@@ -138,11 +154,14 @@ class _$_LongDateDocumentModel extends _LongDateDocumentModel {
             other is _$_LongDateDocumentModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.expDate, expDate) || other.expDate == expDate));
+            (identical(other.expDate, expDate) || other.expDate == expDate) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, expDate);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, expDate, notificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -156,7 +175,8 @@ abstract class _LongDateDocumentModel extends LongDateDocumentModel {
   factory _LongDateDocumentModel(
       {required final String id,
       required final String title,
-      required final DateTime expDate}) = _$_LongDateDocumentModel;
+      required final DateTime expDate,
+      required final int notificationId}) = _$_LongDateDocumentModel;
   _LongDateDocumentModel._() : super._();
 
   @override
@@ -165,6 +185,8 @@ abstract class _LongDateDocumentModel extends LongDateDocumentModel {
   String get title;
   @override
   DateTime get expDate;
+  @override
+  int get notificationId;
   @override
   @JsonKey(ignore: true)
   _$$_LongDateDocumentModelCopyWith<_$_LongDateDocumentModel> get copyWith =>

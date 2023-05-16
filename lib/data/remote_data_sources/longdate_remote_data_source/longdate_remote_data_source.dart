@@ -1,8 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable 
+@injectable
 class LongDateRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getLongDateData() {
     try {
@@ -23,7 +28,8 @@ class LongDateRemoteDataSource {
     }
   }
 
-  Future<void> addDoc(String title, DateTime expDate) async {
+  Future<void> addDoc(
+      String title, DateTime expDate, int notificationId) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -32,7 +38,11 @@ class LongDateRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('data')
-        .add({'title': title, 'expdate': expDate});
+        .add({
+      'title': title,
+      'expdate': expDate,
+      'notificationid': notificationId
+    });
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -46,5 +56,40 @@ class LongDateRemoteDataSource {
         .collection('data')
         .doc(document)
         .delete();
+  }
+
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    var scheduledNotificationDateTime = expDate.subtract(
+      const Duration(days: 7),
+    );
+
+    AndroidNotificationDetails androidDetails =
+        const AndroidNotificationDetails(
+            'channel 5', 'long term products', 'channel.discription',
+            icon: '@mipmap/ic_launcher',
+            importance: Importance.high,
+            priority: Priority.max,
+            playSound: true);
+
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidDetails);
+
+    await flutterLocalNotificationsPlugin.schedule(
+        notificationId,
+        'Przypomnienie w ${AppLocalizations.of(context)!.longTerm}',
+        'Kończy się data ważności produktu $title',
+        scheduledNotificationDateTime,
+        notificationDetails,
+        androidAllowWhileIdle: true);
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 }

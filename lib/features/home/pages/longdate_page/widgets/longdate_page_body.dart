@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_pa
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/widgets/longdate_page_item.dart';
 
-
 class LongPageBody extends StatelessWidget {
   const LongPageBody({
     super.key,
@@ -72,13 +71,16 @@ class LongPageBody extends StatelessWidget {
                           onDismissed: (_) {
                             context
                                 .read<LongDatePageCubit>()
+                                .cancelNotification(documentModel.notificationId);
+                            context
+                                .read<LongDatePageCubit>()
                                 .delete(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
                                     SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 0, 51, 54),
                                       content: Text(
                                           AppLocalizations.of(context)!
                                               .deleteInfo),

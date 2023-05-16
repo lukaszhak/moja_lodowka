@@ -23,6 +23,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
           LongDateDocumentsRepository(LongDateRemoteDataSource())),
       child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.addProduct),
@@ -34,7 +35,11 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
                       : () {
                           context
                               .read<LongDatePageCubit>()
-                              .add(_title!, _expDate!);
+                              .add(_title!, _expDate!, notificationId);
+                          context
+                              .read<LongDatePageCubit>()
+                              .scheduleNotification(
+                                  _expDate!, context, _title!, notificationId);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
