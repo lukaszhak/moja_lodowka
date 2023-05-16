@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/candy_document_model/candy_document_model.dart';
 
-@injectable 
+@injectable
 class CandyDocumentsRepository {
   final CandyRemoteDataSource _candyRemoteDataSource;
 
@@ -15,16 +16,28 @@ class CandyDocumentsRepository {
         return CandyDocumentModel(
             id: doc.id,
             title: doc['title'],
+            notificationId: doc['notificationid'],
             expDate: (doc['expdate'] as Timestamp).toDate());
+            
       }).toList();
     });
   }
 
-  Future<void> add(String title, DateTime expDate) async {
-    await _candyRemoteDataSource.addDoc(title, expDate);
+  Future<void> add(String title, DateTime expDate, int notificationId) async {
+    await _candyRemoteDataSource.addDoc(title, expDate, notificationId);
   }
 
   Future<void> delete({required String document}) async {
     await _candyRemoteDataSource.deleteDoc(document: document);
+  }
+
+  Future<void> notification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    await _candyRemoteDataSource.scheduleNotification(
+        expDate, context, title, notificationId);
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    await _candyRemoteDataSource.cancelNotification(notificationId);
   }
 }

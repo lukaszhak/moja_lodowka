@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/drink_page/cubit/drink_page_cub
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/widgets/drink_page_item.dart';
 
-
 class DrinkPageBody extends StatelessWidget {
   const DrinkPageBody({
     super.key,
@@ -63,6 +62,8 @@ class DrinkPageBody extends StatelessWidget {
                     ),
                   );
                 }
+
+
                 return ListView(
                   children: [
                     const SizedBox(height: 10),
@@ -72,13 +73,16 @@ class DrinkPageBody extends StatelessWidget {
                           onDismissed: (_) {
                             context
                                 .read<DrinkPageCubit>()
+                                .cancelNotification(documentModel.notificationId);
+                            context
+                                .read<DrinkPageCubit>()
                                 .delete(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
                                     SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 0, 51, 54),
                                       content: Text(
                                           AppLocalizations.of(context)!
                                               .deleteInfo),

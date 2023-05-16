@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
 import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
@@ -7,7 +8,10 @@ import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cub
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CandyAddPage extends StatefulWidget {
-  const CandyAddPage({Key? key}) : super(key: key);
+  CandyAddPage({Key? key}) : super(key: key);
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   State<CandyAddPage> createState() => _CandyAddPageState();
@@ -23,6 +27,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
           CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource())),
       child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -34,7 +39,9 @@ class _CandyAddPageState extends State<CandyAddPage> {
                       : () {
                           context
                               .read<CandyPageCubit>()
-                              .add(_title!, _expDate!);
+                              .add(_title!, _expDate!, notificationId);
+                          context.read<CandyPageCubit>().scheduleNotification(
+                              _expDate!, context, _title, notificationId);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),

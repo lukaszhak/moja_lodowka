@@ -10,6 +10,7 @@ class LongDateDocumentModel with _$LongDateDocumentModel {
     required String id,
     required String title,
     required DateTime expDate,
+    required int notificationId,
   }) = _LongDateDocumentModel;
 
   String expDateFormated() {
@@ -20,7 +21,7 @@ class LongDateDocumentModel with _$LongDateDocumentModel {
   }
 
   int closeCall() {
-    return (7);
+    return (6);
   }
 
   int outDated() {

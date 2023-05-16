@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'drug_document_model.dart';
 
@@ -19,6 +19,7 @@ mixin _$DrugDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   DateTime get expDate => throw _privateConstructorUsedError;
+  int get notificationId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DrugDocumentModelCopyWith<DrugDocumentModel> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $DrugDocumentModelCopyWith<$Res> {
           DrugDocumentModel value, $Res Function(DrugDocumentModel) then) =
       _$DrugDocumentModelCopyWithImpl<$Res, DrugDocumentModel>;
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$DrugDocumentModelCopyWithImpl<$Res, $Val extends DrugDocumentModel>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,6 +66,10 @@ class _$DrugDocumentModelCopyWithImpl<$Res, $Val extends DrugDocumentModel>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_DrugDocumentModelCopyWith<$Res>
       __$$_DrugDocumentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, DateTime expDate});
+  $Res call({String id, String title, DateTime expDate, int notificationId});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_DrugDocumentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? expDate = null,
+    Object? notificationId = null,
   }) {
     return _then(_$_DrugDocumentModel(
       id: null == id
@@ -107,6 +114,10 @@ class __$$_DrugDocumentModelCopyWithImpl<$Res>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationId: null == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_DrugDocumentModelCopyWithImpl<$Res>
 
 class _$_DrugDocumentModel extends _DrugDocumentModel {
   _$_DrugDocumentModel(
-      {required this.id, required this.title, required this.expDate})
+      {required this.id,
+      required this.title,
+      required this.expDate,
+      required this.notificationId})
       : super._();
 
   @override
@@ -124,10 +138,12 @@ class _$_DrugDocumentModel extends _DrugDocumentModel {
   final String title;
   @override
   final DateTime expDate;
+  @override
+  final int notificationId;
 
   @override
   String toString() {
-    return 'DrugDocumentModel(id: $id, title: $title, expDate: $expDate)';
+    return 'DrugDocumentModel(id: $id, title: $title, expDate: $expDate, notificationId: $notificationId)';
   }
 
   @override
@@ -137,11 +153,14 @@ class _$_DrugDocumentModel extends _DrugDocumentModel {
             other is _$_DrugDocumentModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.expDate, expDate) || other.expDate == expDate));
+            (identical(other.expDate, expDate) || other.expDate == expDate) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, expDate);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, expDate, notificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +174,8 @@ abstract class _DrugDocumentModel extends DrugDocumentModel {
   factory _DrugDocumentModel(
       {required final String id,
       required final String title,
-      required final DateTime expDate}) = _$_DrugDocumentModel;
+      required final DateTime expDate,
+      required final int notificationId}) = _$_DrugDocumentModel;
   _DrugDocumentModel._() : super._();
 
   @override
@@ -164,6 +184,8 @@ abstract class _DrugDocumentModel extends DrugDocumentModel {
   String get title;
   @override
   DateTime get expDate;
+  @override
+  int get notificationId;
   @override
   @JsonKey(ignore: true)
   _$$_DrugDocumentModelCopyWith<_$_DrugDocumentModel> get copyWith =>

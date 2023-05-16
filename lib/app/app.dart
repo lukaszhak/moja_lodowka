@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<RootCubit>()..start(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         localizationsDelegates: const [
           AppLocalizations.delegate,

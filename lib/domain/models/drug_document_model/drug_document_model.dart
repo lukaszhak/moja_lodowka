@@ -9,6 +9,7 @@ class DrugDocumentModel with _$DrugDocumentModel {
     required String id,
     required String title,
     required DateTime expDate,
+    required int notificationId,
   }) = _DrugDocumentModel;
 
   String expDateFormated() {
@@ -20,7 +21,7 @@ class DrugDocumentModel with _$DrugDocumentModel {
   }
 
   int closeCall() {
-    return (30);
+    return (29);
   }
 
   int outDated() {

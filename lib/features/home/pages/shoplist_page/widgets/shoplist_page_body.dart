@@ -4,13 +4,27 @@ import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moja_lodowka/features/home/pages/shoplist_page/shoplist_moveto_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/widgets/shoplist_page_item.dart';
 
-
-class ShopListPageBody extends StatelessWidget {
+class ShopListPageBody extends StatefulWidget {
   const ShopListPageBody({
     super.key,
   });
+
+  @override
+  State<ShopListPageBody> createState() => _ShopListPageBodyState();
+}
+
+class _ShopListPageBodyState extends State<ShopListPageBody> {
+  Offset _tapPosition = Offset.zero;
+
+  void _getTapPosition(TapDownDetails details) {
+    final RenderBox referenceBox = context.findRenderObject() as RenderBox;
+    setState(() {
+      _tapPosition = referenceBox.globalToLocal(details.globalPosition);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,28 +79,13 @@ class ShopListPageBody extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
-                      Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<ShopListPageCubit>()
-                                .delete(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
-                                  ),
-                                );
+                      InkWell(
+                          onTapDown: ((details) => _getTapPosition(details)),
+                          onLongPress: () {
+                            showContextMenu(context);
                           },
-                          child: ShoppingListItem(
-                              documentModel: documentModel)),
+                          child:
+                              ShoppingListItem(documentModel: documentModel)),
                     ],
                   ],
                 );
@@ -105,5 +104,31 @@ class ShopListPageBody extends StatelessWidget {
       ),
     );
   }
-}
 
+  void showContextMenu(BuildContext context) async {
+    final RenderObject? overlay =
+        Overlay.of(context).context.findRenderObject();
+
+    await showMenu(
+        context: context,
+        position: RelativeRect.fromRect(
+            Rect.fromLTWH(_tapPosition.dx, _tapPosition.dy, 30, 30),
+            Rect.fromLTWH(0, 0, overlay!.paintBounds.size.width,
+                overlay.paintBounds.size.height)),
+        items: [
+          PopupMenuItem(
+            onTap: () {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ShopListMoveToPage(),
+                  ),
+                );
+              });
+            },
+            value: 'transposition',
+            child: const Text('Przenieś do'),
+          ),
+        ]);
+  }
+}

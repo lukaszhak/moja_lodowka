@@ -43,9 +43,8 @@ class ShopListPageAppBar extends StatelessWidget
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              context
-                                  .read<ShopListPageCubit>()
-                                  .add(title: controller.text);
+                              context.read<ShopListPageCubit>().add(
+                                  title: controller.text, isChecked: false);
                               controller.clear();
                               Navigator.of(context).pop();
                             },

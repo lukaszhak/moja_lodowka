@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,8 +20,18 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> add(String title, DateTime expDate) async {
-    await _documentsRepository.add(title, expDate);
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    await _documentsRepository.notification(
+        expDate, context, title, notificationId);
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    await _documentsRepository.cancelNotification(notificationId);
+  }
+
+  Future<void> add(String title, DateTime expDate, int notificationId) async {
+    await _documentsRepository.add(title, expDate, notificationId);
   }
 
   Future<void> delete({required String document}) async {

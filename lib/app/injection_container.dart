@@ -5,16 +5,14 @@ import 'package:moja_lodowka/app/injection_container.config.dart';
 
 final getIt = GetIt.instance;
 
-  
-@InjectableInit( 
-)  
-void configureDependencies() => $initGetIt(getIt); 
+@InjectableInit()
+void configureDependencies() => getIt.init();
 
-@module  
-abstract class RegisterModule { 
-  @Named("BaseUrl")  
-  String get baseUrl => 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=metric&key=WCPLFA6FEK4E4CY7CCDRVBLAL&contentType=json';
-  @lazySingleton  
+@module
+abstract class RegisterModule {
+  @Named("BaseUrl")
+  String get baseUrl =>
+      'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=metric&key=WCPLFA6FEK4E4CY7CCDRVBLAL&contentType=json';
+  @lazySingleton
   Dio dio(@Named('BaseUrl') String url) => Dio(BaseOptions(baseUrl: url));
-}  
-
+}

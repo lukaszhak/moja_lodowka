@@ -25,6 +25,7 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
           FridgePageCubit(FridgeDocumentsRepository(FridgeRemoteDataSource())),
       child: BlocBuilder<FridgePageCubit, FridgePageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -36,7 +37,9 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
                       : () {
                           context
                               .read<FridgePageCubit>()
-                              .add(_title!, _expDate!);
+                              .add(_title!, _expDate!, notificationId);
+                          context.read<FridgePageCubit>().scheduleNotification(
+                              _expDate!, context, _title!, notificationId);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
