@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var errorMessage = '';
   var isCreatingAccount = false;
+  var obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +53,20 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextField(
                 controller: widget.passwordController,
-                obscureText: true,
+                obscureText: obscureText,
                 decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.password),
+                    hintText: AppLocalizations.of(context)!.password,
+                    suffixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      },
+                    )),
               ),
               const SizedBox(
                 height: 20,
