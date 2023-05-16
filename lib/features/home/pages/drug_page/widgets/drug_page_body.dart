@@ -6,7 +6,6 @@ import 'package:moja_lodowka/features/home/pages/drug_page/cubit/drug_page_cubit
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/widgets/drug_page_item.dart';
 
-
 class DrugPageBody extends StatelessWidget {
   const DrugPageBody({
     super.key,
@@ -72,13 +71,16 @@ class DrugPageBody extends StatelessWidget {
                           onDismissed: (_) {
                             context
                                 .read<DrugPageCubit>()
+                                .cancelNotification(documentModel.notificationId);
+                            context
+                                .read<DrugPageCubit>()
                                 .delete(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(
                                     SnackBar(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 0, 51, 54),
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 0, 51, 54),
                                       content: Text(
                                           AppLocalizations.of(context)!
                                               .deleteInfo),

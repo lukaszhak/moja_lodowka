@@ -23,6 +23,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
           DrugPageCubit(DrugDocumentsRepository(DrugRemoteDataSource())),
       child: BlocBuilder<DrugPageCubit, DrugPageState>(
         builder: (context, state) {
+          final notificationId = context.read<int>();
           return Scaffold(
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.addMedication),
@@ -32,7 +33,11 @@ class _DrugAddPageState extends State<DrugAddPage> {
                   onPressed: _title == null || _expDate == null
                       ? null
                       : () {
-                          context.read<DrugPageCubit>().add(_title!, _expDate!);
+                          context
+                              .read<DrugPageCubit>()
+                              .add(_title!, _expDate!, notificationId);
+                          context.read<DrugPageCubit>().scheduleNotification(
+                              _expDate!, context, _title!, notificationId);
                           Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
