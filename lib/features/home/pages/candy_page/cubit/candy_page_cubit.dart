@@ -42,20 +42,21 @@ class CandyPageCubit extends Cubit<CandyPageState> {
     emit(
       CandyPageState(documents: [], status: Status.loading, errorMessage: ''),
     );
-    _streamSubscription =
-        _documentsRepository.getCandysDocuments().listen((documents) {
-      emit(CandyPageState(
-          documents: documents, status: Status.success, errorMessage: ''));
-    })
-          ..onError((error) {
-            emit(
-              CandyPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    try {
+      _streamSubscription =
+          _documentsRepository.getCandysDocuments().listen((documents) {
+        emit(CandyPageState(
+            documents: documents, status: Status.success, errorMessage: ''));
+      });
+    } catch (error) {
+      emit(
+        CandyPageState(
+          documents: [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override

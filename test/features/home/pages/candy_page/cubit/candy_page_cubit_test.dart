@@ -24,36 +24,62 @@ void main() {
   });
 
   group('start', () {
-    setUp(() async {
-      await fakeFirebaseFirestore
-          .collection('path')
-          .doc()
-          .set({'title': 'title1', 'expDate': expDate, 'notificationid': 1});
-      final collection = fakeFirebaseFirestore.collection('path').snapshots();
-      final stream = collection.map((querysnapshot) => querysnapshot.docs
-          .map(
-            (doc) => CandyDocumentModel(
-              id: '1',
-              title: doc['title'],
-              expDate: (doc['expDate'] as Timestamp).toDate(),
-              notificationId: doc['notificationid'],
-            ),
-          )
-          .toList());
-      when(() => repository.getCandysDocuments()).thenAnswer((_) => stream);
+    group('success', () {
+      setUp(() async {
+        await fakeFirebaseFirestore
+            .collection('path')
+            .doc()
+            .set({'title': 'title1', 'expDate': expDate, 'notificationid': 1});
+        final collection = fakeFirebaseFirestore.collection('path').snapshots();
+        final stream = collection.map((querysnapshot) => querysnapshot.docs
+            .map(
+              (doc) => CandyDocumentModel(
+                id: '1',
+                title: doc['title'],
+                expDate: (doc['expDate'] as Timestamp).toDate(),
+                notificationId: doc['notificationid'],
+              ),
+            )
+            .toList());
+        when(() => repository.getCandysDocuments()).thenAnswer((_) => stream);
+      });
+
+      blocTest<CandyPageCubit, CandyPageState>(
+          'emits Status.loading then Status.success with results',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          expect: () => [
+                CandyPageState(
+                    documents: [], status: Status.loading, errorMessage: ''),
+                CandyPageState(documents: [
+                  CandyDocumentModel(
+                      id: '1',
+                      title: 'title1',
+                      expDate: expDate,
+                      notificationId: 1)
+                ], status: Status.success, errorMessage: '')
+              ]);
     });
 
-    blocTest<CandyPageCubit, CandyPageState>(
-        'emits Status.loading then Status.success with results',
-        build: () => sut,
-        act: (cubit) => cubit.start(),
-        expect: () => [
-              CandyPageState(
-                  documents: [], status: Status.loading, errorMessage: ''),
-              CandyPageState(
-                  documents: [
-                    CandyDocumentModel(id: '1', title: 'title1', expDate: expDate, notificationId: 1)
-                  ], status: Status.success, errorMessage: '')
-            ]);
+    group('failure', () {
+      setUp(() {
+        when(() => repository.getCandysDocuments()).thenThrow(
+          Exception('test-exception-error'),
+        );
+      });
+
+      blocTest<CandyPageCubit, CandyPageState>(
+          'emits Status.loading then Status.error with error message',
+          build: () => sut,
+          act: (cubit) => cubit.start(),
+          expect: () => [
+                CandyPageState(
+                    documents: [], status: Status.loading, errorMessage: ''),
+                CandyPageState(
+                    documents: [],
+                    status: Status.error,
+                    errorMessage: 'Exception: test-exception-error')
+              ]);
+    });
   });
 }
