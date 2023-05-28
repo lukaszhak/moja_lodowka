@@ -54,24 +54,25 @@ class RootCubit extends Cubit<RootState> {
         errorMessage: '',
       ),
     );
-    _streamSubscription = _rootRepository.getUser().listen((user) {
-      emit(
-        RootState(
-          user: user,
-          isLoading: false,
-          errorMessage: '',
-        ),
-      );
-    })
-      ..onError((error) {
+    try {
+      _streamSubscription = _rootRepository.getUser().listen((user) {
         emit(
           RootState(
-            user: null,
+            user: user,
             isLoading: false,
-            errorMessage: error.toString(),
+            errorMessage: '',
           ),
         );
       });
+    } catch (error) {
+      emit(
+        RootState(
+          user: null,
+          isLoading: false,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override

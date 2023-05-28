@@ -41,7 +41,7 @@ class ShoppingListItem extends StatelessWidget {
                     onChanged: (bool? newValue) {
                       context
                           .read<ShopListPageCubit>()
-                          .update(documentModel.id, newValue!);
+                          .updateValue(documentModel.id, newValue!);
                     }),
                 const SizedBox(
                   width: 15,
@@ -52,7 +52,7 @@ class ShoppingListItem extends StatelessWidget {
                       onPressed: () {
                         context
                             .read<ShopListPageCubit>()
-                            .delete(document: documentModel.id);
+                            .deleteDoc(document: documentModel.id);
                       },
                       icon: const Icon(
                         Icons.delete,

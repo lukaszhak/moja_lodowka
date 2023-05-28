@@ -28,11 +28,17 @@ class ShopListRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('lista')
-        .add({'title': title, 'ischecked': isChecked});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('lista')
+          .add({'title': title, 'ischecked': isChecked});
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -40,21 +46,34 @@ class ShopListRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('lista')
-        .doc(document)
-        .delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('lista')
+          .doc(document)
+          .delete();
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
-  Future<void> updateValue({required String document, required bool newValue}) async {
+  Future<void> updateValue(
+      {required String document, required bool newValue}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('lista')
-        .doc(document)
-        .update({'ischecked': newValue});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('lista')
+          .doc(document)
+          .update({'ischecked': newValue});
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 }

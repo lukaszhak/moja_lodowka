@@ -22,16 +22,16 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> update(String document, bool newValue) async {
-    await _documentsRepository.update(document, newValue);
+  Future<void> updateValue(String document, bool newValue) async {
+    await _documentsRepository.updateValue(document, newValue);
   }
 
-  Future<void> add({required String title, required bool isChecked}) async {
-    await _documentsRepository.add(title, isChecked);
+  Future<void> addDoc({required String title, required bool isChecked}) async {
+    await _documentsRepository.addDocument(title, isChecked);
   }
 
-  Future<void> delete({required String document}) async {
-    await _documentsRepository.delete(document: document);
+  Future<void> deleteDoc({required String document}) async {
+    await _documentsRepository.deleteDocument(document: document);
   }
 
   Future<void> start() async {
@@ -40,20 +40,21 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
           documents: [], status: Status.loading, errorMessage: ''),
     );
 
-    _streamSubscription =
-        _documentsRepository.getShopListDocuments().listen((documents) {
-      emit(ShopListPageState(
-          documents: documents, status: Status.success, errorMessage: ''));
-    })
-          ..onError((error) {
-            emit(
-              ShopListPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    try {
+      _streamSubscription =
+          _documentsRepository.getShopListDocuments().listen((documents) {
+        emit(ShopListPageState(
+            documents: documents, status: Status.success, errorMessage: ''));
+      });
+    } catch (error) {
+      emit(
+        ShopListPageState(
+          documents: [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override
