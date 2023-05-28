@@ -23,15 +23,15 @@ class CandyDocumentsRepository {
     });
   }
 
-  Future<void> add(String title, DateTime expDate, int notificationId) async {
+  Future<void> addDocument(String title, DateTime expDate, int notificationId) async {
     await _candyRemoteDataSource.addDoc(title, expDate, notificationId);
   }
 
-  Future<void> delete({required String document}) async {
+  Future<void> deleteDocument({required String document}) async {
     await _candyRemoteDataSource.deleteDoc(document: document);
   }
 
-  Future<void> notification(DateTime expDate, BuildContext context,
+  Future<void> addNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
     await _candyRemoteDataSource.scheduleNotification(
         expDate, context, title, notificationId);

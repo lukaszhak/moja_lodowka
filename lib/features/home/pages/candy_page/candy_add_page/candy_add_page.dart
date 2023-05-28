@@ -39,7 +39,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
                       : () {
                           context
                               .read<CandyPageCubit>()
-                              .add(_title!, _expDate!, notificationId);
+                              .addDoc(_title!, _expDate!, notificationId);
                           context.read<CandyPageCubit>().scheduleNotification(
                               _expDate!, context, _title, notificationId);
                           Navigator.of(context).pop();

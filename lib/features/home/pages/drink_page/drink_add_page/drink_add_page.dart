@@ -35,7 +35,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
                         : () {
                             context
                                 .read<DrinkPageCubit>()
-                                .add(_title!, _expDate!, notificationId);
+                                .addDoc(_title!, _expDate!, notificationId);
                             context.read<DrinkPageCubit>().scheduleNotification(
                                 _expDate!, context, _title, notificationId);
                             Navigator.of(context).pop();

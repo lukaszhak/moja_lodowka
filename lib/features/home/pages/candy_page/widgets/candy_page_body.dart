@@ -76,7 +76,7 @@ class CandyPageBody extends StatelessWidget {
                               .cancelNotification(documentModel.notificationId);
                           context
                               .read<CandyPageCubit>()
-                              .delete(document: documentModel.id)
+                              .deleteDoc(document: documentModel.id)
                               .whenComplete(
                                 () =>
                                     ScaffoldMessenger.of(context).showSnackBar(

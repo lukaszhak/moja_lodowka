@@ -22,7 +22,7 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
-    await _documentsRepository.notification(
+    await _documentsRepository.addNotification(
         expDate, context, title, notificationId);
   }
 
@@ -30,32 +30,32 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> add(String title, DateTime expDate, int notificationId) async {
-    await _documentsRepository.add(title, expDate, notificationId);
+  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
+    await _documentsRepository.addDocument(title, expDate, notificationId);
   }
 
-  Future<void> delete({required String document}) async {
-    await _documentsRepository.delete(document: document);
+  Future<void> deleteDoc({required String document}) async {
+    await _documentsRepository.deleteDocument(document: document);
   }
 
   Future<void> start() async {
     emit(DrinkPageState(
         documents: [], status: Status.loading, errorMessage: ''));
-
-    _streamSubscription =
-        _documentsRepository.getDrinksDocuments().listen((documents) {
-      emit(DrinkPageState(
-          documents: documents, status: Status.success, errorMessage: ''));
-    })
-          ..onError((error) {
-            emit(
-              DrinkPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    try {
+      _streamSubscription =
+          _documentsRepository.getDrinksDocuments().listen((documents) {
+        emit(DrinkPageState(
+            documents: documents, status: Status.success, errorMessage: ''));
+      });
+    } catch (error) {
+      emit(
+        DrinkPageState(
+          documents: const [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override
