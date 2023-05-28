@@ -74,7 +74,7 @@ class LongPageBody extends StatelessWidget {
                                 .cancelNotification(documentModel.notificationId);
                             context
                                 .read<LongDatePageCubit>()
-                                .delete(document: documentModel.id)
+                                .deleteDoc(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(

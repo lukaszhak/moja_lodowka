@@ -35,7 +35,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
                       : () {
                           context
                               .read<LongDatePageCubit>()
-                              .add(_title!, _expDate!, notificationId);
+                              .addDoc(_title!, _expDate!, notificationId);
                           context
                               .read<LongDatePageCubit>()
                               .scheduleNotification(
