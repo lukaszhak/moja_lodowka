@@ -24,7 +24,9 @@ class DrinkRemoteDataSource {
       }
       return stream;
     } catch (error) {
-      throw Exception(error.toString());
+      throw Exception(
+        error.toString(),
+      );
     }
   }
 

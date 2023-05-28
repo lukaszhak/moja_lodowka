@@ -72,7 +72,7 @@ class FridgePageBody extends StatelessWidget {
                               .cancelNotification(documentModel.notificationId);
                           context
                               .read<FridgePageCubit>()
-                              .delete(document: documentModel.id)
+                              .deleteDoc(document: documentModel.id)
                               .whenComplete(
                                 () =>
                                     ScaffoldMessenger.of(context).showSnackBar(
