@@ -10,6 +10,6 @@ class MenuDocumentModel with _$MenuDocumentModel {
     required String id,
     required String title,
     required String content,
-    required QueryDocumentSnapshot document,
+   QueryDocumentSnapshot? document,
   }) = _MenuDocumentModel;
 }

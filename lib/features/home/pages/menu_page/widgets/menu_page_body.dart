@@ -71,7 +71,7 @@ class MenuPageBody extends StatelessWidget {
                         key: ValueKey(documentModel.id),
                         onDismissed: (_) => context
                             .read<MenuPageCubit>()
-                            .delete(document: documentModel.id)
+                            .deleteDoc(document: documentModel.id)
                             .whenComplete(
                               () =>
                                   ScaffoldMessenger.of(context).showSnackBar(

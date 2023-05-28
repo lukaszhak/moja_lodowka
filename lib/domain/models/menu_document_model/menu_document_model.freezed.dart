@@ -19,7 +19,7 @@ mixin _$MenuDocumentModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  QueryDocumentSnapshot<Object?> get document =>
+  QueryDocumentSnapshot<Object?>? get document =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $MenuDocumentModelCopyWith<$Res> {
       {String id,
       String title,
       String content,
-      QueryDocumentSnapshot<Object?> document});
+      QueryDocumentSnapshot<Object?>? document});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$MenuDocumentModelCopyWithImpl<$Res, $Val extends MenuDocumentModel>
     Object? id = null,
     Object? title = null,
     Object? content = null,
-    Object? document = null,
+    Object? document = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -71,10 +71,10 @@ class _$MenuDocumentModelCopyWithImpl<$Res, $Val extends MenuDocumentModel>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      document: null == document
+      document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
-              as QueryDocumentSnapshot<Object?>,
+              as QueryDocumentSnapshot<Object?>?,
     ) as $Val);
   }
 }
@@ -91,7 +91,7 @@ abstract class _$$_MenuDocumentModelCopyWith<$Res>
       {String id,
       String title,
       String content,
-      QueryDocumentSnapshot<Object?> document});
+      QueryDocumentSnapshot<Object?>? document});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class __$$_MenuDocumentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? content = null,
-    Object? document = null,
+    Object? document = freezed,
   }) {
     return _then(_$_MenuDocumentModel(
       id: null == id
@@ -123,10 +123,10 @@ class __$$_MenuDocumentModelCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      document: null == document
+      document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
-              as QueryDocumentSnapshot<Object?>,
+              as QueryDocumentSnapshot<Object?>?,
     ));
   }
 }
@@ -138,7 +138,7 @@ class _$_MenuDocumentModel extends _MenuDocumentModel {
       {required this.id,
       required this.title,
       required this.content,
-      required this.document})
+      this.document})
       : super._();
 
   @override
@@ -148,7 +148,7 @@ class _$_MenuDocumentModel extends _MenuDocumentModel {
   @override
   final String content;
   @override
-  final QueryDocumentSnapshot<Object?> document;
+  final QueryDocumentSnapshot<Object?>? document;
 
   @override
   String toString() {
@@ -180,11 +180,10 @@ class _$_MenuDocumentModel extends _MenuDocumentModel {
 
 abstract class _MenuDocumentModel extends MenuDocumentModel {
   factory _MenuDocumentModel(
-          {required final String id,
-          required final String title,
-          required final String content,
-          required final QueryDocumentSnapshot<Object?> document}) =
-      _$_MenuDocumentModel;
+      {required final String id,
+      required final String title,
+      required final String content,
+      final QueryDocumentSnapshot<Object?>? document}) = _$_MenuDocumentModel;
   _MenuDocumentModel._() : super._();
 
   @override
@@ -194,7 +193,7 @@ abstract class _MenuDocumentModel extends MenuDocumentModel {
   @override
   String get content;
   @override
-  QueryDocumentSnapshot<Object?> get document;
+  QueryDocumentSnapshot<Object?>? get document;
   @override
   @JsonKey(ignore: true)
   _$$_MenuDocumentModelCopyWith<_$_MenuDocumentModel> get copyWith =>

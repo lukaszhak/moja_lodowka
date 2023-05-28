@@ -22,17 +22,17 @@ class MenuPageCubit extends Cubit<MenuPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> update(
+  Future<void> updateDoc(
       {required String content, required String document}) async {
-    await _documentsRepository.update(content, document);
+    await _documentsRepository.updateDocument(content, document);
   }
 
-  Future<void> add({required String title, required String content}) async {
-    await _documentsRepository.add(title, content);
+  Future<void> addDoc({required String title, required String content}) async {
+    await _documentsRepository.addDocument(title, content);
   }
 
-  Future<void> delete({required String document}) async {
-    await _documentsRepository.delete(document: document);
+  Future<void> deleteDoc({required String document}) async {
+    await _documentsRepository.deleteDocument(document: document);
   }
 
   Future<void> start() async {
@@ -40,20 +40,21 @@ class MenuPageCubit extends Cubit<MenuPageState> {
       MenuPageState(documents: [], status: Status.loading, errorMessage: ''),
     );
 
-    _streamSubscription =
-        _documentsRepository.getMenuDocuments().listen((documents) {
-      emit(MenuPageState(
-          documents: documents, status: Status.success, errorMessage: ''));
-    })
-          ..onError((error) {
-            emit(
-              MenuPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    try {
+      _streamSubscription =
+          _documentsRepository.getMenuDocuments().listen((documents) {
+        emit(MenuPageState(
+            documents: documents, status: Status.success, errorMessage: ''));
+      });
+    } catch (error) {
+      emit(
+        MenuPageState(
+          documents: const [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override

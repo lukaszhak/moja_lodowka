@@ -39,9 +39,9 @@ class EditNote extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               onPressed: () {
-                context.read<MenuPageCubit>().update(
+                context.read<MenuPageCubit>().updateDoc(
                     content: controller.text,
-                    document: documentModel.document.id);
+                    document: documentModel.document!.id);
                 onSave();
               },
               child: const Icon(
