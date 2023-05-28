@@ -28,16 +28,25 @@ class DrinkRemoteDataSource {
     }
   }
 
-  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
+  Future<void> addDoc(
+      String title, DateTime expDate, int notificationId) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('napoje')
-        .add({'title': title, 'expdate': expDate, 'notificationid': notificationId});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('napoje')
+          .add({
+        'title': title,
+        'expdate': expDate,
+        'notificationid': notificationId
+      });
+    } catch (error) {
+      throw Exception(error.toString());
+    }
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -45,12 +54,16 @@ class DrinkRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('napoje')
-        .doc(document)
-        .delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('napoje')
+          .doc(document)
+          .delete();
+    } catch (error) {
+      throw Exception(error.toString());
+    }
   }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
@@ -72,20 +85,31 @@ class DrinkRemoteDataSource {
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidDetails);
-
-    await flutterLocalNotificationsPlugin.schedule(
-        notificationId,
-        'Przypomnienie w ${AppLocalizations.of(context)!.drinks}',
-        'Kończy się data ważności produktu $title',
-        scheduleNotificationDateTime,
-        notificationDetails,
-        androidAllowWhileIdle: true);
+    try {
+      await flutterLocalNotificationsPlugin.schedule(
+          notificationId,
+          'Przypomnienie w ${AppLocalizations.of(context)!.drinks}',
+          'Kończy się data ważności produktu $title',
+          scheduleNotificationDateTime,
+          notificationDetails,
+          androidAllowWhileIdle: true);
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> cancelNotification(int notificationId) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    await flutterLocalNotificationsPlugin.cancel(notificationId);
+    try {
+      await flutterLocalNotificationsPlugin.cancel(notificationId);
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 }
