@@ -17,15 +17,15 @@ class ShopListDocumentsRepository {
     });
   }
 
-  Future<void> add(String title, bool isChecked) async {
+  Future<void> addDocument(String title, bool isChecked) async {
     await _listRemoteDataSource.addDoc(title, isChecked);
   }
 
-  Future<void> delete({required String document}) async {
+  Future<void> deleteDocument({required String document}) async {
     await _listRemoteDataSource.deleteDoc(document: document);
   }
 
-  Future<void> update(String document, bool newValue) async {
+  Future<void> updateValue(String document, bool newValue) async {
     await _listRemoteDataSource.updateValue(
         document: document, newValue: newValue);
   }

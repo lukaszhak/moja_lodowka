@@ -37,7 +37,7 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
                       : () {
                           context
                               .read<FridgePageCubit>()
-                              .add(_title!, _expDate!, notificationId);
+                              .addDoc(_title!, _expDate!, notificationId);
                           context.read<FridgePageCubit>().scheduleNotification(
                               _expDate!, context, _title!, notificationId);
                           Navigator.of(context).pop();

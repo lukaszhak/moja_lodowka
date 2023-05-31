@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable 
+@injectable
 class MenuRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getMenuData() {
     try {
@@ -19,7 +19,9 @@ class MenuRemoteDataSource {
       }
       return stream;
     } catch (error) {
-      throw Exception(error.toString());
+      throw Exception(
+        error.toString(),
+      );
     }
   }
 
@@ -28,11 +30,17 @@ class MenuRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('przepisy')
-        .add({'title': title, 'content': content});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('przepisy')
+          .add({'title': title, 'content': content});
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -40,24 +48,36 @@ class MenuRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('przepisy')
-        .doc(document)
-        .delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('przepisy')
+          .doc(document)
+          .delete();
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
+
   Future<void> updateDoc(String content, String document) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('przepisy')
-        .doc(document)
-        .update({'content': content});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('przepisy')
+          .doc(document)
+          .update({'content': content});
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 }
-

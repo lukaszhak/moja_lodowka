@@ -23,8 +23,9 @@ class DrugPageCubit extends Cubit<DrugPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> scheduleNotification(DateTime expDate, BuildContext context, String? title, int notificationId) async {
-    await _documentsRepository.notification(
+  Future<void> scheduleNotification(DateTime expDate, BuildContext context,
+      String? title, int notificationId) async {
+    await _documentsRepository.addNotification(
         expDate, context, title, notificationId);
   }
 
@@ -32,34 +33,36 @@ class DrugPageCubit extends Cubit<DrugPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> add(String title, DateTime expDate, int notificationId) async {
-    await _documentsRepository.add(title, expDate, notificationId);
+  Future<void> addDoc(
+      String title, DateTime expDate, int notificationId) async {
+    await _documentsRepository.addDocument(title, expDate, notificationId);
   }
 
-  Future<void> delete({required String document}) async {
-    await _documentsRepository.delete(document: document);
+  Future<void> deleteDoc({required String document}) async {
+    await _documentsRepository.deleteDocument(document: document);
   }
 
   Future<void> start() async {
     emit(
       DrugPageState(documents: [], status: Status.loading, errorMessage: ''),
     );
-    _streamSubscription =
-        _documentsRepository.getDrugsDocuments().listen((documents) {
+    try {
+      _streamSubscription =
+          _documentsRepository.getDrugsDocuments().listen((documents) {
+        emit(
+          DrugPageState(
+              documents: documents, status: Status.success, errorMessage: ''),
+        );
+      });
+    } catch (error) {
       emit(
         DrugPageState(
-            documents: documents, status: Status.success, errorMessage: ''),
+          documents: [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
       );
-    })
-          ..onError((error) {
-            emit(
-              DrugPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    }
   }
 
   @override

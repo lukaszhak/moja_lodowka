@@ -39,7 +39,7 @@ class MenuPageButton extends StatelessWidget {
                       onPressed: () {
                         context
                             .read<MenuPageCubit>()
-                            .add(title: controller.text, content: '');
+                            .addDoc(title: controller.text, content: '');
                         controller.clear();
                         Navigator.of(context).pop();
                       },

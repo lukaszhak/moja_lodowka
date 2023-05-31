@@ -20,15 +20,15 @@ class MenuDocumentsRepository {
     });
   }
 
-  Future<void> add(String title, String content) async {
+  Future<void> addDocument(String title, String content) async {
     await _menuRemoteDataSource.addDoc(title, content);
   }
 
-  Future<void> delete({required String document}) async {
+  Future<void> deleteDocument({required String document}) async {
     await _menuRemoteDataSource.deleteDoc(document: document);
   }
 
-  Future<void> update(String content, String document) async {
+  Future<void> updateDocument(String content, String document) async {
     await _menuRemoteDataSource.updateDoc(content, document);
   }
 }

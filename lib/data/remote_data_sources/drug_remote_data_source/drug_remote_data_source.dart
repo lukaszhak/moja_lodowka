@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,9 @@ class DrugRemoteDataSource {
       }
       return stream;
     } catch (error) {
-      throw Exception(error.toString());
+      throw Exception(
+        error.toString(),
+      );
     }
   }
 
@@ -34,15 +35,21 @@ class DrugRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('leki')
-        .add({
-      'title': title,
-      'expdate': expDate,
-      'notificationid': notificationId
-    });
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('leki')
+          .add({
+        'title': title,
+        'expdate': expDate,
+        'notificationid': notificationId
+      });
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> deleteDoc({required String document}) async {
@@ -50,12 +57,18 @@ class DrugRemoteDataSource {
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('leki')
-        .doc(document)
-        .delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('leki')
+          .doc(document)
+          .delete();
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
@@ -77,19 +90,30 @@ class DrugRemoteDataSource {
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidDetails);
 
-    await flutterLocalNotificationsPlugin.schedule(
-        notificationId,
-        'Przypomnienie w ${AppLocalizations.of(context)!.medications}',
-        'Kończy się data ważności leku $title',
-        scheduleNotificationDateTime,
-        notificationDetails,
-        androidAllowWhileIdle: true);
+    try {
+      await flutterLocalNotificationsPlugin.schedule(
+          notificationId,
+          'Przypomnienie w ${AppLocalizations.of(context)!.medications}',
+          'Kończy się data ważności leku $title',
+          scheduleNotificationDateTime,
+          notificationDetails,
+          androidAllowWhileIdle: true);
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 
   Future<void> cancelNotification(int notificationId) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin.cancel(notificationId);
+    try {
+      await flutterLocalNotificationsPlugin.cancel(notificationId);
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
   }
 }

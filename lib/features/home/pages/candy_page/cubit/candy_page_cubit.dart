@@ -22,7 +22,7 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
-    await _documentsRepository.notification(
+    await _documentsRepository.addNotification(
         expDate, context, title, notificationId);
   }
 
@@ -30,32 +30,33 @@ class CandyPageCubit extends Cubit<CandyPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> add(String title, DateTime expDate, int notificationId) async {
-    await _documentsRepository.add(title, expDate, notificationId);
+  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
+    await _documentsRepository.addDocument(title, expDate, notificationId);
   }
 
-  Future<void> delete({required String document}) async {
-    await _documentsRepository.delete(document: document);
+  Future<void> deleteDoc({required String document}) async {
+    await _documentsRepository.deleteDocument(document: document);
   }
 
   Future<void> start() async {
     emit(
       CandyPageState(documents: [], status: Status.loading, errorMessage: ''),
     );
-    _streamSubscription =
-        _documentsRepository.getCandysDocuments().listen((documents) {
-      emit(CandyPageState(
-          documents: documents, status: Status.success, errorMessage: ''));
-    })
-          ..onError((error) {
-            emit(
-              CandyPageState(
-                documents: const [],
-                status: Status.error,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+    try {
+      _streamSubscription =
+          _documentsRepository.getCandysDocuments().listen((documents) {
+        emit(CandyPageState(
+            documents: documents, status: Status.success, errorMessage: ''));
+      });
+    } catch (error) {
+      emit(
+        CandyPageState(
+          documents: [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override

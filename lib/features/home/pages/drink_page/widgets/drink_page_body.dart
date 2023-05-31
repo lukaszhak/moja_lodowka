@@ -76,7 +76,7 @@ class DrinkPageBody extends StatelessWidget {
                                 .cancelNotification(documentModel.notificationId);
                             context
                                 .read<DrinkPageCubit>()
-                                .delete(document: documentModel.id)
+                                .deleteDoc(document: documentModel.id)
                                 .whenComplete(
                                   () => ScaffoldMessenger.of(context)
                                       .showSnackBar(

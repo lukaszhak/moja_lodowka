@@ -35,7 +35,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
                       : () {
                           context
                               .read<DrugPageCubit>()
-                              .add(_title!, _expDate!, notificationId);
+                              .addDoc(_title!, _expDate!, notificationId);
                           context.read<DrugPageCubit>().scheduleNotification(
                               _expDate!, context, _title!, notificationId);
                           Navigator.of(context).pop();
