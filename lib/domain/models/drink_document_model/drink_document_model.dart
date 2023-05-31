@@ -21,7 +21,7 @@ class DrinkDocumentModel with _$DrinkDocumentModel {
   }
 
   int closeCall() {
-    return (6);
+    return (3);
   }
 
   int outDated() {

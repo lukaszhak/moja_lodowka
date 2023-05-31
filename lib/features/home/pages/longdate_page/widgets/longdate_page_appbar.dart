@@ -68,7 +68,7 @@ class LongDatePageAppBar extends StatelessWidget
                               const SizedBox(
                                 width: 8,
                               ),
-                              Text(AppLocalizations.of(context)!.weekToOutDate)
+                              Text(AppLocalizations.of(context)!.fourDaysToOutDate)
                             ],
                           ),
                         ],

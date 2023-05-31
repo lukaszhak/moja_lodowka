@@ -76,7 +76,7 @@ class DrugRemoteDataSource {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
-      const Duration(days: 30),
+      const Duration(days: 15),
     );
 
     AndroidNotificationDetails androidDetails =
@@ -93,8 +93,8 @@ class DrugRemoteDataSource {
     try {
       await flutterLocalNotificationsPlugin.schedule(
           notificationId,
-          'Przypomnienie w ${AppLocalizations.of(context)!.medications}',
-          'Kończy się data ważności leku $title',
+          '${AppLocalizations.of(context)!.reminderIn} ${AppLocalizations.of(context)!.medications}',
+          '${AppLocalizations.of(context)!.medicineAboutToExpire} $title',
           scheduleNotificationDateTime,
           notificationDetails,
           androidAllowWhileIdle: true);

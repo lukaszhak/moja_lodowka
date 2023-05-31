@@ -77,7 +77,7 @@ class FridgeRemoteDataSource {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduledNotificationDateTime = expDate.subtract(
-      const Duration(days: 7),
+      const Duration(days: 4),
     );
 
     AndroidNotificationDetails androidDetails =
@@ -94,8 +94,8 @@ class FridgeRemoteDataSource {
     try {
       await flutterLocalNotificationsPlugin.schedule(
           notificationId,
-          'Przypomnienie w ${AppLocalizations.of(context)!.fridge}',
-          'Kończy się data ważności produktu $title',
+          '${AppLocalizations.of(context)!.reminderIn} ${AppLocalizations.of(context)!.fridge}',
+          '${AppLocalizations.of(context)!.aboutToExpire} $title',
           scheduledNotificationDateTime,
           notificationDetails,
           androidAllowWhileIdle: true);

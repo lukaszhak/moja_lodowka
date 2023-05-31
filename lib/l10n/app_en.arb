@@ -22,13 +22,13 @@
     "loggedInAs": "You are logged in as",
     "description": "Description",
     "medicineOutDate": "Medicine outdated",
-    "monthToOutDate": "30 days until the expiration date",
+    "fifteenDaysToOutDate": "15 days until the expiration date",
     "loading": "Loading, please wait",
     "noMedications": "No medications to display",
     "deleteInfo": "Successfully deleted",
     "expDate": "Expiration date",
     "productOutDate": "Product outdated",
-    "weekToOutDate": "7 days until the expiration date",
+    "fourDaysToOutDate": "4 days until the expiration date",
     "noProducts": "No products to display",
     "cancel": "Cancel",
     "add": "Add",
@@ -51,5 +51,8 @@
     "selectDate": "Select an expiration date",
     "addMedication": "Add medication",
     "medicationName": "Medication name",
-    "typeMedication": "Type the medication name"
+    "typeMedication": "Type the medication name",
+    "reminderIn": "Reminder in",
+    "aboutToExpire": "The following product is about to expire",
+    "medicineAboutToExpire": "The following medicine is about to expire"
 }

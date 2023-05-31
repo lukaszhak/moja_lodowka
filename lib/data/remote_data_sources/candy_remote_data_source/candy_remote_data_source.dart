@@ -76,7 +76,7 @@ class CandyRemoteDataSource {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
-      const Duration(days: 7),
+      const Duration(days: 4),
     );
     AndroidNotificationDetails androidDetails =
         const AndroidNotificationDetails(
@@ -94,8 +94,8 @@ class CandyRemoteDataSource {
     try {
       await flutterLocalNotificationsPlugin.schedule(
         notificationId,
-        'Przypomnienie w ${AppLocalizations.of(context)!.candys}',
-        'Kończy się data ważności produktu $title',
+        '${AppLocalizations.of(context)!.reminderIn} ${AppLocalizations.of(context)!.candys}',
+        '${AppLocalizations.of(context)!.aboutToExpire} $title',
         scheduleNotificationDateTime,
         notificationDetails,
         androidAllowWhileIdle: true,

@@ -21,7 +21,7 @@ class FridgeDocumentModel with _$FridgeDocumentModel {
   }
 
   int closeCall() {
-    return (6);
+    return (3);
   }
 
   int outDated() {

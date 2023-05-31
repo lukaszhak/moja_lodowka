@@ -65,7 +65,7 @@ class DrugPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        Text(AppLocalizations.of(context)!.weekToOutDate)
+                        Text(AppLocalizations.of(context)!.fifteenDaysToOutDate)
                       ],
                     ),
                   ],

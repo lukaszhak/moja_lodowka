@@ -73,7 +73,7 @@ class DrinkRemoteDataSource {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     var scheduleNotificationDateTime = expDate.subtract(
-      const Duration(days: 7),
+      const Duration(days: 4),
     );
     AndroidNotificationDetails androidDetails =
         const AndroidNotificationDetails(
@@ -90,8 +90,8 @@ class DrinkRemoteDataSource {
     try {
       await flutterLocalNotificationsPlugin.schedule(
           notificationId,
-          'Przypomnienie w ${AppLocalizations.of(context)!.drinks}',
-          'Kończy się data ważności produktu $title',
+          '${AppLocalizations.of(context)!.reminderIn} ${AppLocalizations.of(context)!.drinks}',
+          '${AppLocalizations.of(context)!.aboutToExpire} $title',
           scheduleNotificationDateTime,
           notificationDetails,
           androidAllowWhileIdle: true);

@@ -21,7 +21,7 @@ class DrugDocumentModel with _$DrugDocumentModel {
   }
 
   int closeCall() {
-    return (29);
+    return (14);
   }
 
   int outDated() {
