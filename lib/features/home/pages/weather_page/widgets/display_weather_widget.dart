@@ -4,7 +4,6 @@ import 'package:moja_lodowka/domain/models/weather_model/weather_model.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/cubit/weather_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class DisplayWeatherWidget extends StatelessWidget {
   const DisplayWeatherWidget({
     required this.weatherModel,
@@ -23,52 +22,30 @@ class DisplayWeatherWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.selectedCity,
-                  style: const TextStyle(fontSize: 22),
-                ),
-                Text(
                   weatherModel.city,
-                  style: const TextStyle(fontSize: 22),
+                  style: const TextStyle(
+                      fontSize: 35, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
             const SizedBox(
-              height: 25,
+              height: 70,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   AppLocalizations.of(context)!.temp,
-                  style: const TextStyle(fontSize: 22),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '${weatherModel.temperature} °C',
-                  style: const TextStyle(fontSize: 22),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.conditions,
-                    style: const TextStyle(fontSize: 22),
-                  ),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  Flexible(
-                    child: Text(
-                      weatherModel.condition,
-                      style: const TextStyle(fontSize: 22),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         );
       },

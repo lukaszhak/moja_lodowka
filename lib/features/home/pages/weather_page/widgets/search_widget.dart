@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/cubit/weather_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class SearchWidget extends StatelessWidget {
   SearchWidget({
     Key? key,

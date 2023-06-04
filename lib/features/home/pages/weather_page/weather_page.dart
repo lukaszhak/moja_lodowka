@@ -43,7 +43,7 @@ class WeatherPage extends StatelessWidget {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          opacity: 0.6,
+                          opacity: 0.5,
                           image: AssetImage('images/weather.jpg'),
                         ),
                       ),
@@ -69,7 +69,7 @@ class WeatherPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        opacity: 0.6,
+                        opacity: 0.5,
                         image: AssetImage('images/weather.jpg'),
                       ),
                     ),
