@@ -22,4 +22,41 @@ class ExpensesRemoteDataSource {
       );
     }
   }
+
+  Future<void> addDoc(String title) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('Użytkownik niezalogowany');
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('expenses')
+          .add({'title': title});
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
+  }
+
+  Future<void> deleteDoc({required String document}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('Użytkownik niezalogowany');
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .collection('expenses')
+          .doc(document)
+          .delete();
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
+  }
 }

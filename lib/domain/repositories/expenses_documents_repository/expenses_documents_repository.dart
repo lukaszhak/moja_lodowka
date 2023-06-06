@@ -13,4 +13,12 @@ class ExpensesDocumentsRepository {
       }).toList();
     });
   }
+
+  Future<void> addDocument(String title) async {
+    _expensesRemoteDataSource.addDoc(title);
+  }
+
+  Future<void> deleteDocument({required String document}) async {
+    _expensesRemoteDataSource.deleteDoc(document: document);
+  }
 }

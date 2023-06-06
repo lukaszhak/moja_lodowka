@@ -47,4 +47,12 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
     _streamSubscription!.cancel();
     return super.close();
   }
+
+  Future<void> addDoc(String title) async {
+    _documentsRepository.addDocument(title);
+  }
+
+  Future<void> deleteDoc({required String document}) async {
+    _documentsRepository.deleteDocument(document: document);
+  }
 }
