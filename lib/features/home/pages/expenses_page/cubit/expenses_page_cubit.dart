@@ -1,0 +1,50 @@
+import 'dart:async';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/core/enums.dart';
+import 'package:moja_lodowka/domain/models/expenses_document_model/expenses_document_model.dart';
+import 'package:moja_lodowka/domain/repositories/expenses_documents_repository/expenses_documents_repository.dart';
+
+part 'expenses_page_state.dart';
+
+class ExpensesPageCubit extends Cubit<ExpensesPageState> {
+  ExpensesPageCubit(this._documentsRepository)
+      : super(
+          ExpensesPageState(
+              documents: [], status: Status.initial, errorMessage: ''),
+        );
+
+  final ExpensesDocumentsRepository _documentsRepository;
+
+  StreamSubscription? _streamSubscription;
+
+  Future<void> start() async {
+    emit(
+      ExpensesPageState(
+          documents: [], status: Status.loading, errorMessage: ''),
+    );
+    try {
+      _streamSubscription =
+          _documentsRepository.getExpensesDocuments().listen((documents) {
+        emit(
+          ExpensesPageState(
+              documents: documents, status: Status.success, errorMessage: ''),
+        );
+      });
+    } catch (error) {
+      emit(
+        ExpensesPageState(
+          documents: [],
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription!.cancel();
+    return super.close();
+  }
+}
