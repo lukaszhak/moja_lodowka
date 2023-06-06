@@ -6,13 +6,13 @@ import 'package:moja_lodowka/custom_icons_icons.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_page.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/drink_page.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/drug_page.dart';
+import 'package:moja_lodowka/features/home/pages/expenses_page/expenses_page.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/fridge_page.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_page.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/menu_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/shoplist_page.dart';
 import 'package:moja_lodowka/features/home/pages/weather_page/weather_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class HomePageDrawer extends StatelessWidget {
   const HomePageDrawer({
@@ -36,68 +36,23 @@ class HomePageDrawer extends StatelessWidget {
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 0, 51, 54)),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      const CircleAvatar(
+                        radius: 35,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                          radius: 33,
+                          backgroundColor: Colors.black,
+                        ),
+                      ),
                       const SizedBox(
-                        height: 1,
+                        height: 25,
                       ),
                       Text(
                         '$email',
                         style:
                             const TextStyle(color: Colors.white, fontSize: 25),
                       ),
-                      InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color.fromARGB(
-                                                    255, 0, 51, 54)),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.no),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          context.read<RootCubit>().signOut();
-                                          Navigator.of(context).pop();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color.fromARGB(
-                                                    255, 0, 51, 54)),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.yes),
-                                      ),
-                                    ],
-                                    title: Text(AppLocalizations.of(context)!
-                                        .logOutInfo),
-                                  ));
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.logout,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.logOut,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -187,7 +142,76 @@ class HomePageDrawer extends StatelessWidget {
                           builder: (_) => const WeatherPage(),
                         ),
                       );
-                    })
+                    }),
+                HomePageListTile(
+                    icon: Icons.account_balance_wallet,
+                    title: 'Wydatki',
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ExpensesPage(),
+                        ),
+                      );
+                    }),
+                const Divider(
+                  color: Colors.black,
+                  thickness: 1.5,
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 0, 51, 54)),
+                                  child: Text(AppLocalizations.of(context)!.no),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<RootCubit>().signOut();
+                                    Navigator.of(context).pop();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 0, 51, 54)),
+                                  child:
+                                      Text(AppLocalizations.of(context)!.yes),
+                                ),
+                              ],
+                              title: Text(
+                                  AppLocalizations.of(context)!.logOutInfo),
+                            ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.logout,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.logOut,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             );
           },
