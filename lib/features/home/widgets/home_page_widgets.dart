@@ -149,7 +149,7 @@ class HomePageDrawer extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => const ExpensesPage(),
+                          builder: (_) => ExpensesPage(),
                         ),
                       );
                     }),
