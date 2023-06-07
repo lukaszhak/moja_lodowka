@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/expenses_document_model/expenses_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
+import 'package:moja_lodowka/features/home/pages/expenses_page/expenses_category_page/expenses_category_page.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/widgets/expenses_page_item.dart';
-
 
 class ExpensesGridView extends StatefulWidget {
   const ExpensesGridView({
@@ -80,6 +80,13 @@ class _ExpensesGridViewState extends State<ExpensesGridView> {
                 padding: const EdgeInsets.all(15),
                 child: InkWell(
                   onTapDown: (details) => _getTapPosition(details),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => ExpensesCategoryPage(title: title,),
+                      ),
+                    );
+                  },
                   onLongPress: () {
                     showContextMenu(context, documentId);
                   },
