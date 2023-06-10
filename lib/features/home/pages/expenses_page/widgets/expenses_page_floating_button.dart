@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moja_lodowka/data/remote_data_sources/expenses_remote_data_source/expenses_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/expenses_documents_repository/expenses_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
 
 class ExpensesPageFloatingButton extends StatefulWidget {
@@ -27,11 +26,7 @@ class _ExpensesPageFloatingButtonState
           context: context,
           builder: (context) {
             return BlocProvider(
-              create: (context) => ExpensesPageCubit(
-                ExpensesDocumentsRepository(
-                  ExpensesRemoteDataSource(),
-                ),
-              ),
+              create: (context) => getIt<ExpensesPageCubit>(),
               child: BlocBuilder<ExpensesPageCubit, ExpensesPageState>(
                 builder: (context, state) {
                   return AlertDialog(
