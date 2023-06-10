@@ -1,8 +1,18 @@
+import 'package:intl/intl.dart';
+
 class ExpensesDocumentModel {
+  ExpensesDocumentModel(
+      {required this.category,
+      required this.amount,
+      required this.id,
+      required this.title,
+      required this.expensesDate});
 
-  ExpensesDocumentModel({required this.id, required this.title});
+  final String id, title, category;
+  final DateTime expensesDate;
+  final num amount;
 
-  final String id;
-  final String title;
-
+  String expensesDateFormated() {
+    return DateFormat('dd.MM.yy').format(expensesDate);
+  }
 }

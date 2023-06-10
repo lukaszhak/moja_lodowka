@@ -18,6 +18,14 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
 
   StreamSubscription? _streamSubscription;
 
+  Future<void> addDoc(String title, String category, num amount, DateTime expensesDate) async {
+    _documentsRepository.addDocument(title, category, amount, expensesDate);
+  }
+
+  Future<void> deleteDoc({required String document}) async {
+    _documentsRepository.deleteDocument(document: document);
+  }
+
   Future<void> start() async {
     emit(
       ExpensesPageState(
@@ -44,15 +52,7 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
 
   @override
   Future<void> close() {
-    _streamSubscription!.cancel();
+    _streamSubscription?.cancel();
     return super.close();
-  }
-
-  Future<void> addDoc(String title) async {
-    _documentsRepository.addDocument(title);
-  }
-
-  Future<void> deleteDoc({required String document}) async {
-    _documentsRepository.deleteDocument(document: document);
   }
 }

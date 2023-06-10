@@ -8,7 +8,7 @@ class ExpensesRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('expenses')
-        .orderBy('title')
+        .orderBy('expenses_date')
         .snapshots();
 
     try {
@@ -23,7 +23,8 @@ class ExpensesRemoteDataSource {
     }
   }
 
-  Future<void> addDoc(String title) async {
+  Future<void> addDoc(
+      String title, String category, num amount, DateTime expensesDate) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('Użytkownik niezalogowany');
@@ -33,7 +34,14 @@ class ExpensesRemoteDataSource {
           .collection('users')
           .doc(userID)
           .collection('expenses')
-          .add({'title': title});
+          .add(
+        {
+          'title': title,
+          'category': category,
+          'amount': amount,
+          'expenses_date': expensesDate
+        },
+      );
     } catch (error) {
       throw Exception(
         error.toString(),
