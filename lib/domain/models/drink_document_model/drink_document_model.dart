@@ -13,7 +13,7 @@ class DrinkDocumentModel with _$DrinkDocumentModel {
   }) = _DrinkDocumentModel;
 
   String expDateFormated() {
-    return DateFormat.yMd().format(expDate);
+    return DateFormat('dd.MM.yyyy').format(expDate);
   }
 
   int daysToExpire() {

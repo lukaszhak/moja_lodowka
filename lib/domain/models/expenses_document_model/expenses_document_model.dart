@@ -13,6 +13,6 @@ class ExpensesDocumentModel {
   final num amount;
 
   String expensesDateFormated() {
-    return DateFormat('dd.MM.yy').format(expensesDate);
+    return DateFormat('dd.MM.yyyy').format(expensesDate);
   }
 }

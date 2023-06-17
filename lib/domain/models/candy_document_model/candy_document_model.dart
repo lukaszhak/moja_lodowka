@@ -14,7 +14,7 @@ class CandyDocumentModel with _$CandyDocumentModel {
   }) = _CandyDocumentModel;
 
   String expDateFormated() {
-    return DateFormat.yMd().format(expDate);
+    return DateFormat('dd.MM.yyyy').format(expDate);
   }
 
   int daysToExpire() {

@@ -13,7 +13,7 @@ class FridgeDocumentModel with _$FridgeDocumentModel {
   }) = _FridgeDocumentModel;
 
   String expDateFormated() {
-    return DateFormat.yMd().format(expDate);
+    return DateFormat('dd.MM.yyyy').format(expDate);
   }
 
   int daysToExpire() {

@@ -14,8 +14,9 @@ class LongDateDocumentModel with _$LongDateDocumentModel {
   }) = _LongDateDocumentModel;
 
   String expDateFormated() {
-    return DateFormat.yMd().format(expDate);
+    return DateFormat('dd.MM.yyyy').format(expDate);
   }
+
   int daysToExpire() {
     return expDate.difference(DateTime.now()).inDays;
   }
