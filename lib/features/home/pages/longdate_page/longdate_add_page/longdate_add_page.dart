@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:moja_lodowka/data/remote_data_sources/longdate_remote_data_source/longdate_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/longdate_documents_repository/longdate_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,8 +18,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LongDatePageCubit(
-          LongDateDocumentsRepository(LongDateRemoteDataSource())),
+      create: (context) => getIt<LongDatePageCubit>(),
       child: BlocBuilder<LongDatePageCubit, LongDatePageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();

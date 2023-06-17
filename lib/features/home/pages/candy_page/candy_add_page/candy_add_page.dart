@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
-import 'package:moja_lodowka/data/remote_data_sources/candy_remote_data_source/candy_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/candy_documents_repository/candy_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,8 +22,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CandyPageCubit(CandyDocumentsRepository(CandyRemoteDataSource())),
+      create: (context) =>getIt<CandyPageCubit>(),
       child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();

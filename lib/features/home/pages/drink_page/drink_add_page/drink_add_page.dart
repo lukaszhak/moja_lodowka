@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:moja_lodowka/data/remote_data_sources/drink_remote_data_source/drink_remote_data_source.dart';
-import 'package:moja_lodowka/domain/repositories/drink_documents_repository/drink_documents_repository.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,8 +18,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DrinkPageCubit(DrinkDocumentsRepository(DrinkRemoteDataSource())),
+      create: (context) =>getIt<DrinkPageCubit>(),
       child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();
