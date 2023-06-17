@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +22,26 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
   final ShopListDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> moveItemToDrugPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _documentsRepository.moveItemToDrugPage(title, expDate, document, notificationId, context);
+  }
+
+  Future<void> moveItemToDrinkPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _documentsRepository.moveItemToDrinkPage(title, expDate, document, notificationId, context);
+  }
+
+  Future<void> moveItemToLongDatePage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _documentsRepository.moveItemToLongDatePage(title, expDate, document, notificationId, context);
+  }
+
+  Future<void> moveItemToFridgePage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _documentsRepository.moveItemToFridgePage(title, expDate, document, notificationId, context);
+  }
+
+  Future<void> moveItemToCandyPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _documentsRepository.moveItemToCandyPage(title, expDate, document, notificationId, context);
+  }
 
   Future<void> updateValue(String document, bool newValue) async {
     await _documentsRepository.updateValue(document, newValue);

@@ -7,24 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/shoplist_moveto_page.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/widgets/shoplist_page_item.dart';
 
-class ShopListPageBody extends StatefulWidget {
+class ShopListPageBody extends StatelessWidget {
   const ShopListPageBody({
     super.key,
   });
-
-  @override
-  State<ShopListPageBody> createState() => _ShopListPageBodyState();
-}
-
-class _ShopListPageBodyState extends State<ShopListPageBody> {
-  Offset _tapPosition = Offset.zero;
-
-  void _getTapPosition(TapDownDetails details) {
-    final RenderBox referenceBox = context.findRenderObject() as RenderBox;
-    setState(() {
-      _tapPosition = referenceBox.globalToLocal(details.globalPosition);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +65,15 @@ class _ShopListPageBodyState extends State<ShopListPageBody> {
                   children: [
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
-                      InkWell(
-                          onTapDown: ((details) => _getTapPosition(details)),
-                          onLongPress: () {
-                            showContextMenu(context);
+                      Dismissible(
+                          key: ValueKey(documentModel.id),
+                          onDismissed: (_) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ShopListMoveToPage(
+                                    documentModel: documentModel),
+                              ),
+                            );
                           },
                           child:
                               ShoppingListItem(documentModel: documentModel)),
@@ -103,32 +94,5 @@ class _ShopListPageBodyState extends State<ShopListPageBody> {
         ),
       ),
     );
-  }
-
-  void showContextMenu(BuildContext context) async {
-    final RenderObject? overlay =
-        Overlay.of(context).context.findRenderObject();
-
-    await showMenu(
-        context: context,
-        position: RelativeRect.fromRect(
-            Rect.fromLTWH(_tapPosition.dx, _tapPosition.dy, 30, 30),
-            Rect.fromLTWH(0, 0, overlay!.paintBounds.size.width,
-                overlay.paintBounds.size.height)),
-        items: [
-          PopupMenuItem(
-            onTap: () {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const ShopListMoveToPage(),
-                  ),
-                );
-              });
-            },
-            value: 'transposition',
-            child: const Text('Przenieś do'),
-          ),
-        ]);
   }
 }

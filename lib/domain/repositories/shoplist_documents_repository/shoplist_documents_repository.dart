@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/data/remote_data_sources/shoplist_remote_data_source/shoplist_remote_data_source.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
@@ -28,5 +29,21 @@ class ShopListDocumentsRepository {
   Future<void> updateValue(String document, bool newValue) async {
     await _listRemoteDataSource.updateValue(
         document: document, newValue: newValue);
+  }
+
+  Future<void> moveItemToDrugPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _listRemoteDataSource.moveItemToDrugPage(title, expDate, notificationId, document, context);
+  }
+  Future<void> moveItemToDrinkPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _listRemoteDataSource.moveItemToDrinkPage(title, expDate, notificationId, document, context);
+  }
+  Future<void> moveItemToLongDatePage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _listRemoteDataSource.moveItemToLongDatePage(title, expDate, notificationId, document, context);
+  }
+  Future<void> moveItemToFridgePage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _listRemoteDataSource.moveItemToFridgePage(title, expDate, notificationId, document, context);
+  }
+  Future<void> moveItemToCandyPage(String title, DateTime expDate, String document, int notificationId, BuildContext context) async {
+    await _listRemoteDataSource.moveItemToCandyPage(title, expDate, notificationId, document, context);
   }
 }
