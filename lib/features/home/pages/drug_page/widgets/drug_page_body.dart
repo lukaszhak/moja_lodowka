@@ -69,9 +69,8 @@ class DrugPageBody extends StatelessWidget {
                       Dismissible(
                           key: ValueKey(documentModel.id),
                           onDismissed: (_) {
-                            context
-                                .read<DrugPageCubit>()
-                                .cancelNotification(documentModel.notificationId);
+                            context.read<DrugPageCubit>().cancelNotification(
+                                documentModel.notificationId);
                             context
                                 .read<DrugPageCubit>()
                                 .deleteDoc(document: documentModel.id)
