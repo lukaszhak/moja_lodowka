@@ -57,7 +57,7 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
               },
               selectedDateFormated: _expDate == null
                   ? null
-                  : DateFormat.yMMMd().format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(_expDate!),
             ),
           );
         },

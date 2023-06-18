@@ -22,7 +22,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<CandyPageCubit>(),
+      create: (context) => getIt<CandyPageCubit>(),
       child: BlocBuilder<CandyPageCubit, CandyPageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();
@@ -59,7 +59,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
               },
               selectedDateFormated: _expDate == null
                   ? null
-                  : DateFormat.yMMMd().format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(_expDate!),
             ),
           );
         },

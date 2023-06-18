@@ -20,7 +20,7 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<FridgePageCubit>(),
+      create: (context) => getIt<FridgePageCubit>(),
       child: BlocBuilder<FridgePageCubit, FridgePageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();
@@ -57,7 +57,7 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
               },
               selectedDateFormated: _expDate == null
                   ? null
-                  : DateFormat.yMMMd().format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(_expDate!),
             ),
           );
         },

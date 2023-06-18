@@ -18,7 +18,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<DrugPageCubit>(),
+      create: (context) => getIt<DrugPageCubit>(),
       child: BlocBuilder<DrugPageCubit, DrugPageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();
@@ -54,7 +54,7 @@ class _DrugAddPageState extends State<DrugAddPage> {
                 });
               },
               selectedDateFormated:
-                  _expDate == null ? null : DateFormat.yMMM().format(_expDate!),
+                  _expDate == null ? null : DateFormat.yM().format(_expDate!),
             ),
           );
         },

@@ -18,7 +18,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<DrinkPageCubit>(),
+      create: (context) => getIt<DrinkPageCubit>(),
       child: BlocBuilder<DrinkPageCubit, DrinkPageState>(
         builder: (context, state) {
           final notificationId = context.read<int>();
@@ -54,7 +54,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
               },
               selectedDateFormated: _expDate == null
                   ? null
-                  : DateFormat.yMMMd().format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(_expDate!),
             ),
           );
         },
