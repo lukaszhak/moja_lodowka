@@ -14,7 +14,7 @@ class ExpensesPageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(14.0),
+      padding: const EdgeInsets.only(left: 14, top: 7),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -22,7 +22,7 @@ class ExpensesPageItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                documentModel.category,
+                documentModel.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -32,7 +32,7 @@ class ExpensesPageItem extends StatelessWidget {
                 height: 3,
               ),
               Text(
-                documentModel.title,
+                documentModel.category,
               ),
               const SizedBox(
                 height: 2,

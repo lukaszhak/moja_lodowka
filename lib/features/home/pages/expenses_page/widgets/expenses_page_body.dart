@@ -52,6 +52,9 @@ class ExpensesPageBody extends StatelessWidget {
           children: [
             for (final documentModel in documentModels) ...[
               ExpensesPageItem(documentModel: documentModel),
+              const Divider(
+                color: Colors.black,
+              ),
             ],
           ],
         );
@@ -68,5 +71,3 @@ class ExpensesPageBody extends StatelessWidget {
     }
   }
 }
-
-

@@ -164,7 +164,9 @@ class AlertDialogContent extends StatelessWidget {
         TextField(
           onChanged: onAmountChanged,
           keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))
+          ],
           decoration: const InputDecoration(hintText: 'Kwota'),
         ),
       ],

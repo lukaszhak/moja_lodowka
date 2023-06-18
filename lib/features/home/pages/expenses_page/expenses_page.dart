@@ -14,7 +14,6 @@ class ExpensesPage extends StatefulWidget {
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-
   DateTime? expensesDate;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  opacity: 0.3,
+                  opacity: 0.15,
                   image: AssetImage('images/dollar.jpg'),
                 ),
               ),
