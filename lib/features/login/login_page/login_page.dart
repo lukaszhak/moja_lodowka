@@ -3,155 +3,155 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:moja_lodowka/app/injection_container.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  var errorMessage = '';
-  var isCreatingAccount = false;
-  var obscureText = true;
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            opacity: 0.4,
-            fit: BoxFit.cover,
-            image: AssetImage(
-              'images/openfridge.jpg',
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                isCreatingAccount == true
-                    ? AppLocalizations.of(context)!.register
-                    : AppLocalizations.of(context)!.logIn,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return BlocProvider(
+      create: (context) => getIt<RootCubit>(),
+      child: BlocBuilder<RootCubit, RootState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  opacity: 0.4,
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    'images/openfridge.jpg',
+                  ),
+                ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: widget.emailController,
-                decoration: const InputDecoration(hintText: 'E-mail'),
-              ),
-              TextField(
-                controller: widget.passwordController,
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.password,
-                    suffixIcon: IconButton(
-                      color: Colors.black,
-                      icon: Icon(obscureText
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          obscureText = !obscureText;
-                        });
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      state.isCreatingAccount == true
+                          ? AppLocalizations.of(context)!.register
+                          : AppLocalizations.of(context)!.logIn,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(hintText: 'E-mail'),
+                    ),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: state.obscureText,
+                      decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.password,
+                          suffixIcon: IconButton(
+                            color: Colors.black,
+                            icon: Icon(state.obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              context
+                                  .read<RootCubit>()
+                                  .obscureText(state.obscureText);
+                            },
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      state.errorMessage,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 150, 10, 0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 0, 51, 54)),
+                      onPressed: () async {
+                        if (state.isCreatingAccount == true) {
+                          // rejestracja
+                          try {
+                            await context.read<RootCubit>().createAccount(
+                                email: emailController.text,
+                                password: passwordController.text);
+                          } on FirebaseAuthException catch (error) {
+                            context
+                                .read<RootCubit>()
+                                .errorMessage('Error: ${error.message!}');
+                          }
+                        } else {
+                          // logowanie
+                          try {
+                            await context.read<RootCubit>().logIn(
+                                email: emailController.text,
+                                password: passwordController.text);
+                          } on FirebaseAuthException catch (error) {
+                            context
+                                .read<RootCubit>()
+                                .errorMessage('Error: ${error.message!}');
+                          }
+                        }
                       },
-                    )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                errorMessage,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 150, 10, 0),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                      child: Text(state.isCreatingAccount == true
+                          ? AppLocalizations.of(context)!.register
+                          : AppLocalizations.of(context)!.logIn),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    if (state.isCreatingAccount == false) ...[
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<RootCubit>()
+                              .isCreatingAccount(state.isCreatingAccount);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.makeAnAccount,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 0, 51, 54)),
+                        ),
+                      ),
+                    ],
+                    if (state.isCreatingAccount == true) ...[
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<RootCubit>()
+                              .isCreatingAccount(state.isCreatingAccount);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.alreadyHaveAnAccount,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 0, 51, 54)),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
-                onPressed: () async {
-                  if (isCreatingAccount == true) {
-                    // rejestracja
-                    try {
-                      await context.read<RootCubit>().createAccount(
-                          email: widget.emailController.text,
-                          password: widget.passwordController.text);
-                    } on FirebaseAuthException catch (error) {
-                      setState(() {
-                        errorMessage = 'Error: ${error.message}';
-                      });
-                    }
-                  } else {
-                    // logowanie
-                    try {
-                      await context.read<RootCubit>().logIn(
-                          email: widget.emailController.text,
-                          password: widget.passwordController.text);
-                    } on FirebaseAuthException catch (error) {
-                      setState(() {
-                        errorMessage = 'Error: ${error.message}';
-                      });
-                    }
-                  }
-                },
-                child: Text(isCreatingAccount == true
-                    ? AppLocalizations.of(context)!.register
-                    : AppLocalizations.of(context)!.logIn),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              if (isCreatingAccount == false) ...[
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      isCreatingAccount = true;
-                    });
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.makeAnAccount,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 0, 51, 54)),
-                  ),
-                ),
-              ],
-              if (isCreatingAccount == true) ...[
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      isCreatingAccount = false;
-                    });
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.alreadyHaveAnAccount,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 0, 51, 54)),
-                  ),
-                ),
-              ],
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

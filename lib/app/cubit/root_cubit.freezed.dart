@@ -19,6 +19,8 @@ mixin _$RootState {
   UserModel? get user => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  bool get obscureText => throw _privateConstructorUsedError;
+  bool get isCreatingAccount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RootStateCopyWith<RootState> get copyWith =>
@@ -30,7 +32,12 @@ abstract class $RootStateCopyWith<$Res> {
   factory $RootStateCopyWith(RootState value, $Res Function(RootState) then) =
       _$RootStateCopyWithImpl<$Res, RootState>;
   @useResult
-  $Res call({UserModel? user, bool isLoading, String errorMessage});
+  $Res call(
+      {UserModel? user,
+      bool isLoading,
+      String errorMessage,
+      bool obscureText,
+      bool isCreatingAccount});
 
   $UserModelCopyWith<$Res>? get user;
 }
@@ -51,6 +58,8 @@ class _$RootStateCopyWithImpl<$Res, $Val extends RootState>
     Object? user = freezed,
     Object? isLoading = null,
     Object? errorMessage = null,
+    Object? obscureText = null,
+    Object? isCreatingAccount = null,
   }) {
     return _then(_value.copyWith(
       user: freezed == user
@@ -65,6 +74,14 @@ class _$RootStateCopyWithImpl<$Res, $Val extends RootState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      obscureText: null == obscureText
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCreatingAccount: null == isCreatingAccount
+          ? _value.isCreatingAccount
+          : isCreatingAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -88,7 +105,12 @@ abstract class _$$_RootStateCopyWith<$Res> implements $RootStateCopyWith<$Res> {
       __$$_RootStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserModel? user, bool isLoading, String errorMessage});
+  $Res call(
+      {UserModel? user,
+      bool isLoading,
+      String errorMessage,
+      bool obscureText,
+      bool isCreatingAccount});
 
   @override
   $UserModelCopyWith<$Res>? get user;
@@ -108,6 +130,8 @@ class __$$_RootStateCopyWithImpl<$Res>
     Object? user = freezed,
     Object? isLoading = null,
     Object? errorMessage = null,
+    Object? obscureText = null,
+    Object? isCreatingAccount = null,
   }) {
     return _then(_$_RootState(
       user: freezed == user
@@ -122,6 +146,14 @@ class __$$_RootStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      obscureText: null == obscureText
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCreatingAccount: null == isCreatingAccount
+          ? _value.isCreatingAccount
+          : isCreatingAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -132,7 +164,9 @@ class _$_RootState implements _RootState {
   _$_RootState(
       {required this.user,
       required this.isLoading,
-      required this.errorMessage});
+      required this.errorMessage,
+      required this.obscureText,
+      required this.isCreatingAccount});
 
   @override
   final UserModel? user;
@@ -140,10 +174,14 @@ class _$_RootState implements _RootState {
   final bool isLoading;
   @override
   final String errorMessage;
+  @override
+  final bool obscureText;
+  @override
+  final bool isCreatingAccount;
 
   @override
   String toString() {
-    return 'RootState(user: $user, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'RootState(user: $user, isLoading: $isLoading, errorMessage: $errorMessage, obscureText: $obscureText, isCreatingAccount: $isCreatingAccount)';
   }
 
   @override
@@ -155,11 +193,16 @@ class _$_RootState implements _RootState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.obscureText, obscureText) ||
+                other.obscureText == obscureText) &&
+            (identical(other.isCreatingAccount, isCreatingAccount) ||
+                other.isCreatingAccount == isCreatingAccount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, isLoading, errorMessage);
+  int get hashCode => Object.hash(runtimeType, user, isLoading, errorMessage,
+      obscureText, isCreatingAccount);
 
   @JsonKey(ignore: true)
   @override
@@ -172,7 +215,9 @@ abstract class _RootState implements RootState {
   factory _RootState(
       {required final UserModel? user,
       required final bool isLoading,
-      required final String errorMessage}) = _$_RootState;
+      required final String errorMessage,
+      required final bool obscureText,
+      required final bool isCreatingAccount}) = _$_RootState;
 
   @override
   UserModel? get user;
@@ -180,6 +225,10 @@ abstract class _RootState implements RootState {
   bool get isLoading;
   @override
   String get errorMessage;
+  @override
+  bool get obscureText;
+  @override
+  bool get isCreatingAccount;
   @override
   @JsonKey(ignore: true)
   _$$_RootStateCopyWith<_$_RootState> get copyWith =>

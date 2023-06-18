@@ -17,12 +17,28 @@ class RootCubit extends Cubit<RootState> {
             user: null,
             isLoading: false,
             errorMessage: '',
+            obscureText: true,
+            isCreatingAccount: false,
           ),
         );
 
   final RootRepository _rootRepository;
 
   StreamSubscription? _streamSubscription;
+
+  void isCreatingAccount(bool isCreatingAccount) {
+    emit(state.copyWith(isCreatingAccount: !isCreatingAccount));
+  }
+
+  void obscureText(bool obscureText) {
+    emit(state.copyWith(obscureText: !obscureText));
+  }
+
+  void errorMessage(String errorMessage) {
+    emit(
+      state.copyWith(errorMessage: errorMessage),
+    );
+  }
 
   Future<void> createAccount({
     required String email,
@@ -52,6 +68,8 @@ class RootCubit extends Cubit<RootState> {
         user: null,
         isLoading: true,
         errorMessage: '',
+        obscureText: true,
+        isCreatingAccount: false,
       ),
     );
     try {
@@ -61,6 +79,8 @@ class RootCubit extends Cubit<RootState> {
             user: user,
             isLoading: false,
             errorMessage: '',
+            obscureText: true,
+            isCreatingAccount: false,
           ),
         );
       });
@@ -70,6 +90,8 @@ class RootCubit extends Cubit<RootState> {
           user: null,
           isLoading: false,
           errorMessage: error.toString(),
+          obscureText: true,
+          isCreatingAccount: false,
         ),
       );
     }

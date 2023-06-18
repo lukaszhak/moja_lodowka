@@ -6,5 +6,7 @@ class RootState with _$RootState {
     required UserModel? user,
     required bool isLoading,
     required String errorMessage,
+    required bool obscureText,
+    required bool isCreatingAccount,
   }) = _RootState;
 }
