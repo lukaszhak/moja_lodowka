@@ -90,7 +90,7 @@ class LoginPageBody extends StatelessWidget {
                       } on FirebaseAuthException catch (error) {
                         context
                             .read<RootCubit>()
-                            .errorMessage('Error: ${error.message!}');
+                            .showErrorMessage('Error: ${error.message!}');
                       }
                     } else {
                       // logowanie
@@ -101,7 +101,7 @@ class LoginPageBody extends StatelessWidget {
                       } on FirebaseAuthException catch (error) {
                         context
                             .read<RootCubit>()
-                            .errorMessage('Error: ${error.message!}');
+                            .showErrorMessage('Error: ${error.message!}');
                       }
                     }
                   },

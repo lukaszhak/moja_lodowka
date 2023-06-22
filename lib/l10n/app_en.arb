@@ -54,5 +54,13 @@
     "typeMedication": "Type the medication name",
     "reminderIn": "Reminder in",
     "aboutToExpire": "The following product is about to expire",
-    "medicineAboutToExpire": "The following medicine is about to expire"
+    "medicineAboutToExpire": "The following medicine is about to expire",
+    "expenses": "Expenses",
+    "myExpenses": "My expenses",
+    "total": "Total:",
+    "noElements": "No elements to display",
+    "addExpense": "Add expense",
+    "expenseCategory": "Category",
+    "expenseType": "Expense type",
+    "amount": "Amount"
 }

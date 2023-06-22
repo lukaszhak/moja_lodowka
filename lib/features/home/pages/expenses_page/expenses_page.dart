@@ -6,15 +6,9 @@ import 'package:moja_lodowka/features/home/pages/expenses_page/widgets/expenses_
 import 'package:moja_lodowka/features/home/pages/expenses_page/widgets/expenses_page_body.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/widgets/expenses_page_floating_button.dart';
 
-class ExpensesPage extends StatefulWidget {
+class ExpensesPage extends StatelessWidget {
   const ExpensesPage({super.key});
 
-  @override
-  State<ExpensesPage> createState() => _ExpensesPageState();
-}
-
-class _ExpensesPageState extends State<ExpensesPage> {
-  DateTime? expensesDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

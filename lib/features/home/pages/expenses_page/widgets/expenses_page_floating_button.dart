@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpensesPageFloatingButton extends StatefulWidget {
   const ExpensesPageFloatingButton({super.key});
@@ -38,7 +39,7 @@ class _ExpensesPageFloatingButtonState
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child: const Text('Cofnij'),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -49,7 +50,7 @@ class _ExpensesPageFloatingButtonState
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 51, 54),
                         ),
-                        child: const Text('Dodaj'),
+                        child: Text(AppLocalizations.of(context)!.add),
                       )
                     ],
                     title: AlertDialogTitle(
@@ -101,7 +102,7 @@ class AlertDialogTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text('Dodaj Wydatek'),
+        Text(AppLocalizations.of(context)!.addExpense),
         const SizedBox(
           width: 40,
         ),
@@ -154,12 +155,14 @@ class AlertDialogContent extends StatelessWidget {
           autofocus: true,
           textCapitalization: TextCapitalization.sentences,
           onChanged: onCategoryChanged,
-          decoration: const InputDecoration(hintText: 'Kategoria'),
+          decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.expenseCategory),
         ),
         TextField(
           textCapitalization: TextCapitalization.sentences,
           onChanged: onTitleChanged,
-          decoration: const InputDecoration(hintText: 'Rodzaj wydatku'),
+          decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.expenseType),
         ),
         TextField(
           onChanged: onAmountChanged,
@@ -167,7 +170,8 @@ class AlertDialogContent extends StatelessWidget {
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))
           ],
-          decoration: const InputDecoration(hintText: 'Kwota'),
+          decoration:
+              InputDecoration(hintText: AppLocalizations.of(context)!.amount),
         ),
       ],
     );

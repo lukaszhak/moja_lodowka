@@ -145,7 +145,7 @@ class HomePageDrawer extends StatelessWidget {
                     }),
                 HomePageListTile(
                     icon: Icons.account_balance_wallet,
-                    title: 'Wydatki',
+                    title: AppLocalizations.of(context)!.expenses,
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

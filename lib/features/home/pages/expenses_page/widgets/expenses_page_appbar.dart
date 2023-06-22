@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpensesPageAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -38,9 +39,9 @@ class AppBarBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-      title: const Text(
-        'Moje wydatki',
-        style: TextStyle(
+      title: Text(
+        AppLocalizations.of(context)!.myExpenses,
+        style: const TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
@@ -49,9 +50,9 @@ class AppBarBody extends StatelessWidget {
         Center(
           child: Row(
             children: [
-              const Text(
-                'SUMA:',
-                style: TextStyle(fontSize: 18),
+              Text(
+                AppLocalizations.of(context)!.total,
+                style: const TextStyle(fontSize: 18),
               ),
               Padding(
                 padding: const EdgeInsets.all(9.0),

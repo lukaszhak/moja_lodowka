@@ -26,15 +26,15 @@ class RootCubit extends Cubit<RootState> {
 
   StreamSubscription? _streamSubscription;
 
-  void isCreatingAccount(bool isCreatingAccount) {
+  Future<void> isCreatingAccount(bool isCreatingAccount) async {
     emit(state.copyWith(isCreatingAccount: !isCreatingAccount));
   }
 
-  void obscureText(bool obscureText) {
+  Future<void> obscureText(bool obscureText) async {
     emit(state.copyWith(obscureText: !obscureText));
   }
 
-  void errorMessage(String errorMessage) {
+  Future<void> showErrorMessage(String errorMessage) async {
     emit(
       state.copyWith(errorMessage: errorMessage),
     );

@@ -3,6 +3,7 @@ import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/expenses_document_model/expenses_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/widgets/expenses_page_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpensesPageBody extends StatelessWidget {
   const ExpensesPageBody({
@@ -25,26 +26,27 @@ class ExpensesPageBody extends StatelessWidget {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              CircularProgressIndicator(
+            children: [
+              const CircularProgressIndicator(
                 color: Color.fromARGB(255, 0, 37, 2),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
-                'Ładowanie dokumentów',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                AppLocalizations.of(context)!.loading,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],
           ),
         );
       case Status.success:
         if (state.documents.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
-              'Brak elementów do wyświetlenia',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              AppLocalizations.of(context)!.noElements,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           );
         }

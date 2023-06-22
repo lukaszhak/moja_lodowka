@@ -47,7 +47,7 @@ class RootPage extends StatelessWidget {
       builder: (context, state) {
         final user = state.user;
         if (user?.email == null) {
-          return LoginPage();
+          return const LoginPage();
         }
         return HomePage(
           user: user,
