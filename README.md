@@ -27,3 +27,16 @@ A simple application that helps you keep control over the expiration date of the
 2) Using the add button in the lower right corner, enter the name of the recipe you want to add
 3) Pressing an item from the list of recipes will take you to the preview and editing screen
 
+
+![screen-20230622-171030 (online-video-cutter com)](https://github.com/lukaszhak/moja_lodowka/assets/112015145/dcf16771-f29a-463c-b75c-c426a5059508)
+
+
+
+![Screenshot_20230622-165707](https://github.com/lukaszhak/moja_lodowka/assets/112015145/4a3c96a1-ed42-42d9-9359-facdbb011714)
+
+![Screenshot_20230622-165746](https://github.com/lukaszhak/moja_lodowka/assets/112015145/c082e5a1-3280-4645-a931-208de4469fe0)
+
+![Screenshot_20230622-165938](https://github.com/lukaszhak/moja_lodowka/assets/112015145/766f7aea-3ac6-4636-bee5-2b614057cb20)
+
+![Screenshot_20230622-170120](https://github.com/lukaszhak/moja_lodowka/assets/112015145/33311f95-4bd7-443c-b897-f06c2596dc2a)
+
