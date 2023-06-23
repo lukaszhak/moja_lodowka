@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/domain/models/expenses_document_model/expenses_document_model.dart';
 import 'package:moja_lodowka/domain/repositories/expenses_documents_repository/expenses_documents_repository.dart';
 
 part 'expenses_page_state.dart';
+part 'expenses_page_cubit.freezed.dart';
 
 @injectable
 class ExpensesPageCubit extends Cubit<ExpensesPageState> {
@@ -20,7 +22,8 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> addDoc(String title, String category, num amount, DateTime expensesDate) async {
+  Future<void> addDoc(
+      String title, String category, num amount, DateTime expensesDate) async {
     _documentsRepository.addDocument(title, category, amount, expensesDate);
   }
 
