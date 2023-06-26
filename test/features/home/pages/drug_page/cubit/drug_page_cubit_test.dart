@@ -24,6 +24,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<DrugPageCubit, DrugPageState>(
+        'should call getDrugsDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getDrugsDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

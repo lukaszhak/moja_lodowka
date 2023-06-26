@@ -22,6 +22,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<MenuPageCubit, MenuPageState>(
+        'should call getMenuDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getMenuDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

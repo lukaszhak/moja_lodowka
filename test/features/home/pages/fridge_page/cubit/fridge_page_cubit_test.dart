@@ -24,6 +24,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<FridgePageCubit, FridgePageState>(
+        'should call getFridgeDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getFridgeDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

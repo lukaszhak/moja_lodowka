@@ -24,6 +24,15 @@ void main() {
   });
 
   group('start', () {
+    
+    blocTest<CandyPageCubit, CandyPageState>(
+        'should call getCandysDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getCandysDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

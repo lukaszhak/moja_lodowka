@@ -22,6 +22,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<ShopListPageCubit, ShopListPageState>(
+        'should call getShopListDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getShopListDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

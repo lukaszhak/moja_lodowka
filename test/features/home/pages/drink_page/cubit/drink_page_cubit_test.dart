@@ -24,6 +24,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<DrinkPageCubit, DrinkPageState>(
+        'should call getDrinksDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getDrinksDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

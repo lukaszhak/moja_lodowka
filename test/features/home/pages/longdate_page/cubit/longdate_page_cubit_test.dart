@@ -24,6 +24,15 @@ void main() {
   });
 
   group('start', () {
+
+    blocTest<LongDatePageCubit, LongDatePageState>(
+        'should call getLongDateDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getLongDateDocuments()).called(1);
+        });
+
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore

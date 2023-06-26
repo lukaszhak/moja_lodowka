@@ -18,6 +18,15 @@ void main() {
   });
 
   group('getWeatherModel', () {
+
+    blocTest<WeatherPageCubit, WeatherPageState>(
+        'should call getWeatherModel() method once',
+        build: () => sut,
+        act: (cubit) => cubit.getWeatherModel(city: 'city'),
+        verify: (_) {
+          verify(() => repository.getWeatherModel(city: 'city')).called(1);
+        });
+
     group('success', () {
       setUp(() {
         when(() => repository.getWeatherModel(city: 'city1')).thenAnswer(

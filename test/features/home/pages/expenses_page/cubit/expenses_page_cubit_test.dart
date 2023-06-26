@@ -24,6 +24,14 @@ void main() {
   });
 
   group('start', () {
+    blocTest<ExpensesPageCubit, ExpensesPageState>(
+        'should call getExpensesDocuments() method once',
+        build: () => sut,
+        act: (cubit) => cubit.start(),
+        verify: (_) {
+          verify(() => repository.getExpensesDocuments()).called(1);
+        });
+        
     group('success', () {
       setUp(() async {
         await fakeFirebaseFirestore.collection('path').doc().set({
@@ -85,11 +93,6 @@ void main() {
                     status: Status.error,
                     errorMessage: 'Exception: test-exception-error')
               ]);
-    });
-
-    test('should call getExpensesDocuments() method once', () async {
-      await sut.start();
-      verify(() => repository.getExpensesDocuments()).called(1);
     });
   });
 }
