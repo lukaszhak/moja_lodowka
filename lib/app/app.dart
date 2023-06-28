@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/home_page.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<RootCubit>()..start(),
       child: MaterialApp(
+        navigatorKey: AppRouter().navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         localizationsDelegates: const [

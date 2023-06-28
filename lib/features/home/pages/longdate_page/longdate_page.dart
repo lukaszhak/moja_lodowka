@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/longdate_add_page/longdate_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/widgets/longdate_page_appbar.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/widgets/longdate_page_body.dart';
@@ -29,8 +30,12 @@ class _LongDatePageState extends State<LongDatePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => Provider<int>(create: (context) => notificationId,child: const LongDateAddPage(),),),);
+          AppRouter().navigateToPage(
+            Provider<int>(
+              create: (context) => notificationId,
+              child: const LongDateAddPage(),
+            ),
+          );
         },
         child: const Icon(
           Icons.add,

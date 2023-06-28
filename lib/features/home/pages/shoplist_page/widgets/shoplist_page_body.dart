@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
@@ -68,11 +69,8 @@ class ShopListPageBody extends StatelessWidget {
                       Dismissible(
                           key: ValueKey(documentModel.id),
                           onDismissed: (_) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ShopListMoveToPage(
-                                    documentModel: documentModel),
-                              ),
+                            AppRouter().navigateToPage(
+                              ShopListMoveToPage(documentModel: documentModel),
                             );
                           },
                           child:

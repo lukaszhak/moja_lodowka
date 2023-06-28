@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -71,7 +72,7 @@ class MyAccountPageBody extends StatelessWidget {
                   backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
               onPressed: () {
                 context.read<RootCubit>().signOut();
-                Navigator.of(context).pop();
+                      AppRouter().goBack();
               },
               child: Text(AppLocalizations.of(context)!.logOut),
             ),

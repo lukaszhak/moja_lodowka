@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/core/enums.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 import 'package:moja_lodowka/features/home/pages/noteview_page/viewnote_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class MenuPageBody extends StatelessWidget {
   const MenuPageBody({
@@ -73,24 +73,20 @@ class MenuPageBody extends StatelessWidget {
                             .read<MenuPageCubit>()
                             .deleteDoc(document: documentModel.id)
                             .whenComplete(
-                              () =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
+                              () => ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor:
                                       const Color.fromARGB(255, 0, 51, 54),
-                                  content: Text(AppLocalizations.of(context)!
-                                      .deleteInfo),
+                                  content: Text(
+                                      AppLocalizations.of(context)!.deleteInfo),
                                   duration: const Duration(seconds: 1),
                                 ),
                               ),
                             ),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    ViewNote(documentModel: documentModel),
-                              ),
+                            AppRouter().navigateToPage(
+                              ViewNote(documentModel: documentModel),
                             );
                           },
                           child: _MenuPageListElement(
@@ -118,7 +114,6 @@ class MenuPageBody extends StatelessWidget {
     );
   }
 }
-
 
 class _MenuPageListElement extends StatelessWidget {
   const _MenuPageListElement(

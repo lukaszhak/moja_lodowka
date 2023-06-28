@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +37,7 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
                                 .addDoc(_title!, _expDate!, notificationId);
                             context.read<DrinkPageCubit>().scheduleNotification(
                                 _expDate!, context, _title, notificationId);
-                            Navigator.of(context).pop();
+                            AppRouter().goBack();
                           },
                     icon: const Icon(Icons.check)),
               ],

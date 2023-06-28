@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/menu_page/cubit/menu_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class MenuPageButton extends StatelessWidget {
   const MenuPageButton({
@@ -28,7 +28,7 @@ class MenuPageButton extends StatelessWidget {
                   actions: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        AppRouter().goBack();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -41,7 +41,7 @@ class MenuPageButton extends StatelessWidget {
                             .read<MenuPageCubit>()
                             .addDoc(title: controller.text, content: '');
                         controller.clear();
-                        Navigator.of(context).pop();
+                        AppRouter().goBack();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 0, 51, 54),

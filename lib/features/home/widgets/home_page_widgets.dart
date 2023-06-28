@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/custom_icons_icons.dart';
@@ -60,10 +61,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: CustomIcons.pills,
                   title: AppLocalizations.of(context)!.medications,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const DrugPage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      const DrugPage(),
                     );
                   },
                 ),
@@ -71,10 +70,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: Icons.local_bar,
                   title: AppLocalizations.of(context)!.drinks,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const DrinkPage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      const DrinkPage(),
                     );
                   },
                 ),
@@ -82,10 +79,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: Icons.access_time,
                   title: AppLocalizations.of(context)!.longTerm,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const LongDatePage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      const LongDatePage(),
                     );
                   },
                 ),
@@ -93,10 +88,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: Icons.kitchen,
                   title: AppLocalizations.of(context)!.fridge,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const FridgePage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      const FridgePage(),
                     );
                   },
                 ),
@@ -104,10 +97,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: CustomIcons.candyCane,
                   title: AppLocalizations.of(context)!.candys,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const CandyPage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      const CandyPage(),
                     );
                   },
                 ),
@@ -115,10 +106,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: Icons.view_list,
                   title: AppLocalizations.of(context)!.shoppingList,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ShopListPage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      ShopListPage(),
                     );
                   },
                 ),
@@ -126,10 +115,8 @@ class HomePageDrawer extends StatelessWidget {
                   icon: Icons.restaurant,
                   title: AppLocalizations.of(context)!.recipes,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => MenuPage(),
-                      ),
+                    AppRouter().navigateToPage(
+                      MenuPage(),
                     );
                   },
                 ),
@@ -137,20 +124,16 @@ class HomePageDrawer extends StatelessWidget {
                     icon: Icons.sunny,
                     title: AppLocalizations.of(context)!.weatherCheck,
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const WeatherPage(),
-                        ),
+                      AppRouter().navigateToPage(
+                        const WeatherPage(),
                       );
                     }),
                 HomePageListTile(
                     icon: Icons.account_balance_wallet,
                     title: AppLocalizations.of(context)!.expenses,
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const ExpensesPage(),
-                        ),
+                      AppRouter().navigateToPage(
+                        const ExpensesPage(),
                       );
                     }),
                 const Divider(
@@ -165,7 +148,7 @@ class HomePageDrawer extends StatelessWidget {
                               actions: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    AppRouter().goBack();
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor:
@@ -175,7 +158,7 @@ class HomePageDrawer extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () {
                                     context.read<RootCubit>().signOut();
-                                    Navigator.of(context).pop();
+                                    AppRouter().goBack();
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor:

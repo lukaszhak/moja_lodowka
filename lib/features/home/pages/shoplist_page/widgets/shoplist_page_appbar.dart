@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,7 +34,7 @@ class ShopListPageAppBar extends StatelessWidget
                         actions: [
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              AppRouter().goBack();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
@@ -46,7 +47,7 @@ class ShopListPageAppBar extends StatelessWidget
                               context.read<ShopListPageCubit>().addDoc(
                                   title: controller.text, isChecked: false);
                               controller.clear();
-                              Navigator.of(context).pop();
+                              AppRouter().goBack();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:

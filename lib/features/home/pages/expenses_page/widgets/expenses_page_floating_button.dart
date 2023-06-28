@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -34,7 +35,7 @@ class _ExpensesPageFloatingButtonState
                     actions: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          AppRouter().goBack();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -45,7 +46,7 @@ class _ExpensesPageFloatingButtonState
                         onPressed: () {
                           context.read<ExpensesPageCubit>().addDoc(category!,
                               title!, num.parse(amount!), expensesDate!);
-                          Navigator.of(context).pop();
+                          AppRouter().goBack();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 51, 54),

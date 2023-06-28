@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
@@ -52,8 +53,8 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                           widget.documentModel.id,
                           notificationId,
                           context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
+                      AppRouter().goBack();
+                      AppRouter().goBack();
                     },
                   ),
                   MoveToPageElement(
@@ -70,8 +71,9 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                           widget.documentModel.id,
                           notificationId,
                           context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();},
+                      AppRouter().goBack();
+                      AppRouter().goBack();
+                    },
                   ),
                   MoveToPageElement(
                     title: 'Produkty długoterminowe',
@@ -87,8 +89,9 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                           widget.documentModel.id,
                           notificationId,
                           context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();},
+                      AppRouter().goBack();
+                      AppRouter().goBack();
+                    },
                   ),
                   MoveToPageElement(
                     title: 'Produkty lodówkowe',
@@ -104,8 +107,9 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                           widget.documentModel.id,
                           notificationId,
                           context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();},
+                      AppRouter().goBack();
+                      AppRouter().goBack();
+                    },
                   ),
                   MoveToPageElement(
                     title: 'Słodycze',
@@ -121,8 +125,9 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                           widget.documentModel.id,
                           notificationId,
                           context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();},
+                      AppRouter().goBack();
+                      AppRouter().goBack();
+                    },
                   ),
                 ],
               ),
@@ -157,7 +162,7 @@ class MoveToPageElement extends StatelessWidget {
                     actions: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          AppRouter().goBack();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 51, 54),

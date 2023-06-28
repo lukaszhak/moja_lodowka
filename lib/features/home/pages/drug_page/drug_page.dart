@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/drug_add_page/drug_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/widgets/drug_page_appbar.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/widgets/drug_page_body.dart';
@@ -29,12 +30,10 @@ class _DrugPageState extends State<DrugPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => Provider<int>(
-                create: (context) => notificationId,
-                child: const DrugAddPage(),
-              ),
+          AppRouter().navigateToPage(
+            Provider<int>(
+              create: (context) => notificationId,
+              child: const DrugAddPage(),
             ),
           );
           newId();

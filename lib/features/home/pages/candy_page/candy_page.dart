@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/candy_add_page/candy_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_appbar.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/widgets/candy_page_body.dart';
@@ -32,12 +33,13 @@ class _CandyPageState extends State<CandyPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(255, 0, 51, 54),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => Provider<int>(
-                    create: (context) => notificationId, child: CandyAddPage()),
+            AppRouter().navigateToPage(
+              Provider<int>(
+                create: (context) => notificationId,
+                child: CandyAddPage(),
               ),
             );
+
             newId();
           },
           child: const Icon(

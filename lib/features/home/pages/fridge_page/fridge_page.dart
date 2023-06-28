@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/fridge_add_page/fridge_add_page.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/widgets/fridge_page_appbar.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/widgets/fridge_page_body.dart';
@@ -29,8 +30,12 @@ class _FridgePageState extends State<FridgePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => Provider<int>(create: (context) => notificationId,child: const FridgeAddPage(),),),);
+          AppRouter().navigateToPage(
+            Provider<int>(
+              create: (context) => notificationId,
+              child: const FridgeAddPage(),
+            ),
+          );
         },
         child: const Icon(
           Icons.add,

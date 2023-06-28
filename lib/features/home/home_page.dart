@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/domain/models/user_model/user_model.dart';
 import 'package:moja_lodowka/features/home/pages/my_account_page/my_account_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     precacheImage(expensesImage.image, context);
     super.didChangeDependencies();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +67,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => MyAccountPage(email: widget.user?.email)));
+          AppRouter().navigateToPage(
+            MyAccountPage(email: widget.user?.email),
+          );
         },
         backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         child: const Icon(Icons.person),

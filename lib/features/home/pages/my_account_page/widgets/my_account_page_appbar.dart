@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moja_lodowka/app/app.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/cubit/root_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,7 +26,7 @@ class MyAccountPageAppBar extends StatelessWidget
                 actions: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      AppRouter().goBack();
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
@@ -34,10 +35,10 @@ class MyAccountPageAppBar extends StatelessWidget
                   ElevatedButton(
                     onPressed: () {
                       context.read<RootCubit>().deleteAccount().whenComplete(
-                          () => Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const RootPage()),
-                              (Route<dynamic> route) => false));
+                            () => AppRouter().navigateAndRemoveAllRoutes(
+                              const RootPage(),
+                            ),
+                          );
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 0, 51, 54)),

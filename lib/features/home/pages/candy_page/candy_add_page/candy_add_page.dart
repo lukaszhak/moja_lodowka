@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -40,7 +41,7 @@ class _CandyAddPageState extends State<CandyAddPage> {
                               .addDoc(_title!, _expDate!, notificationId);
                           context.read<CandyPageCubit>().scheduleNotification(
                               _expDate!, context, _title, notificationId);
-                          Navigator.of(context).pop();
+                          AppRouter().goBack();
                         },
                   icon: const Icon(Icons.check),
                 ),
