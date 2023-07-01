@@ -6,18 +6,11 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/fridge_page/cubit/fridge_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FridgeAddPage extends StatefulWidget {
+class FridgeAddPage extends StatelessWidget {
   const FridgeAddPage({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<FridgeAddPage> createState() => _FridgeAddPageState();
-}
-
-class _FridgeAddPageState extends State<FridgeAddPage> {
-  String? _title;
-  DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -31,14 +24,16 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
               title: Text(AppLocalizations.of(context)!.addProduct),
               actions: [
                 IconButton(
-                  onPressed: _title == null || _expDate == null
+                  onPressed: state.title == null || state.expDate == null
                       ? null
                       : () {
-                          context
-                              .read<FridgePageCubit>()
-                              .addDoc(_title!, _expDate!, notificationId);
+                          context.read<FridgePageCubit>().addDoc(
+                              state.title!, state.expDate!, notificationId);
                           context.read<FridgePageCubit>().scheduleNotification(
-                              _expDate!, context, _title!, notificationId);
+                              state.expDate!,
+                              context,
+                              state.title,
+                              notificationId);
                           AppRouter().goBack();
                         },
                   icon: const Icon(Icons.check),
@@ -47,18 +42,16 @@ class _FridgeAddPageState extends State<FridgeAddPage> {
             ),
             body: _AddPageBody(
               onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
+                context.read<FridgePageCubit>().onTitleChanged(title: newValue);
               },
               onDateChanged: (newValue) {
-                setState(() {
-                  _expDate = newValue;
-                });
+                context
+                    .read<FridgePageCubit>()
+                    .onDateChanged(expDate: newValue);
               },
-              selectedDateFormated: _expDate == null
+              selectedDateFormated: state.expDate == null
                   ? null
-                  : DateFormat('dd.MM.yyyy').format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(state.expDate!),
             ),
           );
         },
