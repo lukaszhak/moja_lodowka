@@ -6,5 +6,8 @@ class DrinkPageState with _$DrinkPageState {
     required List<DrinkDocumentModel> documents,
     required Status status,
     required String? errorMessage,
+    int? notificationId,
+    String? title,
+    DateTime? expDate
   }) = _DrinkPageState;
 }

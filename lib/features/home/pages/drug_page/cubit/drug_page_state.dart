@@ -9,6 +9,5 @@ class DrugPageState with _$DrugPageState {
     int? notificationId,
     String? title,
     DateTime? expDate
-    
   }) = _DrugPageState;
 }

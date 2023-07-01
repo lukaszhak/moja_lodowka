@@ -14,11 +14,36 @@ part 'drink_page_cubit.freezed.dart';
 @injectable
 class DrinkPageCubit extends Cubit<DrinkPageState> {
   DrinkPageCubit(this._documentsRepository)
-      : super(DrinkPageState(
-            documents: [], status: Status.initial, errorMessage: ''));
+      : super(
+          DrinkPageState(
+              documents: [],
+              status: Status.initial,
+              errorMessage: '',
+              title: null,
+              expDate: null),
+        );
+
   final DrinkDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> onDateChanged({required DateTime? expDate}) async {
+    emit(
+      state.copyWith(expDate: expDate),
+    );
+  }
+
+  Future<void> onTitleChanged({required String title}) async {
+    emit(
+      state.copyWith(title: title),
+    );
+  }
+
+  Future<void> generateNotificationId(int notificationId) async {
+    emit(
+      state.copyWith(notificationId: notificationId),
+    );
+  }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
@@ -30,7 +55,8 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
+  Future<void> addDoc(
+      String title, DateTime expDate, int notificationId) async {
     await _documentsRepository.addDocument(title, expDate, notificationId);
   }
 
@@ -39,18 +65,19 @@ class DrinkPageCubit extends Cubit<DrinkPageState> {
   }
 
   Future<void> start() async {
-    emit(DrinkPageState(
-        documents: [], status: Status.loading, errorMessage: ''));
+    emit(
+      state.copyWith(status: Status.loading),
+    );
     try {
       _streamSubscription =
           _documentsRepository.getDrinksDocuments().listen((documents) {
-        emit(DrinkPageState(
-            documents: documents, status: Status.success, errorMessage: ''));
+        emit(
+          state.copyWith(documents: documents, status: Status.success),
+        );
       });
     } catch (error) {
       emit(
-        DrinkPageState(
-          documents: const [],
+        state.copyWith(
           status: Status.error,
           errorMessage: error.toString(),
         ),

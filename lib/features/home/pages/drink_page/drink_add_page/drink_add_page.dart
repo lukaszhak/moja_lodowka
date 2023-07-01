@@ -6,16 +6,9 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/drink_page/cubit/drink_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DrinkAddPage extends StatefulWidget {
+class DrinkAddPage extends StatelessWidget {
   const DrinkAddPage({Key? key}) : super(key: key);
 
-  @override
-  State<DrinkAddPage> createState() => _DrinkAddPageState();
-}
-
-class _DrinkAddPageState extends State<DrinkAddPage> {
-  String? _title;
-  DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,14 +22,16 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
               title: Text(AppLocalizations.of(context)!.addProduct),
               actions: [
                 IconButton(
-                    onPressed: _title == null || _expDate == null
+                    onPressed: state.title == null || state.expDate == null
                         ? null
                         : () {
-                            context
-                                .read<DrinkPageCubit>()
-                                .addDoc(_title!, _expDate!, notificationId);
+                            context.read<DrinkPageCubit>().addDoc(
+                                state.title!, state.expDate!, notificationId);
                             context.read<DrinkPageCubit>().scheduleNotification(
-                                _expDate!, context, _title, notificationId);
+                                state.expDate!,
+                                context,
+                                state.title,
+                                notificationId);
                             AppRouter().goBack();
                           },
                     icon: const Icon(Icons.check)),
@@ -44,18 +39,14 @@ class _DrinkAddPageState extends State<DrinkAddPage> {
             ),
             body: _AddPageBody(
               onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
+                context.read<DrinkPageCubit>().onTitleChanged(title: newValue);
               },
               onDateChanged: (newValue) {
-                setState(() {
-                  _expDate = newValue;
-                });
+                context.read<DrinkPageCubit>().onDateChanged(expDate: newValue);
               },
-              selectedDateFormated: _expDate == null
+              selectedDateFormated: state.expDate == null
                   ? null
-                  : DateFormat('dd.MM.yyyy').format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(state.expDate!),
             ),
           );
         },

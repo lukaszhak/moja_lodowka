@@ -25,7 +25,9 @@ class DrugPage extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               onPressed: () {
-                context.read<DrugPageCubit>().generateNotificationId(notificationId);
+                context
+                    .read<DrugPageCubit>()
+                    .generateNotificationId(notificationId);
                 AppRouter().navigateToPage(
                   Provider<int>(
                     create: (context) => notificationId,

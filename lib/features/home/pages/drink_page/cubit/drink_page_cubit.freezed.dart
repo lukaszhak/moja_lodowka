@@ -19,6 +19,9 @@ mixin _$DrinkPageState {
   List<DrinkDocumentModel> get documents => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  int? get notificationId => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  DateTime? get expDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DrinkPageStateCopyWith<DrinkPageState> get copyWith =>
@@ -34,7 +37,10 @@ abstract class $DrinkPageStateCopyWith<$Res> {
   $Res call(
       {List<DrinkDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -53,6 +59,9 @@ class _$DrinkPageStateCopyWithImpl<$Res, $Val extends DrinkPageState>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_value.copyWith(
       documents: null == documents
@@ -67,6 +76,18 @@ class _$DrinkPageStateCopyWithImpl<$Res, $Val extends DrinkPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -82,7 +103,10 @@ abstract class _$$_DrinkPageStateCopyWith<$Res>
   $Res call(
       {List<DrinkDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -99,6 +123,9 @@ class __$$_DrinkPageStateCopyWithImpl<$Res>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_$_DrinkPageState(
       documents: null == documents
@@ -113,6 +140,18 @@ class __$$_DrinkPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -123,7 +162,10 @@ class _$_DrinkPageState implements _DrinkPageState {
   _$_DrinkPageState(
       {required final List<DrinkDocumentModel> documents,
       required this.status,
-      required this.errorMessage})
+      required this.errorMessage,
+      this.notificationId,
+      this.title,
+      this.expDate})
       : _documents = documents;
 
   final List<DrinkDocumentModel> _documents;
@@ -138,10 +180,16 @@ class _$_DrinkPageState implements _DrinkPageState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final int? notificationId;
+  @override
+  final String? title;
+  @override
+  final DateTime? expDate;
 
   @override
   String toString() {
-    return 'DrinkPageState(documents: $documents, status: $status, errorMessage: $errorMessage)';
+    return 'DrinkPageState(documents: $documents, status: $status, errorMessage: $errorMessage, notificationId: $notificationId, title: $title, expDate: $expDate)';
   }
 
   @override
@@ -153,12 +201,22 @@ class _$_DrinkPageState implements _DrinkPageState {
                 .equals(other._documents, _documents) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.expDate, expDate) || other.expDate == expDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_documents), status, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_documents),
+      status,
+      errorMessage,
+      notificationId,
+      title,
+      expDate);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +229,10 @@ abstract class _DrinkPageState implements DrinkPageState {
   factory _DrinkPageState(
       {required final List<DrinkDocumentModel> documents,
       required final Status status,
-      required final String? errorMessage}) = _$_DrinkPageState;
+      required final String? errorMessage,
+      final int? notificationId,
+      final String? title,
+      final DateTime? expDate}) = _$_DrinkPageState;
 
   @override
   List<DrinkDocumentModel> get documents;
@@ -179,6 +240,12 @@ abstract class _DrinkPageState implements DrinkPageState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  int? get notificationId;
+  @override
+  String? get title;
+  @override
+  DateTime? get expDate;
   @override
   @JsonKey(ignore: true)
   _$$_DrinkPageStateCopyWith<_$_DrinkPageState> get copyWith =>
