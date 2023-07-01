@@ -6,16 +6,9 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/longdate_page/cubit/longdate_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LongDateAddPage extends StatefulWidget {
+class LongDateAddPage extends StatelessWidget {
   const LongDateAddPage({Key? key}) : super(key: key);
 
-  @override
-  State<LongDateAddPage> createState() => _LongDateAddPageState();
-}
-
-class _LongDateAddPageState extends State<LongDateAddPage> {
-  String? _title;
-  DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,16 +22,15 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
-                  onPressed: _title == null || _expDate == null
+                  onPressed: state.title == null || state.expDate == null
                       ? null
                       : () {
+                          context.read<LongDatePageCubit>().addDoc(
+                              state.title!, state.expDate!, notificationId);
                           context
                               .read<LongDatePageCubit>()
-                              .addDoc(_title!, _expDate!, notificationId);
-                          context
-                              .read<LongDatePageCubit>()
-                              .scheduleNotification(
-                                  _expDate!, context, _title!, notificationId);
+                              .scheduleNotification(state.expDate!, context,
+                                  state.title, notificationId);
                           AppRouter().goBack();
                         },
                   icon: const Icon(Icons.check),
@@ -47,18 +39,18 @@ class _LongDateAddPageState extends State<LongDateAddPage> {
             ),
             body: _AddPageBody(
               onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
+                context
+                    .read<LongDatePageCubit>()
+                    .onTitleChanged(title: newValue);
               },
               onDateChanged: (newValue) {
-                setState(() {
-                  _expDate = newValue;
-                });
+                context
+                    .read<LongDatePageCubit>()
+                    .onDateChanged(expDate: newValue);
               },
-              selectedDateFormated: _expDate == null
+              selectedDateFormated: state.expDate == null
                   ? null
-                  : DateFormat('dd.MM.yyyy').format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(state.expDate!),
             ),
           );
         },

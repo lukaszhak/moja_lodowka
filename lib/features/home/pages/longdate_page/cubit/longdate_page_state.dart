@@ -6,6 +6,9 @@ class LongDatePageState with _$LongDatePageState {
     required List<LongDateDocumentModel> documents,
     required Status status,
     required String? errorMessage,
+    int? notificationId,
+    String? title,
+    DateTime? expDate
   }) = _LongDatePageState;
 }
 

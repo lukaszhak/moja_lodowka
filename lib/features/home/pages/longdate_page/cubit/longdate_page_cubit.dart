@@ -16,12 +16,34 @@ class LongDatePageCubit extends Cubit<LongDatePageState> {
   LongDatePageCubit(this._documentsRepository)
       : super(
           LongDatePageState(
-              documents: [], status: Status.initial, errorMessage: ''),
+              documents: [],
+              status: Status.initial,
+              errorMessage: '',
+              title: null,
+              expDate: null),
         );
 
   final LongDateDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> onDateChanged({required DateTime? expDate}) async {
+    emit(
+      state.copyWith(expDate: expDate),
+    );
+  }
+
+  Future<void> onTitleChanged({required String title}) async {
+    emit(
+      state.copyWith(title: title),
+    );
+  }
+
+  Future<void> generateNotificationId(int notificationId) async {
+    emit(
+      state.copyWith(notificationId: notificationId),
+    );
+  }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
@@ -44,21 +66,22 @@ class LongDatePageCubit extends Cubit<LongDatePageState> {
 
   Future<void> start() async {
     emit(
-      LongDatePageState(
-          documents: [], status: Status.loading, errorMessage: ''),
+      state.copyWith(status: Status.loading),
     );
     try {
       _streamSubscription =
           _documentsRepository.getLongDateDocuments().listen((documents) {
-        emit(LongDatePageState(
-            documents: documents, status: Status.success, errorMessage: ''));
+        emit(
+          state.copyWith(documents: documents, status: Status.success),
+        );
       });
     } catch (error) {
-      emit(LongDatePageState(
-        documents: const [],
-        status: Status.error,
-        errorMessage: error.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 

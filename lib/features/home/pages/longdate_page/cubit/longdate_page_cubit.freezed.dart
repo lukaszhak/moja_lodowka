@@ -20,6 +20,9 @@ mixin _$LongDatePageState {
       throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  int? get notificationId => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  DateTime? get expDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LongDatePageStateCopyWith<LongDatePageState> get copyWith =>
@@ -35,7 +38,10 @@ abstract class $LongDatePageStateCopyWith<$Res> {
   $Res call(
       {List<LongDateDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -54,6 +60,9 @@ class _$LongDatePageStateCopyWithImpl<$Res, $Val extends LongDatePageState>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_value.copyWith(
       documents: null == documents
@@ -68,6 +77,18 @@ class _$LongDatePageStateCopyWithImpl<$Res, $Val extends LongDatePageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -83,7 +104,10 @@ abstract class _$$_LongDatePageStateCopyWith<$Res>
   $Res call(
       {List<LongDateDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -100,6 +124,9 @@ class __$$_LongDatePageStateCopyWithImpl<$Res>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_$_LongDatePageState(
       documents: null == documents
@@ -114,6 +141,18 @@ class __$$_LongDatePageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -124,7 +163,10 @@ class _$_LongDatePageState implements _LongDatePageState {
   _$_LongDatePageState(
       {required final List<LongDateDocumentModel> documents,
       required this.status,
-      required this.errorMessage})
+      required this.errorMessage,
+      this.notificationId,
+      this.title,
+      this.expDate})
       : _documents = documents;
 
   final List<LongDateDocumentModel> _documents;
@@ -139,10 +181,16 @@ class _$_LongDatePageState implements _LongDatePageState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final int? notificationId;
+  @override
+  final String? title;
+  @override
+  final DateTime? expDate;
 
   @override
   String toString() {
-    return 'LongDatePageState(documents: $documents, status: $status, errorMessage: $errorMessage)';
+    return 'LongDatePageState(documents: $documents, status: $status, errorMessage: $errorMessage, notificationId: $notificationId, title: $title, expDate: $expDate)';
   }
 
   @override
@@ -154,12 +202,22 @@ class _$_LongDatePageState implements _LongDatePageState {
                 .equals(other._documents, _documents) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.expDate, expDate) || other.expDate == expDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_documents), status, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_documents),
+      status,
+      errorMessage,
+      notificationId,
+      title,
+      expDate);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +231,10 @@ abstract class _LongDatePageState implements LongDatePageState {
   factory _LongDatePageState(
       {required final List<LongDateDocumentModel> documents,
       required final Status status,
-      required final String? errorMessage}) = _$_LongDatePageState;
+      required final String? errorMessage,
+      final int? notificationId,
+      final String? title,
+      final DateTime? expDate}) = _$_LongDatePageState;
 
   @override
   List<LongDateDocumentModel> get documents;
@@ -181,6 +242,12 @@ abstract class _LongDatePageState implements LongDatePageState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  int? get notificationId;
+  @override
+  String? get title;
+  @override
+  DateTime? get expDate;
   @override
   @JsonKey(ignore: true)
   _$$_LongDatePageStateCopyWith<_$_LongDatePageState> get copyWith =>
