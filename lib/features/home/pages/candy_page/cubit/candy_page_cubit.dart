@@ -14,11 +14,35 @@ part 'candy_page_cubit.freezed.dart';
 @injectable
 class CandyPageCubit extends Cubit<CandyPageState> {
   CandyPageCubit(this._documentsRepository)
-      : super(CandyPageState(
-            documents: [], status: Status.initial, errorMessage: ''));
+      : super(
+          CandyPageState(
+              documents: [],
+              status: Status.initial,
+              errorMessage: '',
+              title: null,
+              expDate: null),
+        );
   final CandyDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> onDateChanged({required DateTime? expDate}) async {
+    emit(
+      state.copyWith(expDate: expDate),
+    );
+  }
+
+  Future<void> onTitleChanged({required String title}) async {
+    emit(
+      state.copyWith(title: title),
+    );
+  }
+
+  Future<void> generateNotificationId(int notificationId) async {
+    emit(
+      state.copyWith(notificationId: notificationId),
+    );
+  }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
@@ -30,7 +54,8 @@ class CandyPageCubit extends Cubit<CandyPageState> {
     await _documentsRepository.cancelNotification(notificationId);
   }
 
-  Future<void> addDoc(String title, DateTime expDate, int notificationId) async {
+  Future<void> addDoc(
+      String title, DateTime expDate, int notificationId) async {
     await _documentsRepository.addDocument(title, expDate, notificationId);
   }
 
@@ -40,18 +65,18 @@ class CandyPageCubit extends Cubit<CandyPageState> {
 
   Future<void> start() async {
     emit(
-      CandyPageState(documents: [], status: Status.loading, errorMessage: ''),
+      state.copyWith(status: Status.loading),
     );
     try {
       _streamSubscription =
           _documentsRepository.getCandysDocuments().listen((documents) {
-        emit(CandyPageState(
-            documents: documents, status: Status.success, errorMessage: ''));
+        emit(
+          state.copyWith(documents: documents, status: Status.success),
+        );
       });
     } catch (error) {
       emit(
-        CandyPageState(
-          documents: [],
+        state.copyWith(
           status: Status.error,
           errorMessage: error.toString(),
         ),

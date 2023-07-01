@@ -6,5 +6,8 @@ class CandyPageState with _$CandyPageState {
     required List<CandyDocumentModel> documents,
     required Status status,
     required String? errorMessage,
+    int? notificationId,
+    String? title,
+    DateTime? expDate
   }) = _CandyPageState;
 }

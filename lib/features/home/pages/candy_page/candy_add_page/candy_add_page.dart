@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/candy_page/cubit/candy_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CandyAddPage extends StatefulWidget {
-  CandyAddPage({Key? key}) : super(key: key);
+class CandyAddPage extends StatelessWidget {
+  const CandyAddPage({Key? key}) : super(key: key);
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  @override
-  State<CandyAddPage> createState() => _CandyAddPageState();
-}
-
-class _CandyAddPageState extends State<CandyAddPage> {
-  String? _title;
-  DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -33,14 +22,16 @@ class _CandyAddPageState extends State<CandyAddPage> {
               title: Text(AppLocalizations.of(context)!.addProduct),
               actions: [
                 IconButton(
-                  onPressed: _title == null || _expDate == null
+                  onPressed: state.title == null || state.expDate == null
                       ? null
                       : () {
-                          context
-                              .read<CandyPageCubit>()
-                              .addDoc(_title!, _expDate!, notificationId);
+                          context.read<CandyPageCubit>().addDoc(
+                              state.title!, state.expDate!, notificationId);
                           context.read<CandyPageCubit>().scheduleNotification(
-                              _expDate!, context, _title, notificationId);
+                              state.expDate!,
+                              context,
+                              state.title,
+                              notificationId);
                           AppRouter().goBack();
                         },
                   icon: const Icon(Icons.check),
@@ -49,18 +40,14 @@ class _CandyAddPageState extends State<CandyAddPage> {
             ),
             body: _AddPageBody(
               onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
+                context.read<CandyPageCubit>().onTitleChanged(title: newValue);
               },
               onDateChanged: (newValue) {
-                setState(() {
-                  _expDate = newValue;
-                });
+                context.read<CandyPageCubit>().onDateChanged(expDate: newValue);
               },
-              selectedDateFormated: _expDate == null
+              selectedDateFormated: state.expDate == null
                   ? null
-                  : DateFormat('dd.MM.yyyy').format(_expDate!),
+                  : DateFormat('dd.MM.yyyy').format(state.expDate!),
             ),
           );
         },
