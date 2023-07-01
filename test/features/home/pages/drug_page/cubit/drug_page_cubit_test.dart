@@ -24,7 +24,6 @@ void main() {
   });
 
   group('start', () {
-
     blocTest<DrugPageCubit, DrugPageState>(
         'should call getDrugsDocuments() method once',
         build: () => sut,
@@ -76,13 +75,18 @@ void main() {
             .thenThrow(Exception('test-exception-error'));
       });
 
-      blocTest<DrugPageCubit, DrugPageState>('emits Status.loading then Status.error with error message',
+      blocTest<DrugPageCubit, DrugPageState>(
+          'emits Status.loading then Status.error with error message',
           build: () => sut,
           act: (cubit) => cubit.start(),
           expect: () => [
-            DrugPageState(documents: [], status: Status.loading, errorMessage: ''),
-            DrugPageState(documents: [], status: Status.error, errorMessage: 'Exception: test-exception-error')
-          ]);
+                DrugPageState(
+                    documents: [], status: Status.loading, errorMessage: ''),
+                DrugPageState(
+                    documents: [],
+                    status: Status.error,
+                    errorMessage: 'Exception: test-exception-error')
+              ]);
     });
   });
 }

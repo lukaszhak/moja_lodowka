@@ -16,12 +16,30 @@ class DrugPageCubit extends Cubit<DrugPageState> {
   DrugPageCubit(this._documentsRepository)
       : super(
           DrugPageState(
-              documents: [], status: Status.initial, errorMessage: ''),
+              documents: [], status: Status.initial, errorMessage: '', title: null, expDate: null),
         );
 
   final DrugDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> onDateChanged({required DateTime? expDate}) async {
+    emit(
+      state.copyWith(expDate: expDate),
+    );
+  }
+
+  Future<void> onTitleChanged({required String title}) async {
+    emit(
+      state.copyWith(title: title),
+    );
+  }
+
+  Future<void> generateNotificationId(int notificationId) async {
+    emit(
+      state.copyWith(notificationId: notificationId),
+    );
+  }
 
   Future<void> scheduleNotification(DateTime expDate, BuildContext context,
       String? title, int notificationId) async {
@@ -43,21 +61,17 @@ class DrugPageCubit extends Cubit<DrugPageState> {
   }
 
   Future<void> start() async {
-    emit(
-      DrugPageState(documents: [], status: Status.loading, errorMessage: ''),
-    );
+    emit(state.copyWith(status: Status.loading));
     try {
       _streamSubscription =
           _documentsRepository.getDrugsDocuments().listen((documents) {
         emit(
-          DrugPageState(
-              documents: documents, status: Status.success, errorMessage: ''),
+          state.copyWith(documents: documents, status: Status.success),
         );
       });
     } catch (error) {
       emit(
-        DrugPageState(
-          documents: [],
+        state.copyWith(
           status: Status.error,
           errorMessage: error.toString(),
         ),

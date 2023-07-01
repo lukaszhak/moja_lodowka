@@ -19,6 +19,9 @@ mixin _$DrugPageState {
   List<DrugDocumentModel> get documents => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  int? get notificationId => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  DateTime? get expDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DrugPageStateCopyWith<DrugPageState> get copyWith =>
@@ -32,7 +35,12 @@ abstract class $DrugPageStateCopyWith<$Res> {
       _$DrugPageStateCopyWithImpl<$Res, DrugPageState>;
   @useResult
   $Res call(
-      {List<DrugDocumentModel> documents, Status status, String? errorMessage});
+      {List<DrugDocumentModel> documents,
+      Status status,
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -51,6 +59,9 @@ class _$DrugPageStateCopyWithImpl<$Res, $Val extends DrugPageState>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_value.copyWith(
       documents: null == documents
@@ -65,6 +76,18 @@ class _$DrugPageStateCopyWithImpl<$Res, $Val extends DrugPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -78,7 +101,12 @@ abstract class _$$_DrugPageStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<DrugDocumentModel> documents, Status status, String? errorMessage});
+      {List<DrugDocumentModel> documents,
+      Status status,
+      String? errorMessage,
+      int? notificationId,
+      String? title,
+      DateTime? expDate});
 }
 
 /// @nodoc
@@ -95,6 +123,9 @@ class __$$_DrugPageStateCopyWithImpl<$Res>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? notificationId = freezed,
+    Object? title = freezed,
+    Object? expDate = freezed,
   }) {
     return _then(_$_DrugPageState(
       documents: null == documents
@@ -109,6 +140,18 @@ class __$$_DrugPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expDate: freezed == expDate
+          ? _value.expDate
+          : expDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -119,7 +162,10 @@ class _$_DrugPageState implements _DrugPageState {
   _$_DrugPageState(
       {required final List<DrugDocumentModel> documents,
       required this.status,
-      required this.errorMessage})
+      required this.errorMessage,
+      this.notificationId,
+      this.title,
+      this.expDate})
       : _documents = documents;
 
   final List<DrugDocumentModel> _documents;
@@ -134,10 +180,16 @@ class _$_DrugPageState implements _DrugPageState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final int? notificationId;
+  @override
+  final String? title;
+  @override
+  final DateTime? expDate;
 
   @override
   String toString() {
-    return 'DrugPageState(documents: $documents, status: $status, errorMessage: $errorMessage)';
+    return 'DrugPageState(documents: $documents, status: $status, errorMessage: $errorMessage, notificationId: $notificationId, title: $title, expDate: $expDate)';
   }
 
   @override
@@ -149,12 +201,22 @@ class _$_DrugPageState implements _DrugPageState {
                 .equals(other._documents, _documents) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.expDate, expDate) || other.expDate == expDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_documents), status, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_documents),
+      status,
+      errorMessage,
+      notificationId,
+      title,
+      expDate);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +229,10 @@ abstract class _DrugPageState implements DrugPageState {
   factory _DrugPageState(
       {required final List<DrugDocumentModel> documents,
       required final Status status,
-      required final String? errorMessage}) = _$_DrugPageState;
+      required final String? errorMessage,
+      final int? notificationId,
+      final String? title,
+      final DateTime? expDate}) = _$_DrugPageState;
 
   @override
   List<DrugDocumentModel> get documents;
@@ -175,6 +240,12 @@ abstract class _DrugPageState implements DrugPageState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  int? get notificationId;
+  @override
+  String? get title;
+  @override
+  DateTime? get expDate;
   @override
   @JsonKey(ignore: true)
   _$$_DrugPageStateCopyWith<_$_DrugPageState> get copyWith =>

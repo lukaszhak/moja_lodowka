@@ -6,16 +6,9 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/drug_page/cubit/drug_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DrugAddPage extends StatefulWidget {
+class DrugAddPage extends StatelessWidget {
   const DrugAddPage({Key? key}) : super(key: key);
 
-  @override
-  State<DrugAddPage> createState() => _DrugAddPageState();
-}
-
-class _DrugAddPageState extends State<DrugAddPage> {
-  String? _title;
-  DateTime? _expDate;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,14 +22,16 @@ class _DrugAddPageState extends State<DrugAddPage> {
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
-                  onPressed: _title == null || _expDate == null
+                  onPressed: state.title == null || state.expDate == null
                       ? null
                       : () {
-                          context
-                              .read<DrugPageCubit>()
-                              .addDoc(_title!, _expDate!, notificationId);
+                          context.read<DrugPageCubit>().addDoc(
+                              state.title!, state.expDate!, notificationId);
                           context.read<DrugPageCubit>().scheduleNotification(
-                              _expDate!, context, _title!, notificationId);
+                              state.expDate!,
+                              context,
+                              state.title,
+                              notificationId);
                           AppRouter().goBack();
                         },
                   icon: const Icon(Icons.check),
@@ -45,17 +40,14 @@ class _DrugAddPageState extends State<DrugAddPage> {
             ),
             body: _DrugPageBody(
               onDateChanged: (newValue) {
-                setState(() {
-                  _expDate = newValue;
-                });
+                context.read<DrugPageCubit>().onDateChanged(expDate: newValue);
               },
               onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
+                context.read<DrugPageCubit>().onTitleChanged(title: newValue);
               },
-              selectedDateFormated:
-                  _expDate == null ? null : DateFormat.yM().format(_expDate!),
+              selectedDateFormated: state.expDate == null
+                  ? null
+                  : DateFormat.yM().format(state.expDate!),
             ),
           );
         },
