@@ -21,6 +21,7 @@ class DrugPage extends StatelessWidget {
         builder: (context, state) {
           final int notificationId = UniqueKey().hashCode;
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: const DrugPageAppBar(),
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),

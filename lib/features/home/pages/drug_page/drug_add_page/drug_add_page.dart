@@ -17,6 +17,7 @@ class DrugAddPage extends StatelessWidget {
         builder: (context, state) {
           final notificationId = context.read<int>();
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.addMedication),
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
@@ -70,47 +71,58 @@ class _DrugPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-      children: [
-        TextField(
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: true,
-          onChanged: onTitleChanged,
-          decoration: InputDecoration(
-              label: Text(AppLocalizations.of(context)!.medicationName),
-              border: const OutlineInputBorder(),
-              hintText: AppLocalizations.of(context)!.typeMedication),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            final selectedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
-                builder: (context, child) {
-                  return Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme: const ColorScheme.light(
-                        primary: Color.fromARGB(255, 0, 51, 54),
-                      )),
-                      child: child!);
-                });
-            onDateChanged(selectedDate);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 0, 51, 54),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          opacity: 0.25,
+          fit: BoxFit.cover,
+          image: AssetImage(
+            'images/medicine.jpg',
           ),
-          child: Text(
-              selectedDateFormated ?? AppLocalizations.of(context)!.selectDate),
         ),
-      ],
+      ),
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        children: [
+          TextField(
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: true,
+            onChanged: onTitleChanged,
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.medicationName),
+                border: const OutlineInputBorder(),
+                hintText: AppLocalizations.of(context)!.typeMedication),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(
+                    const Duration(days: 365 * 10),
+                  ),
+                  builder: (context, child) {
+                    return Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.light(
+                          primary: Color.fromARGB(255, 0, 51, 54),
+                        )),
+                        child: child!);
+                  });
+              onDateChanged(selectedDate);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
+            ),
+            child: Text(selectedDateFormated ??
+                AppLocalizations.of(context)!.selectDate),
+          ),
+        ],
+      ),
     );
   }
 }
