@@ -6,5 +6,9 @@ class ExpensesPageState with _$ExpensesPageState {
     required List<ExpensesDocumentModel> documents,
     required Status status,
     required String? errorMessage,
+    DateTime? expensesDate,
+    String? title,
+    String? category,
+    String? amount
   }) = _ExpensesPageState;
 }

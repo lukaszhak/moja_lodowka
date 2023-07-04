@@ -22,6 +22,30 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
 
   StreamSubscription? _streamSubscription;
 
+  Future<void> onCategoryChanged({required String category}) async {
+    emit(
+      state.copyWith(category: category),
+    );
+  }
+
+  Future<void> onAmountChanged({required String amount}) async {
+    emit(
+      state.copyWith(amount: amount),
+    );
+  }
+
+  Future<void> onDateChanged({required DateTime? expensesDate}) async {
+    emit(
+      state.copyWith(expensesDate: expensesDate),
+    );
+  }
+
+  Future<void> onTitleChanged({required String title}) async {
+    emit(
+      state.copyWith(title: title),
+    );
+  }
+
   Future<void> addDoc(
       String title, String category, num amount, DateTime expensesDate) async {
     _documentsRepository.addDocument(title, category, amount, expensesDate);
@@ -33,21 +57,18 @@ class ExpensesPageCubit extends Cubit<ExpensesPageState> {
 
   Future<void> start() async {
     emit(
-      ExpensesPageState(
-          documents: [], status: Status.loading, errorMessage: ''),
+      state.copyWith(status: Status.loading),
     );
     try {
       _streamSubscription =
           _documentsRepository.getExpensesDocuments().listen((documents) {
         emit(
-          ExpensesPageState(
-              documents: documents, status: Status.success, errorMessage: ''),
+          state.copyWith(documents: documents, status: Status.success),
         );
       });
     } catch (error) {
       emit(
-        ExpensesPageState(
-          documents: [],
+        state.copyWith(
           status: Status.error,
           errorMessage: error.toString(),
         ),

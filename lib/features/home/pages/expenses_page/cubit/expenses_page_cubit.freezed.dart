@@ -20,6 +20,10 @@ mixin _$ExpensesPageState {
       throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  DateTime? get expensesDate => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
+  String? get amount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExpensesPageStateCopyWith<ExpensesPageState> get copyWith =>
@@ -35,7 +39,11 @@ abstract class $ExpensesPageStateCopyWith<$Res> {
   $Res call(
       {List<ExpensesDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      DateTime? expensesDate,
+      String? title,
+      String? category,
+      String? amount});
 }
 
 /// @nodoc
@@ -54,6 +62,10 @@ class _$ExpensesPageStateCopyWithImpl<$Res, $Val extends ExpensesPageState>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? expensesDate = freezed,
+    Object? title = freezed,
+    Object? category = freezed,
+    Object? amount = freezed,
   }) {
     return _then(_value.copyWith(
       documents: null == documents
@@ -67,6 +79,22 @@ class _$ExpensesPageStateCopyWithImpl<$Res, $Val extends ExpensesPageState>
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expensesDate: freezed == expensesDate
+          ? _value.expensesDate
+          : expensesDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -83,7 +111,11 @@ abstract class _$$_ExpensesPageStateCopyWith<$Res>
   $Res call(
       {List<ExpensesDocumentModel> documents,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      DateTime? expensesDate,
+      String? title,
+      String? category,
+      String? amount});
 }
 
 /// @nodoc
@@ -100,6 +132,10 @@ class __$$_ExpensesPageStateCopyWithImpl<$Res>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? expensesDate = freezed,
+    Object? title = freezed,
+    Object? category = freezed,
+    Object? amount = freezed,
   }) {
     return _then(_$_ExpensesPageState(
       documents: null == documents
@@ -114,6 +150,22 @@ class __$$_ExpensesPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      expensesDate: freezed == expensesDate
+          ? _value.expensesDate
+          : expensesDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -124,7 +176,11 @@ class _$_ExpensesPageState implements _ExpensesPageState {
   _$_ExpensesPageState(
       {required final List<ExpensesDocumentModel> documents,
       required this.status,
-      required this.errorMessage})
+      required this.errorMessage,
+      this.expensesDate,
+      this.title,
+      this.category,
+      this.amount})
       : _documents = documents;
 
   final List<ExpensesDocumentModel> _documents;
@@ -139,10 +195,18 @@ class _$_ExpensesPageState implements _ExpensesPageState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final DateTime? expensesDate;
+  @override
+  final String? title;
+  @override
+  final String? category;
+  @override
+  final String? amount;
 
   @override
   String toString() {
-    return 'ExpensesPageState(documents: $documents, status: $status, errorMessage: $errorMessage)';
+    return 'ExpensesPageState(documents: $documents, status: $status, errorMessage: $errorMessage, expensesDate: $expensesDate, title: $title, category: $category, amount: $amount)';
   }
 
   @override
@@ -154,12 +218,25 @@ class _$_ExpensesPageState implements _ExpensesPageState {
                 .equals(other._documents, _documents) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.expensesDate, expensesDate) ||
+                other.expensesDate == expensesDate) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.amount, amount) || other.amount == amount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_documents), status, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_documents),
+      status,
+      errorMessage,
+      expensesDate,
+      title,
+      category,
+      amount);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +250,11 @@ abstract class _ExpensesPageState implements ExpensesPageState {
   factory _ExpensesPageState(
       {required final List<ExpensesDocumentModel> documents,
       required final Status status,
-      required final String? errorMessage}) = _$_ExpensesPageState;
+      required final String? errorMessage,
+      final DateTime? expensesDate,
+      final String? title,
+      final String? category,
+      final String? amount}) = _$_ExpensesPageState;
 
   @override
   List<ExpensesDocumentModel> get documents;
@@ -181,6 +262,14 @@ abstract class _ExpensesPageState implements ExpensesPageState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  DateTime? get expensesDate;
+  @override
+  String? get title;
+  @override
+  String? get category;
+  @override
+  String? get amount;
   @override
   @JsonKey(ignore: true)
   _$$_ExpensesPageStateCopyWith<_$_ExpensesPageState> get copyWith =>

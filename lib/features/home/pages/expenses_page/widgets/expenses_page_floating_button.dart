@@ -6,20 +6,9 @@ import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/features/home/pages/expenses_page/cubit/expenses_page_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ExpensesPageFloatingButton extends StatefulWidget {
+class ExpensesPageFloatingButton extends StatelessWidget {
   const ExpensesPageFloatingButton({super.key});
 
-  @override
-  State<ExpensesPageFloatingButton> createState() =>
-      _ExpensesPageFloatingButtonState();
-}
-
-class _ExpensesPageFloatingButtonState
-    extends State<ExpensesPageFloatingButton> {
-  DateTime? expensesDate;
-  String? title;
-  String? category;
-  String? amount;
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -43,9 +32,12 @@ class _ExpensesPageFloatingButtonState
                         child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          context.read<ExpensesPageCubit>().addDoc(category!,
-                              title!, num.parse(amount!), expensesDate!);
+                        onPressed: state.expensesDate == null || state.title == null || state.category == null || state.amount == null ? null :() {
+                          context.read<ExpensesPageCubit>().addDoc(
+                              state.category!,
+                              state.title!,
+                              num.parse(state.amount!),
+                              state.expensesDate!);
                           AppRouter().goBack();
                         },
                         style: ElevatedButton.styleFrom(
@@ -56,26 +48,26 @@ class _ExpensesPageFloatingButtonState
                     ],
                     title: AlertDialogTitle(
                       onDateChanged: (newValue) {
-                        setState(() {
-                          expensesDate = newValue;
-                        });
+                        context
+                            .read<ExpensesPageCubit>()
+                            .onDateChanged(expensesDate: newValue);
                       },
                     ),
                     content: AlertDialogContent(
                       onCategoryChanged: (newValue) {
-                        setState(() {
-                          category = newValue;
-                        });
+                        context
+                            .read<ExpensesPageCubit>()
+                            .onCategoryChanged(category: newValue);
                       },
                       onTitleChanged: (newValue) {
-                        setState(() {
-                          title = newValue;
-                        });
+                        context
+                            .read<ExpensesPageCubit>()
+                            .onTitleChanged(title: newValue);
                       },
                       onAmountChanged: (newValue) {
-                        setState(() {
-                          amount = newValue;
-                        });
+                        context
+                            .read<ExpensesPageCubit>()
+                            .onAmountChanged(amount: newValue);
                       },
                     ),
                   );
