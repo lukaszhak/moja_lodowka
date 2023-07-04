@@ -32,7 +32,7 @@ class CandyPage extends StatelessWidget {
                 AppRouter().navigateToPage(
                   Provider<int>(
                     create: (context) => notificationId,
-                    child: CandyAddPage(),
+                    child: const CandyAddPage(),
                   ),
                 );
               },

@@ -19,6 +19,7 @@ mixin _$MenuPageState {
   List<MenuDocumentModel> get documents => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MenuPageStateCopyWith<MenuPageState> get copyWith =>
@@ -32,7 +33,10 @@ abstract class $MenuPageStateCopyWith<$Res> {
       _$MenuPageStateCopyWithImpl<$Res, MenuPageState>;
   @useResult
   $Res call(
-      {List<MenuDocumentModel> documents, Status status, String? errorMessage});
+      {List<MenuDocumentModel> documents,
+      Status status,
+      String? errorMessage,
+      int currentIndex});
 }
 
 /// @nodoc
@@ -51,6 +55,7 @@ class _$MenuPageStateCopyWithImpl<$Res, $Val extends MenuPageState>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? currentIndex = null,
   }) {
     return _then(_value.copyWith(
       documents: null == documents
@@ -65,6 +70,10 @@ class _$MenuPageStateCopyWithImpl<$Res, $Val extends MenuPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentIndex: null == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -78,7 +87,10 @@ abstract class _$$_MenuPageStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<MenuDocumentModel> documents, Status status, String? errorMessage});
+      {List<MenuDocumentModel> documents,
+      Status status,
+      String? errorMessage,
+      int currentIndex});
 }
 
 /// @nodoc
@@ -95,6 +107,7 @@ class __$$_MenuPageStateCopyWithImpl<$Res>
     Object? documents = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? currentIndex = null,
   }) {
     return _then(_$_MenuPageState(
       documents: null == documents
@@ -109,6 +122,10 @@ class __$$_MenuPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentIndex: null == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -119,7 +136,8 @@ class _$_MenuPageState implements _MenuPageState {
   _$_MenuPageState(
       {required final List<MenuDocumentModel> documents,
       required this.status,
-      required this.errorMessage})
+      required this.errorMessage,
+      required this.currentIndex})
       : _documents = documents;
 
   final List<MenuDocumentModel> _documents;
@@ -134,10 +152,12 @@ class _$_MenuPageState implements _MenuPageState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'MenuPageState(documents: $documents, status: $status, errorMessage: $errorMessage)';
+    return 'MenuPageState(documents: $documents, status: $status, errorMessage: $errorMessage, currentIndex: $currentIndex)';
   }
 
   @override
@@ -149,12 +169,18 @@ class _$_MenuPageState implements _MenuPageState {
                 .equals(other._documents, _documents) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.currentIndex, currentIndex) ||
+                other.currentIndex == currentIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_documents), status, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_documents),
+      status,
+      errorMessage,
+      currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +193,8 @@ abstract class _MenuPageState implements MenuPageState {
   factory _MenuPageState(
       {required final List<MenuDocumentModel> documents,
       required final Status status,
-      required final String? errorMessage}) = _$_MenuPageState;
+      required final String? errorMessage,
+      required final int currentIndex}) = _$_MenuPageState;
 
   @override
   List<MenuDocumentModel> get documents;
@@ -175,6 +202,8 @@ abstract class _MenuPageState implements MenuPageState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  int get currentIndex;
   @override
   @JsonKey(ignore: true)
   _$$_MenuPageStateCopyWith<_$_MenuPageState> get copyWith =>

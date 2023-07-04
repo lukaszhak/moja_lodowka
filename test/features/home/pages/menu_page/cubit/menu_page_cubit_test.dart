@@ -52,13 +52,13 @@ void main() {
           act: (cubit) => cubit.start(),
           expect: () => [
                 MenuPageState(
-                    documents: [], status: Status.loading, errorMessage: ''),
+                    documents: [], status: Status.loading, errorMessage: '', currentIndex: 0),
                 MenuPageState(documents: [
                   MenuDocumentModel(
                       id: '1',
                       title: 'title1',
                       content: 'content1',)
-                ], status: Status.success, errorMessage: '')
+                ], status: Status.success, errorMessage: '', currentIndex: 0)
               ]);
     });
 
@@ -72,8 +72,8 @@ void main() {
           build: () => sut,
           act: (cubit) => cubit.start(),
           expect: () => [
-            MenuPageState(documents: [], status: Status.loading, errorMessage: ''),
-            MenuPageState(documents: [], status: Status.error, errorMessage: 'Exception: test-exception-error')
+            MenuPageState(documents: [], status: Status.loading, errorMessage: '', currentIndex: 0),
+            MenuPageState(documents: [], status: Status.error, errorMessage: 'Exception: test-exception-error', currentIndex: 0)
           ]);
     });
   });

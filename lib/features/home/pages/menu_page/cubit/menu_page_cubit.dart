@@ -15,12 +15,23 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   MenuPageCubit(this._documentsRepository)
       : super(
           MenuPageState(
-              documents: [], status: Status.initial, errorMessage: ''),
+              documents: [],
+              status: Status.initial,
+              errorMessage: '',
+              currentIndex: 0),
         );
 
   final MenuDocumentsRepository _documentsRepository;
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> newIndex({required int newIndex}) async {
+    emit(
+      state.copyWith(
+        currentIndex: newIndex,
+      ),
+    );
+  }
 
   Future<void> updateDoc(
       {required String content, required String document}) async {
@@ -37,19 +48,19 @@ class MenuPageCubit extends Cubit<MenuPageState> {
 
   Future<void> start() async {
     emit(
-      MenuPageState(documents: [], status: Status.loading, errorMessage: ''),
+      state.copyWith(status: Status.loading),
     );
 
     try {
       _streamSubscription =
           _documentsRepository.getMenuDocuments().listen((documents) {
-        emit(MenuPageState(
-            documents: documents, status: Status.success, errorMessage: ''));
+        emit(
+          state.copyWith(documents: documents, status: Status.success),
+        );
       });
     } catch (error) {
       emit(
-        MenuPageState(
-          documents: const [],
+        state.copyWith(
           status: Status.error,
           errorMessage: error.toString(),
         ),
