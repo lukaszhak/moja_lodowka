@@ -13,9 +13,7 @@ class LongDatePageAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 50,
       centerTitle: true,
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       title: Text(
         AppLocalizations.of(context)!.longTerm,
         style: const TextStyle(
@@ -68,7 +66,8 @@ class LongDatePageAppBar extends StatelessWidget
                               const SizedBox(
                                 width: 8,
                               ),
-                              Text(AppLocalizations.of(context)!.fourDaysToOutDate)
+                              Text(AppLocalizations.of(context)!
+                                  .fourDaysToOutDate)
                             ],
                           ),
                         ],

@@ -20,25 +20,27 @@ class SearchWidget extends StatelessWidget {
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.city,
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(0)))),
+                hintText: AppLocalizations.of(context)!.city,
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(0),
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(
             width: 20,
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-              ),
-              onPressed: () {
-                context
-                    .read<WeatherPageCubit>()
-                    .getWeatherModel(city: _controller.text);
-              },
-              child: Text(AppLocalizations.of(context)!.check))
+            onPressed: () {
+              context
+                  .read<WeatherPageCubit>()
+                  .getWeatherModel(city: _controller.text);
+            },
+            child: Text(AppLocalizations.of(context)!.check),
+          ),
         ],
       ),
     );

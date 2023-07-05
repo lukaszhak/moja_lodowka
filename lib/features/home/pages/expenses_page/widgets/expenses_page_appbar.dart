@@ -38,7 +38,6 @@ class AppBarBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       title: Text(
         AppLocalizations.of(context)!.myExpenses,
         style: const TextStyle(

@@ -20,7 +20,6 @@ class DrugAddPage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.addMedication),
-              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
                   onPressed: state.title == null || state.expDate == null
@@ -89,7 +88,10 @@ class _DrugPageBody extends StatelessWidget {
             autofocus: true,
             onChanged: onTitleChanged,
             decoration: InputDecoration(
-                label: Text(AppLocalizations.of(context)!.medicationName),
+                label: Text(
+                  AppLocalizations.of(context)!.medicationName,
+                  style: const TextStyle(fontSize: 18),
+                ),
                 border: const OutlineInputBorder(),
                 hintText: AppLocalizations.of(context)!.typeMedication),
           ),
@@ -104,20 +106,9 @@ class _DrugPageBody extends StatelessWidget {
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(
                     const Duration(days: 365 * 10),
-                  ),
-                  builder: (context, child) {
-                    return Theme(
-                        data: Theme.of(context).copyWith(
-                            colorScheme: const ColorScheme.light(
-                          primary: Color.fromARGB(255, 0, 51, 54),
-                        )),
-                        child: child!);
-                  });
+                  ));
               onDateChanged(selectedDate);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-            ),
             child: Text(selectedDateFormated ??
                 AppLocalizations.of(context)!.selectDate),
           ),

@@ -16,10 +16,12 @@ class MyAccountPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          image: DecorationImage(
-              opacity: 0.4,
-              fit: BoxFit.cover,
-              image: AssetImage('images/openfridge.jpg'))),
+        image: DecorationImage(
+          opacity: 0.4,
+          fit: BoxFit.cover,
+          image: AssetImage('images/openfridge.jpg'),
+        ),
+      ),
       child: Center(
         child: Column(
           children: [
@@ -68,11 +70,9 @@ class MyAccountPageBody extends StatelessWidget {
               height: 20,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
               onPressed: () {
                 context.read<RootCubit>().signOut();
-                      AppRouter().goBack();
+                AppRouter().goBack();
               },
               child: Text(AppLocalizations.of(context)!.logOut),
             ),

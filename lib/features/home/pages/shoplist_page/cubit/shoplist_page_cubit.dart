@@ -43,8 +43,8 @@ class ShopListPageCubit extends Cubit<ShopListPageState> {
     await _documentsRepository.moveItemToCandyPage(title, expDate, document, notificationId, context);
   }
 
-  Future<void> updateValue(String document, bool newValue) async {
-    await _documentsRepository.updateValue(document, newValue);
+  Future<void> updateValue(String document, {required bool isChecked}) async {
+    await _documentsRepository.updateValue(document, isChecked);
   }
 
   Future<void> addDoc({required String title, required bool isChecked}) async {

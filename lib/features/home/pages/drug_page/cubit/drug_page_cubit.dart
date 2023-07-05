@@ -16,7 +16,11 @@ class DrugPageCubit extends Cubit<DrugPageState> {
   DrugPageCubit(this._documentsRepository)
       : super(
           DrugPageState(
-              documents: [], status: Status.initial, errorMessage: '', title: null, expDate: null),
+              documents: [],
+              status: Status.initial,
+              errorMessage: '',
+              title: null,
+              expDate: null),
         );
 
   final DrugDocumentsRepository _documentsRepository;

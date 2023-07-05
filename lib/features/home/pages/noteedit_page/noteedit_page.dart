@@ -16,19 +16,22 @@ class EditNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<MenuPageCubit>(),
+      create: (context) => getIt<MenuPageCubit>(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           final controller = TextEditingController(text: documentModel.content);
           return Scaffold(
+            backgroundColor: Colors.black,
             body: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
+                    style: const TextStyle(color: Colors.white),
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     controller: controller,
+                    autofocus: true,
                   ),
                 ),
                 const SizedBox(

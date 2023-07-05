@@ -17,9 +17,9 @@ class LongDateAddPage extends StatelessWidget {
         builder: (context, state) {
           final notificationId = context.read<int>();
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.addProduct),
-              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               actions: [
                 IconButton(
                   onPressed: state.title == null || state.expDate == null
@@ -73,48 +73,48 @@ class _AddPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-      children: [
-        TextField(
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: true,
-          onChanged: onTitleChanged,
-          decoration: InputDecoration(
-              label: Text(AppLocalizations.of(context)!.productName),
-              border: const OutlineInputBorder(),
-              hintText: AppLocalizations.of(context)!.typeName),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          opacity: 0.25,
+          fit: BoxFit.cover,
+          image: AssetImage(
+            'images/rice.jpg',
+          ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            final selectedDate = await showDatePicker(
+      ),
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        children: [
+          TextField(
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: true,
+            onChanged: onTitleChanged,
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.productName),
+                border: const OutlineInputBorder(),
+                hintText: AppLocalizations.of(context)!.typeName),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now(),
                 lastDate: DateTime.now().add(
                   const Duration(days: 365 * 10),
                 ),
-                builder: (context, child) {
-                  return Theme(
-                    data: Theme.of(context).copyWith(
-                      colorScheme: const ColorScheme.light(
-                          primary: Color.fromARGB(255, 0, 51, 54)),
-                    ),
-                    child: child!,
-                  );
-                });
-            onDateChanged(selectedDate);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-          ),
-          child: Text(
-              selectedDateFormated ?? AppLocalizations.of(context)!.selectDate),
-        )
-      ],
+              );
+              onDateChanged(selectedDate);
+            },
+            child: Text(selectedDateFormated ??
+                AppLocalizations.of(context)!.selectDate),
+          )
+        ],
+      ),
     );
   }
 }

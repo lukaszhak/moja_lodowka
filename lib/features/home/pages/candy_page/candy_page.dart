@@ -21,8 +21,8 @@ class CandyPage extends StatelessWidget {
         builder: (context, state) {
           final int notificationId = UniqueKey().hashCode;
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: const CandyPageAppBar(),
-            backgroundColor: const Color.fromARGB(255, 250, 252, 250),
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               onPressed: () {

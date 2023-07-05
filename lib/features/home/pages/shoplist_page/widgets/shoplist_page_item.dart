@@ -41,7 +41,7 @@ class ShoppingListItem extends StatelessWidget {
                     onChanged: (bool? newValue) {
                       context
                           .read<ShopListPageCubit>()
-                          .updateValue(documentModel.id, newValue!);
+                          .updateValue(documentModel.id, isChecked: newValue!);
                     }),
                 const SizedBox(
                   width: 15,

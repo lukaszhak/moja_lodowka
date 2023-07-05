@@ -52,8 +52,8 @@
     "addMedication": "Add medication",
     "medicationName": "Medication name",
     "typeMedication": "Type the medication name",
-    "reminderIn": "Reminder in",
-    "aboutToExpire": "The following product is about to expire",
+    "reminderIn": "Reminder in category:",
+    "aboutToExpire": "The following product is about to expire:",
     "medicineAboutToExpire": "The following medicine is about to expire",
     "expenses": "Expenses",
     "myExpenses": "My expenses",
@@ -62,5 +62,7 @@
     "addExpense": "Add expense",
     "expenseCategory": "Category",
     "expenseType": "Expense type",
-    "amount": "Amount"
+    "amount": "Amount",
+    "moveToCategory": "Move product to chosen category ",
+    "move": "Move"
 }

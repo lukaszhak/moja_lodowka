@@ -52,8 +52,8 @@
     "addMedication": "Dodaj lek",
     "medicationName": "Nazwa leku",
     "typeMedication": "Wpisz nazwę leku",
-    "reminderIn": "Przypomnienie w",
-    "aboutToExpire": "Kończy się data ważności produktu",
+    "reminderIn": "Przypomnienie w kategorii:",
+    "aboutToExpire": "Kończy się data ważności produktu:",
     "medicineAboutToExpire": "Kończy się data ważności leku",
     "expenses": "Wydatki",
     "myExpenses": "Moje wydatki",
@@ -62,5 +62,7 @@
     "addExpense": "Dodaj wydatek",
     "expenseCategory": "Kategoria",
     "expenseType": "Rodzaj wydatku",
-    "amount": "Kwota"
+    "amount": "Kwota",
+    "moveToCategory": "Przenieś produkt do wybranej kategorii",
+    "move": "Przenieś"
 }

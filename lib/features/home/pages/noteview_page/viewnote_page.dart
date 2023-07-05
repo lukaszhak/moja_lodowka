@@ -21,9 +21,10 @@ class ViewNote extends StatelessWidget {
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: Colors.black,
             appBar: AppBar(
+              toolbarHeight: 50,
               title: Text(documentModel.title),
-              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
             ),
             body: Builder(
               builder: (context) {
@@ -39,7 +40,11 @@ class ViewNote extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(documentModel.content),
+                      child: Text(
+                        documentModel.content,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 17),
+                      ),
                     ),
                   ],
                 );

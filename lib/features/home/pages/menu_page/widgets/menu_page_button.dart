@@ -30,9 +30,6 @@ class MenuPageButton extends StatelessWidget {
                       onPressed: () {
                         AppRouter().goBack();
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                      ),
                       child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     ElevatedButton(
@@ -43,9 +40,6 @@ class MenuPageButton extends StatelessWidget {
                         controller.clear();
                         AppRouter().goBack();
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                      ),
                       child: Text(AppLocalizations.of(context)!.add),
                     ),
                   ],

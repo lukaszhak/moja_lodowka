@@ -4,6 +4,7 @@ import 'package:moja_lodowka/app/app_router/app_router.dart';
 import 'package:moja_lodowka/app/injection_container.dart';
 import 'package:moja_lodowka/domain/models/shoplist_document_model/shoplist_document_model.dart';
 import 'package:moja_lodowka/features/home/pages/shoplist_page/cubit/shoplist_page_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShopListMoveToPage extends StatefulWidget {
   const ShopListMoveToPage({super.key, required this.documentModel});
@@ -21,8 +22,10 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-        title: const Text('Przenieś do'),
+        title: Text(
+          AppLocalizations.of(context)!.moveToCategory,
+          style: const TextStyle(fontSize: 17.4),
+        ),
       ),
       body: BlocProvider(
         create: (context) => getIt<ShopListPageCubit>(),
@@ -40,7 +43,7 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
               child: Column(
                 children: [
                   MoveToPageElement(
-                    title: 'Leki',
+                    title: AppLocalizations.of(context)!.medications,
                     onDateChanged: (newValue) {
                       setState(() {
                         _expDate = newValue;
@@ -58,7 +61,7 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                     },
                   ),
                   MoveToPageElement(
-                    title: 'Napoje',
+                    title: AppLocalizations.of(context)!.drinks,
                     onDateChanged: (newValue) {
                       setState(() {
                         _expDate = newValue;
@@ -76,7 +79,7 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                     },
                   ),
                   MoveToPageElement(
-                    title: 'Produkty długoterminowe',
+                    title: AppLocalizations.of(context)!.longTerm,
                     onDateChanged: (newValue) {
                       setState(() {
                         _expDate = newValue;
@@ -94,7 +97,7 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                     },
                   ),
                   MoveToPageElement(
-                    title: 'Produkty lodówkowe',
+                    title: AppLocalizations.of(context)!.fridge,
                     onDateChanged: (newValue) {
                       setState(() {
                         _expDate = newValue;
@@ -112,7 +115,7 @@ class _ShopListMoveToPageState extends State<ShopListMoveToPage> {
                     },
                   ),
                   MoveToPageElement(
-                    title: 'Słodycze',
+                    title: AppLocalizations.of(context)!.candys,
                     onDateChanged: (newValue) {
                       setState(() {
                         _expDate = newValue;
@@ -164,43 +167,26 @@ class MoveToPageElement extends StatelessWidget {
                         onPressed: () {
                           AppRouter().goBack();
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                        ),
-                        child: const Text('Cofnij'),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
                         onPressed: onPressed,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                        ),
-                        child: const Text('Przenieś'),
+                        child: Text(AppLocalizations.of(context)!.move),
                       ),
                     ],
                     content: ElevatedButton(
                       onPressed: () async {
                         final selectedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime.now().add(
-                              const Duration(days: 365 * 10),
-                            ),
-                            builder: (context, child) {
-                              return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: const ColorScheme.light(
-                                      primary: Color.fromARGB(255, 0, 51, 54),
-                                    ),
-                                  ),
-                                  child: child!);
-                            });
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now().add(
+                            const Duration(days: 365 * 10),
+                          ),
+                        );
                         onDateChanged(selectedDate);
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                      ),
-                      child: const Text('Wybierz datę ważności'),
+                      child: Text(AppLocalizations.of(context)!.selectDate),
                     ),
                   ));
         },

@@ -36,10 +36,6 @@ class ShopListPageAppBar extends StatelessWidget
                             onPressed: () {
                               AppRouter().goBack();
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 51, 54),
-                            ),
                             child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                           ElevatedButton(
@@ -49,10 +45,6 @@ class ShopListPageAppBar extends StatelessWidget
                               controller.clear();
                               AppRouter().goBack();
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 51, 54),
-                            ),
                             child: Text(AppLocalizations.of(context)!.add),
                           ),
                         ],
@@ -75,9 +67,7 @@ class ShopListPageAppBar extends StatelessWidget
           iconSize: 27,
         ),
       ],
-      toolbarHeight: 50,
       centerTitle: true,
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       title: Text(
         AppLocalizations.of(context)!.shoppingList,
         style: const TextStyle(

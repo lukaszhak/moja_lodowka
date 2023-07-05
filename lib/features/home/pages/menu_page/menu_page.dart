@@ -16,7 +16,6 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 50,
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         title: Text(
           AppLocalizations.of(context)!.recipes,
           style: const TextStyle(
@@ -31,6 +30,3 @@ class MenuPage extends StatelessWidget {
     );
   }
 }
-
-
-

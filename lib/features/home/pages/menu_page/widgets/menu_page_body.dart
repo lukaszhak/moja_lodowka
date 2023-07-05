@@ -39,9 +39,7 @@ class MenuPageBody extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircularProgressIndicator(
-                        color: Color.fromARGB(255, 0, 37, 2),
-                      ),
+                      const CircularProgressIndicator(),
                       const SizedBox(
                         height: 15,
                       ),
@@ -59,7 +57,7 @@ class MenuPageBody extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.noRecipes,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                   );
                 }
@@ -103,8 +101,8 @@ class MenuPageBody extends StatelessWidget {
                   child: Text(
                     state.errorMessage!,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 20),
                   ),
                 );
             }

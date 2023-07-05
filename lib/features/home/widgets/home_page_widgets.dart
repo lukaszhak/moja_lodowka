@@ -35,7 +35,8 @@ class HomePageDrawer extends StatelessWidget {
               children: [
                 DrawerHeader(
                   decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 0, 51, 54)),
+                    color: Color.fromARGB(255, 0, 51, 54),
+                  ),
                   child: Column(
                     children: [
                       const CircleAvatar(
@@ -150,9 +151,6 @@ class HomePageDrawer extends StatelessWidget {
                                   onPressed: () {
                                     AppRouter().goBack();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54)),
                                   child: Text(AppLocalizations.of(context)!.no),
                                 ),
                                 ElevatedButton(
@@ -160,9 +158,6 @@ class HomePageDrawer extends StatelessWidget {
                                     context.read<RootCubit>().signOut();
                                     AppRouter().goBack();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54)),
                                   child:
                                       Text(AppLocalizations.of(context)!.yes),
                                 ),

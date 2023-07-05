@@ -32,7 +32,6 @@ class WeatherPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 50,
-              backgroundColor: const Color.fromARGB(255, 0, 51, 54),
               title: Text(AppLocalizations.of(context)!.checkWeather),
             ),
             body: Center(
@@ -43,7 +42,7 @@ class WeatherPage extends StatelessWidget {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          opacity: 0.5,
+                          opacity: 0.4,
                           image: AssetImage('images/weather.jpg'),
                         ),
                       ),
@@ -69,7 +68,7 @@ class WeatherPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        opacity: 0.5,
+                        opacity: 0.4,
                         image: AssetImage('images/weather.jpg'),
                       ),
                     ),

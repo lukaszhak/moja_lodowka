@@ -13,14 +13,7 @@ class ShopListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ShopListPageAppBar(controller: controller),
-      backgroundColor: const Color.fromARGB(255, 250, 252, 250),
       body: const ShopListPageBody(),
     );
   }
 }
-
-
-
-
-
-

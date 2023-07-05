@@ -26,23 +26,22 @@ class ExpensesPageFloatingButton extends StatelessWidget {
                         onPressed: () {
                           AppRouter().goBack();
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                        ),
                         child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
-                        onPressed: state.expensesDate == null || state.title == null || state.category == null || state.amount == null ? null :() {
-                          context.read<ExpensesPageCubit>().addDoc(
-                              state.category!,
-                              state.title!,
-                              num.parse(state.amount!),
-                              state.expensesDate!);
-                          AppRouter().goBack();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-                        ),
+                        onPressed: state.expensesDate == null ||
+                                state.title == null ||
+                                state.category == null ||
+                                state.amount == null
+                            ? null
+                            : () {
+                                context.read<ExpensesPageCubit>().addDoc(
+                                    state.category!,
+                                    state.title!,
+                                    num.parse(state.amount!),
+                                    state.expensesDate!);
+                                AppRouter().goBack();
+                              },
                         child: Text(AppLocalizations.of(context)!.add),
                       )
                     ],
@@ -102,24 +101,18 @@ class AlertDialogTitle extends StatelessWidget {
         IconButton(
           onPressed: () async {
             final selectedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now().subtract(
-                  const Duration(days: 365 * 10),
-                ),
-                lastDate: DateTime.now(),
-                builder: (context, child) {
-                  return Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme: const ColorScheme.light(
-                        primary: Color.fromARGB(255, 0, 51, 54),
-                      )),
-                      child: child!);
-                });
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now().subtract(
+                const Duration(days: 365 * 10),
+              ),
+              lastDate: DateTime.now(),
+            );
             onDateChanged(selectedDate);
           },
           icon: const Icon(
             Icons.calendar_month,
+            size: 30,
           ),
         ),
       ],

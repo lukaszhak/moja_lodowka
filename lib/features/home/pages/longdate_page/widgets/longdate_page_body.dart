@@ -38,9 +38,7 @@ class LongPageBody extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircularProgressIndicator(
-                        color: Color.fromARGB(255, 0, 37, 2),
-                      ),
+                      const CircularProgressIndicator(),
                       const SizedBox(
                         height: 15,
                       ),
@@ -58,7 +56,7 @@ class LongPageBody extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.noProducts,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                   );
                 }
@@ -67,31 +65,31 @@ class LongPageBody extends StatelessWidget {
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
                       Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<LongDatePageCubit>()
-                                .cancelNotification(documentModel.notificationId);
-                            context
-                                .read<LongDatePageCubit>()
-                                .deleteDoc(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<LongDatePageCubit>()
+                              .cancelNotification(documentModel.notificationId);
+                          context
+                              .read<LongDatePageCubit>()
+                              .deleteDoc(document: documentModel.id)
+                              .whenComplete(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 0, 51, 54),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .deleteInfo),
+                                    duration: const Duration(seconds: 1),
                                   ),
-                                );
-                          },
-                          child: LongDatePageItem(
-                            documentModel: documentModel,
-                          )),
+                                ),
+                              );
+                        },
+                        child: LongDatePageItem(
+                          documentModel: documentModel,
+                        ),
+                      ),
                     ],
                   ],
                 );
@@ -100,8 +98,8 @@ class LongPageBody extends StatelessWidget {
                   child: Text(
                     state.errorMessage!,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 20),
                   ),
                 );
             }

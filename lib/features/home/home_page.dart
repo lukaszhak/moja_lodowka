@@ -56,7 +56,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 0, 51, 54),
         title: Text(
           AppLocalizations.of(context)!.controlYourProducts,
           style: const TextStyle(

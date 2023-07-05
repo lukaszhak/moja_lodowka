@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: AppRouter().navigatorKey,
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -29,8 +28,10 @@ class MyApp extends StatelessWidget {
           Locale('en', ''), // English, no country code
           Locale('pl', ''), // Polish, no country code
         ],
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+        theme: Theme.of(context).copyWith(
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+                primary: const Color.fromARGB(255, 0, 51, 54),
+              ),
         ),
         home: const RootPage(),
       ),

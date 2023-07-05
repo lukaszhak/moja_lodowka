@@ -13,7 +13,6 @@ class DrugPageAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       title: Text(
         AppLocalizations.of(context)!.medications,
         style: const TextStyle(
@@ -60,7 +59,8 @@ class DrugPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                           width: 13,
                           height: 13,
                           decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 255, 0, 0)),
+                            color: Color.fromARGB(255, 255, 0, 0),
+                          ),
                         ),
                         const SizedBox(
                           width: 8,

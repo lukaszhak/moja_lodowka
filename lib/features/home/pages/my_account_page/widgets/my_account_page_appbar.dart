@@ -28,8 +28,6 @@ class MyAccountPageAppBar extends StatelessWidget
                     onPressed: () {
                       AppRouter().goBack();
                     },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
                     child: Text(AppLocalizations.of(context)!.no),
                   ),
                   ElevatedButton(
@@ -40,8 +38,6 @@ class MyAccountPageAppBar extends StatelessWidget
                             ),
                           );
                     },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 51, 54)),
                     child: Text(AppLocalizations.of(context)!.yes),
                   ),
                 ],
@@ -52,8 +48,6 @@ class MyAccountPageAppBar extends StatelessWidget
           icon: const Icon(Icons.delete),
         ),
       ],
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
-      toolbarHeight: 50,
       title: Text(
         AppLocalizations.of(context)!.myAccount,
         style: const TextStyle(fontSize: 23),

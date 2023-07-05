@@ -16,7 +16,7 @@ class DrinkPageBody extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          opacity: 0.5,
+          opacity: 0.4,
           fit: BoxFit.cover,
           image: AssetImage(
             'images/water.jpg',
@@ -38,9 +38,7 @@ class DrinkPageBody extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircularProgressIndicator(
-                        color: Color.fromARGB(255, 0, 37, 2),
-                      ),
+                      const CircularProgressIndicator(),
                       const SizedBox(
                         height: 15,
                       ),
@@ -58,42 +56,41 @@ class DrinkPageBody extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.noProducts,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                   );
                 }
-
 
                 return ListView(
                   children: [
                     const SizedBox(height: 10),
                     for (final documentModel in documentModels) ...[
                       Dismissible(
-                          key: ValueKey(documentModel.id),
-                          onDismissed: (_) {
-                            context
-                                .read<DrinkPageCubit>()
-                                .cancelNotification(documentModel.notificationId);
-                            context
-                                .read<DrinkPageCubit>()
-                                .deleteDoc(document: documentModel.id)
-                                .whenComplete(
-                                  () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 0, 51, 54),
-                                      content: Text(
-                                          AppLocalizations.of(context)!
-                                              .deleteInfo),
-                                      duration: const Duration(seconds: 1),
-                                    ),
+                        key: ValueKey(documentModel.id),
+                        onDismissed: (_) {
+                          context
+                              .read<DrinkPageCubit>()
+                              .cancelNotification(documentModel.notificationId);
+                          context
+                              .read<DrinkPageCubit>()
+                              .deleteDoc(document: documentModel.id)
+                              .whenComplete(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 0, 51, 54),
+                                    content: Text(AppLocalizations.of(context)!
+                                        .deleteInfo),
+                                    duration: const Duration(seconds: 1),
                                   ),
-                                );
-                          },
-                          child: DrinkPageItem(
-                            documentModel: documentModel,
-                          )),
+                                ),
+                              );
+                        },
+                        child: DrinkPageItem(
+                          documentModel: documentModel,
+                        ),
+                      ),
                     ],
                   ],
                 );
@@ -102,8 +99,8 @@ class DrinkPageBody extends StatelessWidget {
                   child: Text(
                     state.errorMessage!,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 20),
                   ),
                 );
             }

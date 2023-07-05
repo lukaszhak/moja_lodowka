@@ -13,7 +13,6 @@ class FridgePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: const Color.fromARGB(255, 0, 51, 54),
       title: Text(
         AppLocalizations.of(context)!.fridge,
         style: const TextStyle(
